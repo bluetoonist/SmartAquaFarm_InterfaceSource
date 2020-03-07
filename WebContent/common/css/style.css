@@ -1,0 +1,413 @@
+body {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	margin: 0;
+	padding: 0;
+	background-color: #f0f0f0;
+	font-family: Muli, sans-serif;
+	color: #444;
+}
+
+ul {
+	list-style: none;
+	margin-top: 0;
+	padding: 0;
+}
+
+a {
+	cursor: pointer;
+	display: block;
+	color: #b3b3b3;
+	text-decoration: none;
+}
+
+.bckg {
+	background-color: #383B42;
+	box-shadow: -4px 0px 10px rgba(14, 14, 14, 0.48) inset;
+	width: 200px;
+	height: 100%;
+	text-overflow: nowrap;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+h1 {
+	text-align: center;
+	font-weight: normal;
+	color: #F6F6EF;
+	line-height: 60px;
+	margin: 0;
+	font-size: 20px;
+	letter-spacing: 2px;
+	background-color: #34363A;
+	border-bottom: 1px solid rgba(101, 116, 134, 0.57);
+}
+
+h2 {
+	font-size: 20px;
+	text-transform: uppercase;
+	margin: 0;
+	letter-spacing: 3px;
+	color: #919191;
+	font-weight: normal;
+	padding-left: 40px;
+	line-height: 60px;
+	text-shadow: 1px 1px 2px #fff;
+	position: relative;
+	flex: 1;
+	-webkit-flex: 1;
+	-ms-flex: 1;
+}
+
+h2:before {
+	content: '';
+	width: 36px;
+	height: 36px;
+	position: absolute;
+	left: -19px;
+	top: 12px;
+	background-color: #34363A;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
+h3 {
+	font-size: 17px;
+	margin: 0;
+	line-height: 40px;
+	color: #555;
+	cursor: pointer;
+	position: relative;
+}
+
+header {
+	width: 200px;
+	height: 100%;
+	float: left;
+	position: relative;
+	z-index: 99;
+}
+
+/* 메뉴 버튼 '아이콘' 과 '글자' 사이의 거리 */
+header nav ul li {
+	border-bottom: 1px solid #42454D;
+	padding-left: 30px;
+	transition: all 0.6s;
+	border-top: 1px solid #2E3036;
+}
+
+header nav ul li img {
+	padding-right: 15px;
+}
+
+header nav ul li:hover {
+	background-color: #454952;
+	transition: all 0.6s;
+	border-bottom: 1px solid #797979;
+}
+
+header nav ul li:hover a {
+	color: #fff;
+	transition: all 0.6s;
+}
+
+header nav ul li a {
+	line-height: 55px;
+	font-size: 18px;
+	position: relative;
+	letter-spacing: 1px;
+	transition: all 0.6s;
+}
+
+header nav ul li a:before {
+	font-family: 'entypo', sans-serif;
+	font-size: 20px;
+	position: absolute;
+	left: -32px;
+}
+
+/* main 속성은  현재 페이지를 나타내는 글자의 크기 (witdh or height */
+main {
+	flex: 1;
+	-webkit-flex: 1;
+	-ms-flex: 1;
+}
+
+.title {
+	background-color: #fff;
+	border-bottom: 1px solid #C0C1C0;
+	height: 60px;
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+}
+
+.title a {
+	color: #AAA;
+	width: auto;
+	margin: 0 20px;
+	float: right;
+	line-height: 62px;
+	position: relative;
+	text-decoration: none;
+	transition: all 0.5s;
+}
+
+.title a:before {
+	font-size: 38px;
+	position: absolute;
+	left: -50px;
+}
+
+a:hover {
+	color: #33526B;
+	transition: all 0.5s;
+}
+
+.wrapper {
+	
+}
+
+.pricing-table {
+	width: 95%;
+	margin: 10px auto;
+	text-align: center;
+	padding: 10px;
+	padding-right: 0;
+}
+
+/* 콘텐츠 설명 CSS 
+
+Example : "수조 모니터링 현황판"
+
+*/
+.pricing-table .heading {
+	color: #9C9E9F;
+	text-transform: uppercase;
+	font-size: 1.3rem;
+	margin-bottom: 4rem;
+}
+
+/* 테이블 디자인  양식 2020.03.06*/
+.table_frame {
+	padding-left: 10%;
+	width: 500px;
+	height: 500px;
+	text-align: center;
+	position: relative;
+	bottom: -5px;
+	display: block;
+}
+
+#table_layout {
+	width: 90%;
+	border-spacing: 0px;
+}
+
+#table_layout>thead>tr>th {
+	width: 500px;
+	padding: 40px;
+	text-overflow: nowrap;
+	padding: 24px;
+	color: blue;
+	border-bottom: 1px solid grey;
+	font-size: 15px;
+}
+
+#table_layout>tbody>tr>td {
+	width: 200px;
+	padding: 35px;
+	color: black;
+	font-size: 15px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	background-color: white;
+}
+
+/* farmwtSearch.jsp selectbox 레이아웃 조정값 */
+/* farmwtSearch.jsp 셀렉트 박스 조정값 */
+.farmwtsearch_box {
+	position: relative;
+	left: 10%;
+	bottom: -25px;
+}
+
+.farmwtsearch_box>h3 {
+	padding-left: 5%;
+}
+
+.farmwtsearch_box>#search {
+	width: 100px;
+	height: 30px;
+}
+
+.farmwtsearch_box>#search_input {
+	width: 150px;
+	height: 30px;
+	padding-top: 2px;
+}
+
+.farmwtsearch_box>#search_click {
+	background-color: white;
+	height: 31px;
+	width: 60px;
+	outline: 0.5px solid grey;
+}
+
+.farmwtsearch_box>#search_click:hover {
+	background-color: grey;
+}
+
+/* 수조 모니터링 현황 layout 사이즈 조정 */
+.wrapper>.wrapper_monitor_layout {
+	width: 98%;
+	height: 35%;
+	margin-left: 3%;
+}
+
+/* LINE START ===========================================
+
+@ PAGE : main/index.jsp 
+@  main화면의 수조 현황 레이아웃 양식 
+*/
+
+
+div.watertank_moniter_view {
+	width:95%;
+	height: 50%;
+	
+	margin-left:5%;
+}
+
+div.watertank_layout {
+	width: 23.5%;/* 수조 현황을 나타내는 한 레이아웃의 가로 크기*/
+	height:170px; /* 수조 현황을 나타내는 한 레이아웃의 세로 크기*/
+	float: left;
+	margin-left: 1%;
+	margin-bottom: 2%;
+	font-size:14px;
+}
+
+/* 관리자 선택 및 양식장 선택 메뉴 */
+div.wrapper_monitor_layout > div.selectBox_ {
+	margin-left : 33%;
+	position :relative;
+	top : -25px;
+
+}
+
+select.selectView{
+	-moz-appearance: none; appearance: none;
+	height:20px;
+	width :15%;
+	border: 0.5px solid black; 
+	
+} 
+
+
+/* 수조 영역 표시 가장 왼쪽 화면 */
+div.watertank_layout .left {
+	width: 30%;
+	background: white;
+	float: left;
+}
+
+div.watertank_layout .left .left_label {
+	width: 100%;
+	float: left;
+	border-bottom: 0.5px solid gold;
+}
+
+div.watertank_layout .left .left_below {
+	width:100%;
+	height:170px; /* 수조 현황을 나타내는 한 레이아웃의 세로 크기 (왼쪽 아래 크기)*/
+	/* background-image: linear-gradient(to top, red 35%, transparent 40%); */
+	background-size: 80% 120%;
+	transition: background-position 0.5s ease-in-out;
+
+}
+
+div.watertank_layout .left .left_below>img {
+	width : 65%;
+	margin-left: 20%;
+	
+}
+
+.left_below:hover {
+	background-position: bottom;
+}
+
+div.watertank_layout .left .left_below:hover {
+	background-position: bottom;
+}
+
+div.watertank_layout .right {
+	width: 60%;
+	height :100%;
+	background: white;
+	float: left;
+	font-size:12px;
+}
+
+div.watertank_layout .right_label {
+	border-bottom: 0.5px solid gold;
+	width: 100%;
+	float: left;
+}
+
+div.watertank_layout .right_label>form>input {
+	width: 70px;
+	float: right;
+	color: grey;
+	background-color: white;
+	border: 0px transparent solid;
+}
+
+div.watertank_layout .right_below {
+	width: 100%;
+	height :100%;
+	font-size:14px;
+	text-align: left;
+}
+/* END LINE ===========================================
+*/
+
+/*
+ @ PAGE : user/userInfo.jsp
+*/
+div.user_manage_form {
+	width: 700px;
+	height: 500px;
+	position: relative;
+	left: 35%;
+}
+
+div.user_manage_form>form.userInfoForm {
+	position: relative;
+	left: 20%;
+}
+
+div.user_manage_form>span.formBox1 {
+	width: 500px;
+	float: left;
+}
+
+div.user_manage_form>span.formBox1>hr {
+	border: 0.3px solid black;
+}
+
+div.user_manage_form>span.formBox1>div.up_text {
+	float: left;
+}
+
+div.user_manage_form>span.formBox1>div.down_text {
+	float: right;
+}
+/*=============================================*/
