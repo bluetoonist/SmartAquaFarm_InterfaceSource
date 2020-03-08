@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="../../common/css/login.css">
 <script src="../../common/Js/script.js"></script>
 </head>
-<!-- login -->
+<!-- login2 -->
 <body>
 	<div class="login-page">
 		<div class="login-page">
