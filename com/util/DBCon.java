@@ -19,7 +19,6 @@ public class DBCon {
 			DataSource ds = (DataSource) envctx.lookup("jdbc/saf");
 			Connection con = ds.getConnection();
 			con.setAutoCommit(true);
-
 			return con;
 
 		} catch (SQLException e) {
@@ -31,7 +30,7 @@ public class DBCon {
 		}
 	}
 
-	public static void close(Connection con, Statement psmt, ResultSet rs) {
+	public static void close(Connection con, PreparedStatement psmt, ResultSet rs) {
 		try {
 			if (rs != null) {
 				rs.close();
