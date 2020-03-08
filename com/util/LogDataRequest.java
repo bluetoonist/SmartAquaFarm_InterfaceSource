@@ -47,7 +47,7 @@ public class LogDataRequest extends HttpServlet {
 		waterTankDAO getwtTankcnt = new waterTankDAO();
 		String allwtTankCnt = getwtTankcnt.getTankCnt(farm_id);
 		
-		// Jsons String Parsing
+		// Jsons String Parsing Logic Edit
 		result.append("{\"result\":[");
 		result.append("[{\"all_waterTank_count\":\"" +allwtTankCnt +"\"}],");
 		
