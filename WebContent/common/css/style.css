@@ -393,6 +393,20 @@ div.user_manage_form>form.userInfoForm {
 	position: relative;
 	left: 20%;
 }
+div.user_manage_form>form.userInfoForm>input {
+	position: relative;
+	border-radius:10px;
+    flex: 2 1 auto;
+    width : 60px;
+    height : 35px;
+    margin: 5px;
+    border: 2px solid gray;
+    text-align: center;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+    transition: .3s;
+}
 
 div.user_manage_form>span.formBox1 {
 	width: 500px;
@@ -410,4 +424,61 @@ div.user_manage_form>span.formBox1>div.up_text {
 div.user_manage_form>span.formBox1>div.down_text {
 	float: right;
 }
+/*=============================================*/
+
+/* 
+ @ PAGE : user/userUpdateForm.jsp
+*/
+div.user_update_form {
+	width: 700px;
+	height: 500px;
+	position: relative;
+	left: 35%;
+}
+
+div.user_update_form>form.userUpdateForm {
+	position: relative;
+}
+
+div.user_update_form>form.userUpdateForm>input {
+	position: relative;
+	left : 15%;
+	border-radius:10px;
+	
+    flex: 2 1 auto;
+    width : 60px;
+    height : 35px;
+    margin: 5px;
+    border: 2px solid gray;
+    text-align: center;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+    transition: .3s;
+	
+}
+
+div.user_update_form>form.userUpdateForm>span.formBox1 {
+	width: 500px;
+	float: left;
+}
+
+div.user_update_form>form.userUpdateForm>span.formBox1>hr {
+	border: 0.3px solid black;
+}
+
+div.user_update_form>form.userUpdateForm>span.formBox1>div.up_text {
+	float: left;
+}
+
+div.user_update_form>form.userUpdateForm>span.formBox1>div.down_text {
+	float: right;
+}
+
+div.user_update_form>form.userUpdateForm>span.formBox1>div.down_text>input{
+	background-color:transparent;
+	border:0 solid black;
+	text-align:right;
+
+} 
 /*=============================================*/

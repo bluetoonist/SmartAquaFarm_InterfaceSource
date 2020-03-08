@@ -149,60 +149,105 @@
 		</nav>
 	</header>
 
-<body onload="goInit();">
-
-
-	<br>
-	<section>
-	
-		<form name="userUpdateForm">
-		
+	<main> <!-- 수조 상태를 나타낼 화면 -->
+	<div class="title">
 		<h2>사용자 정보 수정</h2>
-		<br>
+		<a onclick="MoveMyPage()">안녕하세요 <%=user_name%>님 </a>
+	</div>
+	<div></div>
+
+	
+
 		
-		 <input type="button" value="삭제" onclick="goDelete(); return false;"/>
-         <input type="button" value="수정" onclick="checkValueUpdate(); return false;"/>
-         <input type="button" value="취소" onclick="location.href='../main/index.jsp'"/>
-         
-			<div>양식에 맞게 입력해 주세요</div>
-			
-			
-			<table class="userInfo">
-				<tr>
-					<th width="20%">ID</th>
-					<td>
-					<input type="hidden" name="id" value ="<%= user_id %>" />
-					<input type="text" style="float:left; width:99%;" name="id" readonly value="<%= user_id %>" />
-					</td>
-				</tr>
-				<tr>
-					<th>비밀번호</th>
-					<td><input type="password" name="userPW" maxlength="20" style="float:left; width:99%;"/></td>
-				</tr>
-				<tr>
-					<th>비밀번호확인</th>
-					<td><input type="password" name="userPWChk" maxlength="20" style="float:left; width:99%;"/></td>
-				</tr>
-				<tr>
-					<th>이름</th>
-					<td><input type="text" name="name" style="float:left; width:99%;" value="<%=user_name%>" maxlength="20" /></td>
-				</tr>
-				<tr>
-					<th>연락처</th>
-					<td><input type="text" name="usertel" maxlength="13" value="<%= tel %>"
-					 style="float:left; width:99%;" onkeypress="OnlyNumber()" /></td>
-				</tr>
-				<tr>
-					<th>직책</th>
-					<td>
-					<%= user_auth %>
-					</td>
-				</tr>
-			</table>
-         
-         </form>
-		
-	</section>
+
+	<article>
+	
+		<!-- PRICING-TABLE CONTAINER -->
+		<div class="pricing-table group">
+			<h1 class="heading">사용자 정보 수정</h1>
+		</div>
+	
+		<div class=user_update_form>
+			<form class=userUpdateForm name="userUpdateForm">
+				<input type="button" class="button" value="삭제" onclick="goDelete(); return false;"/>
+				<input type="button" class="button" value="수정" onclick="checkValueUpdate(); return false;"/>
+				<input type="button" class="button" value="취소" onclick="location.href='../main/index.jsp'"/>
+				<br>
+				<br>
+				<!-- Start FormBox -->
+				<span class=formBox1>
+					<div class=up_text>ID</div> 
+				<br>
+				<hr>
+					<div class=down_text><input type="text" style="float:left; width:99%;" name="id" readonly value="<%= user_id %>" /></div>
+				</span>
+				<!-- End FormBox -->
+				<br>
+				<br>
+				<br>	
+				<br>
+				<!-- Start FormBox -->
+				<span class=formBox1>
+					<div class=up_text>비밀번호</div>
+				<br>
+				<hr>
+					<div class=down_text><input type="password" name="userPW" maxlength="20" style="float:left; width:99%;" placeholder="비밀번호를 입력하세요."/></div>
+				</span>
+				<!-- End FormBox -->
+				<br>
+				<br>
+				<br>
+				<br>
+				<!-- Start FormBox -->
+				<span class=formBox1>
+					<div class=up_text>비밀번호 확인</div>
+				<br>
+				<hr>
+					<div class=down_text><input type="password" name="userPWChk" maxlength="20" style="float:left; width:99%;" placeholder="비밀번호 확인을 입력하세요."/></div>
+				</span>
+				<!-- End FormBox -->
+				<br>
+				<br>
+				<br>
+				<br>
+				<!-- Start FormBox -->
+				<span class=formBox1>
+					<div class=up_text>이름</div>
+				<br>
+				<hr>
+					<div class=down_text><input type="text" name="name" style="float:left; width:99%;" value="<%=user_name%>" maxlength="20" /></div>
+				</span>
+				<!-- End FormBox -->
+				<br>
+				<br>
+				<br>
+				<br>
+				<!-- Start FormBox -->
+				<span class=formBox1>
+					<div class=up_text>연락처</div>
+				<br>
+				<hr>
+					<div class=down_text><input type="text" name="usertel" maxlength="13" value="<%= tel %>"
+					 style="float:left; width:99%;" onkeypress="OnlyNumber()" /></div>
+				</span>
+				<!-- End FormBox -->
+				<br>
+				<br>
+				<br>
+				<br>
+				<!-- Start FormBox -->
+				<span class=formBox1>
+					<div class=up_text>직책</div>
+				<br>
+				<hr>
+					<div class=down_text><%= user_auth %></div>
+				</span>
+				<!-- End FormBox -->
+		</form>
+		</div>
+	</article>
+	</main>
+	</form>
 
 </body>
 </html>

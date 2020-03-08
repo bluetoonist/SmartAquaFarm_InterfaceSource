@@ -138,11 +138,10 @@
 			</div>
 		
 			<div class=user_manage_form>
-				<br>
 				<form class=userInfoForm>
 				<% if(user_auth.equals("user")){ %>
 				<% }else{ %>
-					<input type="button" value="사용자관리"> 
+					<input type="button" style="width:80px;" value="사용자관리"> 
 					<% } %>
 					<input type="button" onclick="location.href='userUpdateForm.jsp'" value="수정"> 
 					<input type="button" onclick="location.href='../main/index.jsp'" value="취소">

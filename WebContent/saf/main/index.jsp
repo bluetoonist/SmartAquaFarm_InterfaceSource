@@ -304,18 +304,18 @@
 						var watertank_no2rec = result[i][8].NO2REC;
 						var watertank_recseq = result[i][9].RECSEQ;
 						var data_end_format = result[i][10].value;
-			
+						console.log(watertank_state_signal);
 						var html = "";
 						html += " <div class=\'watertank_layout\'>";
 						
 						html += " <div class=\'left\'>"; // left Frame  
 							html += "<div class=\"left_label\">";
 								if(watertank_state == "G") {
-									html += " &nbsp;<img src=\"../../common/image/icon/alarm_green.png\" width=\"12px\" height=\"12px\">상태 : "+watertank_state;	
+									html += " &nbsp;<img src=\"../../common/image/icon/alarm_green.png\" width=\"12px\" height=\"12px\">" +watertank_state +":"+watertank_state_signal;	
 								}else if(watertank_state == "Y") {
-										html += " &nbsp;<img src=\"../../common/image/icon/alarm_yellow.png\" width=\"12px\" height=\"12px\">상태 : "+watertank_state;
+										html += " &nbsp;<img src=\"../../common/image/icon/alarm_yellow.png\" width=\"12px\" height=\"12px\">"+watertank_state +":"+watertank_state_signal;
 								}else {
-									html += " &nbsp;<img src=\"../../common/image/icon/alarm_red.png\" width=\"12px\" height=\"12px\">상태 : "+watertank_state;
+									html += " &nbsp;<img src=\"../../common/image/icon/alarm_red.png\" width=\"12px\" height=\"12px\">"+watertank_state +":"+watertank_state_signal;
 								}
 								
 							html += " </div>";
@@ -341,13 +341,14 @@
 							html += "</div>";
 							
 							html += "<div class=\"right_below\">";
+							
 								html += "<br>";
-								html += "<br>&nbsp;<img src=\"../../common/image/icon/alarm_blue.png\" width=\"12px\" height=\"12px\"> 물고기종 : "+fish_category;
-								html += "<br>&nbsp;<img src=\"../../common/image/icon/alarm_blue.png\" width=\"12px\" height=\"12px\"> DO : "+watertank_do;
-								html += "<br>&nbsp;<img src=\"../../common/image/icon/alarm_blue.png\" width=\"12px\" height=\"12px\"> 수온 : "+watertank_wtrec;
-								html += "<br>&nbsp;<img src=\"../../common/image/icon/alarm_blue.png\" width=\"12px\" height=\"12px\"> PH : "+watertank_phrec;
-								html += "<br>&nbsp;<img src=\"../../common/image/icon/alarm_yellow.png\" width=\"12px\" height=\"12px\"> 암모니아 : "+watertank_nh4rec;
-								html += "<br>&nbsp;<img src=\"../../common/image/icon/alarm_red.png\" width=\"12px\" height=\"12px\">아질산 : "+watertank_no2rec;
+								html += "<br>&nbsp; 물고기종 : "+fish_category;
+								html += "<br>&nbsp; DO : "+watertank_do;
+								html += "<br>&nbsp; 수온 : "+watertank_wtrec;
+								html += "<br>&nbsp; PH : "+watertank_phrec;
+								html += "<br>&nbsp; 암모니아 : "+watertank_nh4rec;
+								html += "<br>&nbsp; 아질산 : "+watertank_no2rec;
 						
 						html += "</div>"; // End Right Frame
 							
