@@ -22,3 +22,7 @@ function MoveMyPage() {
 	location.href = "../user/userInfo.jsp";
 	
 }
+
+function moveFarmWtSearchPage(farm_id) {
+	location.href = "../farm/farmwtSearch.jsp?farmid="+farmid;
+}
