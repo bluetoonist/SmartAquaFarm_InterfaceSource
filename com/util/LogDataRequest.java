@@ -58,7 +58,7 @@ public class LogDataRequest extends HttpServlet {
 		}
 		
 		
-		// REC TABLE DATA Request
+		// REC TABLE DATA Request Edit
 		for(int i=1; i<getWtRec.size(); i++)			
 		{
 			repairDAO retCounter = new repairDAO();
