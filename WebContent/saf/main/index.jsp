@@ -273,7 +273,6 @@
 				// remove all display before watertank
 				var check_wt_number = result[0][0].all_waterTank_count;
 				
-				console.log(check_wt_number);
 				if (check_wt_number == 0) {
 					var deleteValue = creDiv.getElementsByClassName("watertank_layout").length
  					
@@ -304,7 +303,7 @@
 						var watertank_no2rec = result[i][8].NO2REC;
 						var watertank_recseq = result[i][9].RECSEQ;
 						var data_end_format = result[i][10].value;
-						console.log(watertank_state_signal);
+						
 						var html = "";
 						html += " <div class=\'watertank_layout\'>";
 						
@@ -370,7 +369,7 @@
 		xhr.open("Post", "../../LogDataRequest", true);
 		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 		xhr.send("farm_id=" + get_farm_id);
-		console.log(get_farm_id);
+		
 	}// End goSelectedFarm
 
 </script>

@@ -51,6 +51,13 @@ public class LogDataRequest extends HttpServlet {
 		result.append("{\"result\":[");
 		result.append("[{\"all_waterTank_count\":\"" +allwtTankCnt +"\"}],");
 		
+		if (allwtTankCnt.equals("0" )) {
+			result.append("]}");
+			System.out.println(result.toString());
+			return result.toString();			
+		}
+		
+		
 		// REC TABLE DATA Request
 		for(int i=1; i<getWtRec.size(); i++)			
 		{
@@ -60,7 +67,7 @@ public class LogDataRequest extends HttpServlet {
 			result.append("[{\"watertank_number\":\"" + getWtRec.get(i).getTankId() + "\"},");
 			result.append("{\"watertank_state\":\"" + getWtRec.get(i).getState() + "\"},");
 			
-			System.out.println(getWtRec.get(i).getYrCode());
+		
 			if(getWtRec.get(i).getYrCode()  == null) {
 				result.append("{\"watertank_state_signal\":\"" + "" + "\"},");
 					
@@ -86,6 +93,5 @@ public class LogDataRequest extends HttpServlet {
 		}
 		
 		return result.toString();
-
 	}
 }
