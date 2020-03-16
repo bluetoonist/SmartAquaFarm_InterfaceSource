@@ -230,6 +230,7 @@
 		
 		<div class="d-flex flex-column" id="content-wrapper">
 			<div id="content">
+				<!-- 상단 -->
 				<nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
 					<div class="container-fluid">
 						<button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button">
@@ -245,6 +246,7 @@
 								<div class="input-group-append"></div>
 							</div>
 						</form>
+						
 						<ul class="nav navbar-nav flex-nowrap ml-auto">
 							<li class="nav-item dropdown no-arrow mx-1" role="presentation"></li>
 							<li class="nav-item dropdown no-arrow mx-1" role="presentation">
@@ -255,24 +257,21 @@
 							
 							<!--  USER Management  -->
 							<li class="nav-item dropdown no-arrow" role="presentation">
-								<div class="nav-item dropdown no-arrow">
-									<a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">
+								<div class="nav-item dropdown no-arrow"> <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">
 									<span class="d-none d-lg-inline mr-2 text-gray-600 small"><%=user_name %></span>
-									<img class="border rounded-circle img-profile" src="../../common/assets/img/avatars/avatar1.jpeg">
-									</a>
+									<img class="border rounded-circle img-profile" src="../../common/assets/img/avatars/avatar1.jpeg"></a>
 									
 									<div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu">
-										<a class="dropdown-item" role="presentation" href="../user/userInfo.jsp"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;회원 정보</a>
-										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" role="presentation" href="../auth/logoutPrc.jsp"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;로그아웃</a>
+										<a class="dropdown-item" role="presentation" href="../user/userInfo.jsp">
+										<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;회원 정보</a>
+										
+										<div class="dropdown-divider"></div> <a class="dropdown-item" role="presentation" href="../auth/logoutPrc.jsp">
+										<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;로그아웃</a>
 									</div>
 								</div>						
-							</li>
-							
-							
-							
-							
+							</li>							
 						</ul>
+						
 					</div>
 				</nav>
 				
@@ -318,55 +317,11 @@
 				
 				</div>
 				
-				<div class="row">
-				<!--  Here -->
-					     <div class=" card shadow mb-md-0 offset-md-1s ml-5">
-                        <div class="card-header d-flex justify-content-between align-items-center"><i class="icon ion-ios-circle-filled danger-icon fa-lg"></i>
-                            <h6 class="text-primary font-weight-bold m-0">1번 수조</h6>
-                            <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button"><i class="fas fa-ellipsis-v text-gray-400"></i></button>
-                                <div class="dropdown-menu shadow dropdown-menu-right animated--fade-in" role="menu"><a class="dropdown-item" role="presentation" href="#">&nbsp;조치하기</a></div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-xl-5 offset-xl-0 d-xl-flex justify-content-xl-center align-items-xl-center"><i class="fas fa-glass-whiskey d-xl-flex justify-content-xl-center fa-6x water-tank-icon"></i></div>
-                                <div class="col-xl-7 d-xl-flex">
-                                    <div class="table-responsive table-borderless mt-2 mb-2">
-                                        <table class="table table-bordered table-sm">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-left text-sm-left text-md-left text-lg-left text-xl-left flex-shrink-0">물고기종</td>
-                                                    <td>넙치</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="table-warning text-left text-sm-left text-md-left text-lg-left text-xl-left">D.O.</td>
-                                                    <td class="table-warning">7.0</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-left text-sm-left text-md-left text-lg-left text-xl-left">수온</td>
-                                                    <td>16.7</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-left text-sm-left text-md-left text-lg-left text-xl-left">pH</td>
-                                                    <td>7.0</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="table-danger text-left text-sm-left text-md-left text-lg-left text-xl-left">암모니아</td>
-                                                    <td class="table-danger">5.0</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-left text-sm-left text-md-left text-lg-left text-xl-left">아질산</td>
-                                                    <td>5.0</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-					
-				<!-- /Here -->
+				<div class="row" id="watertank_layout_grid">
+				
+                </div>
+				</div>
+				<!-- END LINE -->
 				</div>
 				
 			</div>
@@ -381,21 +336,10 @@
 		<a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
 	</div>
 
-
-
-	<script src="../../assets/js/jquery.min.js"></script>
-	<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
-	<script src="../../assets/js/theme.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-	
-</body>
-
 <script>
 var xhr = new XMLHttpRequest();
 
 var temp; // debugg temp Variable (must be removed)
-
-
 
 function goSelectedAdmin() {
 
@@ -409,26 +353,26 @@ function goSelectedAdmin() {
 			temp = result;
 
 			var search_farm = document.getElementById("selectFarm");
-			console.log(search_farm.length);
-			for (i = search_farm.length - 1; i >= 0; i--) {
-				
+			
+			for (i = search_farm.length - 1; i >= 0; i--) {	
 				search_farm.options.remove(i);
-				
 			}
 		
-			
 			for (i = 0; i < result.length; i++) {
-
-				// farm_id : [0][0]
-				// farm_name : [0][1];
-				var objOption = document.createElement("option");
-				objOption.value = result[i][0].farm_id;
-				objOption.textContent = result[i][1].farm_name;
-
-				search_farm.options.add(objOption);
+				// farm_id : [0][0] 양식장 ID 인덱스
+				// farm_name : [0][1]; 양식장 이름 인덱스
+				if( i == 0  ){
+					var objOption = document.createElement("option");
+					objOption.value = 0
+					objOption.textContent = "양식장을 선택하세요";
+					search_farm.options.add(objOption);
+					
+				} 
+					var objOption = document.createElement("option");
+					objOption.value = result[i][0].farm_id;
+					objOption.textContent = result[i][1].farm_name;
+					search_farm.options.add(objOption);										
 			}
-			
-			
 		} else {
 			return "False";
 		}
@@ -438,6 +382,146 @@ function goSelectedAdmin() {
 	xhr.send("user_id=" + get_user_id);
 }
 
+function goSelectedFarm() {
+	
+	
+	var getSelectValue = document.getElementById("selectFarm");
+	var get_farm_id = getSelectValue.value;
+
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			var JsonObj = eval("(" + xhr.responseText + ")");
+			
+			// watertank REC Data Dynamic Loading Logic
+			var result = JsonObj.result;
+			temp = result;
+			
+			var creDiv = document.getElementById("watertank_layout_grid");
+			
+			// Check WaterTank Count value
+			// if check_wt_number == "0"
+			// remove all display before watertank
+			var check_wt_number = result[0][0].all_waterTank_count;
+			
+			if (check_wt_number == 0) {
+				var deleteValue = creDiv.getElementsByClassName("row").length
+				
+					
+				for(i=deleteValue-1; i>=0 ; i--) {
+					creDiv.getElementsByClassName("row")[i].remove();
+				}
+				creDiv.textContent = "검색된 수조가 없습니다.";
+				return;
+			
+			} else {
+			creDiv.textContent = "";
+			
+			for(i=1; i<result.length; i++) {
+			
+				//second Loop Max
+				var secLoopMaxValue = result[i].length;
+				
+				for(j=0;  j<secLoopMaxValue; j++) {
+					// Data Format Declare
+					var watertank_number = result[i][0].watertank_number;						
+					var watertank_state = result[i][1].watertank_state;
+					var watertank_state_signal = result[i][2].watertank_state_signal;
+					var fish_category = result[i][3].물고기종;
+					var watertank_do = result[i][4].DO;
+					var watertank_wtrec = result[i][5].WTREC;
+					var watertank_phrec = result[i][6].PHREC;
+					var watertank_nh4rec = result[i][7].NH4REC;
+					var watertank_no2rec = result[i][8].NO2REC;
+					var watertank_recseq = result[i][9].RECSEQ;
+					var data_end_format = result[i][10].value;
+					
+					var html = "";
+					html += "<div class=\" card shadow mb-md-0 offset-md-1s ml-5\">";
+					
+				    html += "<div class=\"card-header d-flex justify-content-between align-items-center\">";
+				    html += "    <i class=\"icon ion-ios-circle-filled danger-icon fa-lg\"></i>";
+				    html += "    <h6 class=\"text-primary font-weight-bold m-0\">"+watertank_number+"</h6>";
+				    html += "    <div class=\"dropdown no-arrow\">";
+				    html += "        <button class=\"btn btn-link btn-sm dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\" type=\"button\">";
+				    html += "                <i class=\"fas fa-ellipsis-v text-gray-400\"></i>";
+				    html += "            </button>";
+				    
+				    html += "        <div class=\"dropdown-menu shadow dropdown-menu-right animated--fade-in\" role=\"menu\">";
+				    html += "            <a class=\"dropdown-item\" role=\"presentation\" href=\"#\">&nbsp;조치하기</a>";
+				    html += "        </div>";
+				    html += "    </div>";
+				    html += " </div>";
+
+				    html += "<div class=\"card-body\">";
+				    html += "    <div class=\"row\">";
+				    html += "        <div class=\"col-xl-5 offset-xl-0 d-xl-flex justify-content-xl-center align-items-xl-center\">";
+				    html += "            <i class=\"fas fa-glass-whiskey d-xl-flex justify-content-xl-center fa-6x water-tank-icon\"></i>";
+				    html += "        </div>";
+
+				    html += "        <div class=\"col-xl-7 d-xl-flex\">";
+				    html += "            <div class=\"table-responsive table-borderless mt-2 mb-2\">";
+				    html += "                <table class=\"table table-bordered table-sm\">";
+				    html += "                    <tbody>";
+				    html += "                        <tr>";
+				    html += "                            <td class=\"text-left text-sm-left text-md-left text-lg-left text-xl-left flex-shrink-0\">"+watertank_number+ "</td>";
+				    html += "                            <td>"+fish_category+"</td>"
+				    html += "                        </tr>";
+				    html += "                        <tr>";
+				    html += "                            <td class=\"table-warning text-left text-sm-left text-md-left text-lg-left text-xl-left\">DO</td>";
+				    html += "                            <td class=\"table-warning\">"+watertank_do+"</td>"
+				    html += "                        </tr>";
+				    html += "                        <tr>";
+				    html += "                            <td class=\"text-left text-sm-left text-md-left text-lg-left text-xl-left\">수온</td>";
+				    html += "                            <td>"+watertank_wtrec+"</td>";
+				    html += "                        </tr>";
+				    html += "                        <tr>";
+				    html += "                            <td class=\"text-left text-sm-left text-md-left text-lg-left text-xl-left\">pH</td>";
+				    html += "                            <td>"+watertank_phrec+"</td>";
+				    html += "                        </tr>";
+				    html += "                        <tr>";
+				    html += "                            <td class=\"table-danger text-left text-sm-left text-md-left text-lg-left text-xl-left\">암모니아</td>";
+				    html += "                            <td class=\"table-danger\">"+watertank_nh4rec+"</td>";
+				    html += "                        </tr>";
+				    html += "                        <tr>";
+				    html += "                            <td class=\"text-left text-sm-left text-md-left text-lg-left text-xl-left\">아질산</td>";
+				    html += "                            <td>"+watertank_no2rec+"</td>"
+				    html += "                        </tr>";
+				    html += "                    </tbody>";
+				    html += "                </table>";
+				    html += "            </div>";				 
+				    html += "        </div>";
+				            <!--  End Watertanks data label -->
+
+				    html += "    </div>";
+				    html += "	</div>";
+				    html += "</div>";
+					
+				}
+				creDiv.insertAdjacentHTML("beforeend",html);
+
+			} 
+		} // End Else Syntax
+	} else {
+		return false;	
+	
+		}
+	}	//End onreadystateChange
+	
+	
+	xhr.open("Post", "../../LogDataRequest", true);
+	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	xhr.send("farm_id=" + get_farm_id);
+	
+}// End goSelectedFarm
+
+
 </script>
+
+<script src="../../common/assets/js/jquery.min.js"></script>
+<script src="../../common/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../common/assets/js/theme.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+
+</body>
 
 </html>

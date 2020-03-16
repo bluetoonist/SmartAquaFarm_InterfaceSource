@@ -48,6 +48,11 @@ public class getFarmName extends HttpServlet {
 
 	}
 
+	/*
+	 * 
+	 * @param get_user_id
+	 * @return
+	 */
 	public String getSySFarmName(String get_user_id) {
 
 		farmDAO get_dao = new farmDAO();
@@ -56,14 +61,12 @@ public class getFarmName extends HttpServlet {
 
 		StringBuffer result = new StringBuffer("");
 		result.append("{\"result\":[");
-//
+
 		for (int i = 0; i < list.size(); i++) {
 			result.append("[{\"farm_id\":\"" + list.get(i).getFarmId() + "\"},");
 			result.append("{\"farm_name\":\"" + list.get(i).getFarmName() + "\"}],");
 		}
 		result.append("]}");
-//		
-		System.out.println(result.toString());
 		
 		return result.toString();
 	}
