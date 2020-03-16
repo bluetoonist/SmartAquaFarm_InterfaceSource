@@ -276,53 +276,21 @@
 				</nav>
 				
 				
-				<div class="container-fluid text-right text-sm-right text-md-right text-lg-right text-xl-right mb-4">
-					<h5></h5>
-					<% if (user_auth.equals("sysadmin")) { %>
 				
-					<strong class="mr-2">선택</strong>
-					
-					<select class="form-control-sm ml-2 mb-2 mt-2" id="selectAdmin" onchange="goSelectedAdmin()">
-					<option class="option_menu" value="init" selected>관리자를 선택하세요</option>
-						<%
-							String select_user_id = null;
-							String select_user_name = null;
-							ArrayList<usertableDTO> user_select = user_dao.select_user(user_auth);
-
-								for (int i = 0; i < user_select.size(); i++) {
-									select_user_id = user_select.get(i).getUserId();
-									select_user_name = user_select.get(i).getUserName();
-						%>
-						<option value="<%=select_user_id%>"><%=select_user_name%><hr>
-						</option>
-						<%
-							}
-						%>
-						
-					</select>
-					<select class="form-control-sm ml-2 mb-2 mt-2" id="selectFarm" onchange="goSelectedFarm()">
-						<opiton value="0">양식장을 선택하세요</opiton>
-					
-				
-					</select>
-				
-					<% } else if(user_auth.equals("admin")) { %>
-							System.out.println("적용 중" );
-				
-					<% } else { %>
-							System.out.println("적용 중");
-				
-					<% } %>
-				
-				
-				</div>
 				
 				<div class="row" id="watertank_layout_grid">
 				
-                </div>
-				</div>
+                	</div>
+					
+					
+					
+					
+					</div>
 				<!-- END LINE -->
-				</div>
+			</div>
+				
+				
+				
 				
 			</div>
 			<footer class="bg-white sticky-footer">
@@ -490,8 +458,6 @@ function goSelectedFarm() {
 				    html += "                </table>";
 				    html += "            </div>";				 
 				    html += "        </div>";
-				            <!--  End Watertanks data label -->
-
 				    html += "    </div>";
 				    html += "	</div>";
 				    html += "</div>";
