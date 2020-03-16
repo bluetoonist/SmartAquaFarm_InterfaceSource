@@ -59,7 +59,48 @@ public class usertableDAO {
 
 		return dto;
 	}
+//	why not doesn't Here
+	
+	public usertableDTO farmSelect(String ID) throws NullPointerException, SQLException {
 
+	      Connection con = null;
+	      PreparedStatement pstmt = null;
+	      ResultSet rs = null;
+	      String sql = null;
+
+	      usertableDTO bean = new usertableDTO();
+
+	      try {
+	         con = dbcp.getConnection();
+
+	         // sql query declare
+	         sql = "select farmid from usertable where userid='sysadmin'";
+	         pstmt = con.prepareStatement(sql);
+	         
+	         // 1, user ,select farmid from usertable where userid=user;
+//	         pstmt.setString(1, ID);
+	         rs = pstmt.executeQuery();
+	         if (rs.next()) {
+	            bean.setFarmId(rs.getString("farmid"));
+	        
+	      
+	         }
+
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         dbcp.close(con, pstmt, rs);
+	      }
+
+	      return bean;
+
+	   }
+
+
+	
+	
+	
+	
 	/*
 	 * @ Author : Kim Sung hyun
 	 * 

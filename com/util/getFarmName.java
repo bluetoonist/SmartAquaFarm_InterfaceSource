@@ -52,17 +52,19 @@ public class getFarmName extends HttpServlet {
 
 		farmDAO get_dao = new farmDAO();
 
-		ArrayList<farmDTO> list = get_dao.getuserData(null, get_user_id);
+		ArrayList<farmDTO> list = get_dao.getuserFarmData(get_user_id);
 
 		StringBuffer result = new StringBuffer("");
 		result.append("{\"result\":[");
-
+//
 		for (int i = 0; i < list.size(); i++) {
 			result.append("[{\"farm_id\":\"" + list.get(i).getFarmId() + "\"},");
 			result.append("{\"farm_name\":\"" + list.get(i).getFarmName() + "\"}],");
 		}
 		result.append("]}");
-
+//		
+		System.out.println(result.toString());
+		
 		return result.toString();
 	}
 

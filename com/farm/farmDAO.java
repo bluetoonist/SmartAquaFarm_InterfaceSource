@@ -118,6 +118,7 @@ public class farmDAO {
 		 * @ Description : return to farmname or address
 		 * 
 		 * @ DATE : 2020-03-03
+		 * 
 		 */
 		
 		   public  ArrayList<farmDTO> getuserData(String farm_ID,String user_ID) {
@@ -129,6 +130,9 @@ public class farmDAO {
 		      ResultSet rs = null;
 
 		      ArrayList<farmDTO> vlist = new ArrayList<farmDTO>();
+		      
+		      System.out.println(farm_ID+":"+user_ID);
+		      
 		      try {
 		         con = dbcp.getConnection();
 		         
@@ -158,5 +162,77 @@ public class farmDAO {
 		      return vlist;
 		   }
 	
+		   /*
+			 * @ Author : Kojian
+			 * 
+			 * @ PAGE : main/index.jsp
+			 *
+			 * @ Parameter : user_id
+			 * 
+			 * @ Description : return to farmname or address or farmid
+			 * 
+			 * @ DATE : 2020-03-03
+			 * 
+			 */
+			
+			   public  ArrayList<farmDTO> getuserFarmData(String user_ID) {
+				  			   
+			      Connection con = null;
+			      PreparedStatement pstmt = null;
+			      String sql = null;
 
+			      ResultSet rs = null;
+
+			      ArrayList<farmDTO> vlist = new ArrayList<farmDTO>();			      
+			      ArrayList<Integer> farm_arr = new ArrayList<>();
+			      
+			      System.out.println(user_ID);
+			      
+			      try {
+			         con = dbcp.getConnection();
+			         /* 양식장 리스트 조회 */
+			         sql = "select farmid from usertable where userid= ?";
+			         pstmt = con.prepareStatement(sql);
+			         pstmt.setString(1, user_ID);
+			         
+			         rs = pstmt.executeQuery();
+			    
+			         while (rs.next()) {	
+			        	 String[] farm_index = rs.getString("farmid").split(",");
+			        	 for(int i=0; i<farm_index.length; i++) {
+			        		 farm_arr.add(Integer.parseInt(farm_index[i]));
+			        	 }
+	
+			         }
+			         
+			         for(int farm_id : farm_arr) {
+			        	 System.out.println(farm_id);
+			        	 String sql_farm = "select farmid,farmname,address from farm where farmid= ?";
+				         
+			        	 pstmt = con.prepareStatement(sql_farm);
+			        	 pstmt.setInt(1,farm_id);
+			        	 rs = pstmt.executeQuery();
+			        	 
+			        	 while(rs.next()) {
+			        		 farmDTO temp_bean = new farmDTO();
+			        		 temp_bean.setFarmName(rs.getString("farmname"));		        	 
+			        		 temp_bean.setAddress(rs.getString("address"));		       
+				        	 temp_bean.setFarmId(rs.getInt("farmid"));
+				        	 vlist.add(temp_bean);
+			        	 }
+			        	 
+			         }
+
+			      } catch (Exception e) {
+			         e.printStackTrace();
+			      } finally {
+			         dbcp.close(con, pstmt, rs);
+			      }
+
+			      return vlist;
+			   }
+		
+
+		   
+		   
 }
