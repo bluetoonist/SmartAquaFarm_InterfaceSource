@@ -77,11 +77,17 @@ public class LogDataRequest extends HttpServlet {
 			}
 	
 			result.append("{\"물고기종\":\"" + getWtRec.get(i).getFishId() + "\"},");
+			
 			result.append("{\"DO\":\"" + getWtRec.get(i).getDoRec()+ "\"},");
+			
 			result.append("{\"WTREC\":\"" + getWtRec.get(i).getWtRec() + "\"},");
+			
 			result.append("{\"PHREC\":\"" + getWtRec.get(i).getPhRec() + "\"},");
+			
 			result.append("{\"NH4REC\":\"" + getWtRec.get(i).getNh4Rec() + "\"},");
+			
 			result.append("{\"NO2REC\":\"" + getWtRec.get(i).getNo2Rec() + "\"},");
+			
 			result.append("{\"RECSEQ\":\"" + getWtRec.get(i).getRecSeq() + "\"},");
 			
 			if(i  == getWtRec.size()-1) {
