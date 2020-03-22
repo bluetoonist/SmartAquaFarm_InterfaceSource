@@ -228,10 +228,7 @@ function goSelectedFarm() {
 				    	html += "                            <td class=\"table-warning text-sm-left text-md-left text-lg-left text-xl-left\">아질산</td>";
 				    	html += "                            <td class=\"table-warning\">" +watertank_no2rec+ "</td>"
 				    }				 				   
-				    html += "                        </tr>";
-				    
-				    
-				    
+				    html += "                        </tr>";				    
 				    html += "                    </tbody>";
 				    html += "                </table>";
 				    html += "            </div>";				 
