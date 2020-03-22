@@ -4,16 +4,31 @@
 
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 
+<!-- bean setup  -->
+<jsp:useBean id="user_dto" scope="page" class="user.usertableDTO" />
+<jsp:useBean id="user_dao" scope="page" class="user.usertableDAO" />
+
+<jsp:useBean id="farm_dto" scope="page" class="farm.farmDTO" />
+<jsp:useBean id="farm_dao" scope="page" class="farm.farmDAO" />
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 <meta charset="UTF-8">
 <title>스마트 양식장</title>
-<link rel="stylesheet" href="../../common/css/style.css">
+<link rel="stylesheet" href="../../common/assets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../../common/assets/fonts/fontawesome-all.min.css">
+<link rel="stylesheet" href="../../common/assets/fonts/ionicons.min.css">
+<link rel="stylesheet" href="../../common/assets/css/Login-Form-Dark.css">
+<link rel="stylesheet" href="../../common/assets/css/untitled.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+
 </head>
 
-<body>
+<body id="page-top">
 	<%
 		request.setCharacterEncoding("UTF-8");
 		/* farmDAO 객체 생성 */
@@ -28,7 +43,8 @@
 	
 		// 쿼리스트링 farmid
 		String Farmid = request.getParameter("farmid");
-	
+		Farmid = "5";
+		
 		// 정수형 양식장 ID
 		int FarmID;
 		
@@ -53,145 +69,327 @@
 		
 	%>
 
-	<!-- partial:index.partial.html -->
-	<span class="bckg"></span>
-	<header>
-		<h1>Smart Aqua Farm</h1>
-		<!-- (왼쪽) 네비게이션 메뉴 -->
-		<!--  기능 추가 사항을 위해 권한별로 나누어 놓음 -->
-		<!--  '전체 관리자' 일 때 메뉴  -->
-		<nav>
-			<%
-				if (user_auth.equals("sysadmin")) {
-			%>
-			<ul>
-				<li><a href="../main/index.jsp" onmouseover="changed_Menu(0)" data-title="모니터링">모니터링</a></li>
-				<li><a href="javascript:void(0);" onmouseover="changed_Menu(1)" data-title="상태 기준 정보">상태 기준 정보</a></li>
-				<li><a href="javascript:void(0);" onmouseover="changed_Menu(2)" data-title="상태기록">상태기록</a></li>
-				<li><a href="javascript:void(0);" onmouseover="changed_Menu(3)" data-title="조치기록">조치기록</a></li>
-				<li><a href="javascript:void(0);" onmouseover="changed_Menu(4)" data-title="통계">통계</a></li>
-				<li><a href="javascript:void(0);" onmouseover="changed_Menu(5)" data-title="양식장 정보 관리">양식장 정보 관리</a></li>
-				<li><a href="../farm/farmwtSearch.jsp" onmouseover="changed_Menu(6)" data-title="수조 정보">수조 정보</a></li>
-				<li><a href="../auth/logoutPrc.jsp" onmouseover="changed_Menu(7)" data-title="로그 아웃">로그 아웃</a></li>
-			</ul>
-			<!--  '일반 관리자' 일 때 메뉴  -->
-			<%
-				} else if (user_auth.equals("admin")) {
-			%>
-			<ul>
-				<li><a href="../main/index.jsp" onmouseover="changed_Menu(0)" data-title="모니터링">모니터링</a></li>
-				<li><a href="javascript:void(0);" onmouseover="changed_Menu(1)" data-title="상태 기준 정보">상태 기준 정보</a></li>
-				<li><a href="javascript:void(0);" onmouseover="changed_Menu(2)" data-title="상태기록">상태기록</a></li>
-				<li><a href="javascript:void(0);" onmouseover="changed_Menu(3)" data-title="조치기록">조치기록</a></li>
-				<li><a href="javascript:void(0);" onmouseover="changed_Menu(4)" data-title="통계">통계</a></li>
-				<li><a href="javascript:void(0);" onmouseover="changed_Menu(5)" data-title="양식장 정보 관리">양식장 정보 관리</a></li>
-				<li><a href="../farm/farmwtSearch.jsp" onmouseover="changed_Menu(6)" data-title="수조 정보">수조 정보</a></li>
-				<li><a href="../auth/logoutPrc.jsp" onmouseover="changed_Menu(7)" data-title="로그 아웃">로그 아웃</a></li>
-			</ul>
-			<!--  '사용자' 일 때 메뉴  -->
-			<%
-				} else {
-			%>
-
-			<ul>
-				<li><a href="../main/index.jsp" onmouserover="changed_Menu()" data-title="모니터링">모니터링</a></li>
-				<li><a href="javascript:void(0);" data-title="상태 기준 정보">상태 기준 정보</a></li>
-				<li><a href="javascript:void(0);" data-title="상태기록">상태기록</a></li>
-				<li><a href="javascript:void(0);" data-title="조치기록">조치기록</a></li>
-				<li><a href="javascript:void(0);" data-title="통계">통계</a></li>
-				<li><a href="javascript:void(0);" data-title="양식장 정보">양식장 정보</a></li>
-				<li><a href="../farm/farmwtSearch.jsp" data-title="수조 정보">수조 정보</a></li>
-				<li><a href="../auth/logoutPrc.jsp" data-title="로그 아웃">로그 아웃</a></li>
-			</ul>
-			<%
-				}
-			%>
-
-		</nav>
-	</header>
-
-	<main>
-
-		<div class="title">
-			<h2>수조 정보</h2>
-			<a href="javascript:void(0);">안녕하세요 <%=user_name%>님
-			</a>
-		</div>
-		<div></div>
-
-		<article>
-		
-		
-			<!--  조건 검색 select box 조정 -->
-			<span class="farmwtsearch_box">
-            <!-- 셀렉트 박스 -->
-            <h3> 전복 양식장</h3>
-            <select name="search" id="search">
-					<option selected value='null'>조건선택</option>
-					<option value='tankid'>수조 번호</option>
-					<option value='lastuptdate'>수정 일시</option>
-					<option value='lastuptid'>수정자</option>
-					<option value='userid'>담당자</option>
-            </select>
-            <input type="text" id="search_input" autofocus/>
-            <input type="submit" id="search_click" value="검색"/> 
-            
-            </span>
-			
-		
-		
-		
-			<!-- 수조 정보  -->
-			<div class="table_frame">
-				<table id="table_layout">
-
-					<thead>
-						<tr>
-							<th rowspan=2>수조 번호</th>
-							<th rowspan=2>수정 일시</th>
-							<th rowspan=2>수정자</th>
-							<th rowspan=2>어종</th>
-							<th rowspan=2>담당자</th>
-							<th></th>
-							<th colspan=3>-장비명-</th>
-							<th></th>
-							<th></th>
-						</tr>
-
-						<tr>
-							<th colspan=1>DO</th>
-							<th colspan=1>PH</th>
-							<th colspan=1>염도</th>
-							<th colspan=1>수온</th>
-							<th colspan=1>NH4</th>
-							<th colspan=1>NO2</th>
-						</tr>
-
-					</thead>
-					<!--  페이징 처리 부 -->
-					<tbody>
-						<tr>
-							<td>Tiger Nixon</td>
-							<td>System Architect</td>
-							<td>Edinburgh</td>
-							<td>61</td>
-							<td>2011/04/25</td>
-
-							<td colspan=1>$320,800</td>
-							<td colspan=1>PH</td>
-							<td colspan=1>염도</td>
-
-							<td>수온</td>
-							<td>NH4</td>
-							<td>NO2</td>
-						</tr>
-
-
-					</tbody>
-				</table>
+	<div id="wrapper">
+		<nav class="navbar navbar-dark bg-success align-items-start sidebar sidebar-dark bg-gradient-primary accordion p-0" style="background-color: rgb(198, 43, 43);">
+			<div class="container-fluid d-flex flex-column p-0">
+				<a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+					<div class="sidebar-brand-icon rotate-n-15">
+						<i class="fas fa-fish"></i>
+					</div>
+					
+					<div class="sidebar-brand-text mx-3">
+						<span class="text-monospace">sMART AQUA FARM</span>
+					</div>
+				</a>
+				<hr class="sidebar-divider my-0">
+				
+				<% if(user_auth.equals("sysadmin")){ %>
+				<!-- Navigator Menu -->
+				<ul class="nav navbar-nav text-light" id="accordionSidebar">
+					<li class="nav-item" role="presentation"><a class="nav-link active" href="../main/index.jsp">
+						<i class="fas fa-tachometer-alt"></i>
+						<span>모니터링</span>
+						</a>
+					</li>
+					
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" href="profile.html">
+						<i class="fas fa-table"></i>
+						<span>상태 기준 정보</span>
+						</a>
+					</li>
+					
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" href="table.html">
+						<i class="fas fa-th-list"></i>
+						<span>상태 기록</span>
+						</a>
+					</li>
+					
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" href="login.html">
+						<i class="fas fa-record-vinyl"></i>
+						<span>조치 기록</span>
+						</a>
+					</li>
+					
+					
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" href="register.html">
+						<i class="fas fa-chart-bar"></i>
+						<span>통계</span></a>
+					</li>
+						
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" href="register.html">
+						<i class="fas fa-tint">
+						</i><span>양식장 정보 관리</span>
+						</a>
+					</li>
+					
+					<li class="nav-item" role="presentation">				
+						<a class="nav-link" onclick="waterTank()">
+						<i class="fas fa-water">
+						</i><span>수조 정보</span>
+						</a>
+					</li>
+					
+				</ul>
+				<!--  End Menu Navigator -->
+				
+				
+				
+				<% } else if(user_auth.equals("admin")) { %>
+					
+					<!-- Navigator Menu -->
+				<ul class="nav navbar-nav text-light" id="accordionSidebar">
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" href="index.html">
+						<i class="fas fa-tachometer-alt"></i>
+						<span>모니터링</span>
+						</a>
+					</li>
+					
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" href="profile.html">
+						<i class="fas fa-table"></i>
+						<span>상태 기준 정보</span>
+						</a>
+					</li>
+					
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" href="table.html">
+						<i class="fas fa-th-list"></i>
+						<span>상태 기록</span>
+						</a>
+					</li>
+					
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" href="login.html">
+						<i class="fas fa-record-vinyl"></i>
+						<span>조치 기록</span>
+						</a>
+					</li>
+					
+					
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" href="register.html">
+						<i class="fas fa-chart-bar"></i>
+						<span>통계</span></a>
+					</li>
+						
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" href="register.html">
+						<i class="fas fa-tint">
+						</i><span>양식장 정보 관리</span>
+						</a>
+					</li>
+					
+					<li class="nav-item" role="presentation">				
+						<a class="nav-link active" href="../farm/farmwtSearch.jsp">
+						<i class="fas fa-water">
+						</i><span>수조 정보</span>
+						</a>
+					</li>
+					
+				</ul>
+				<!--  End Menu Navigator -->
+					
+				<% } else { %>
+				
+					<!-- Navigator Menu -->
+				<ul class="nav navbar-nav text-light" id="accordionSidebar">
+					<li class="nav-item" role="presentation"><a class="nav-link active" href="index.html">
+						<i class="fas fa-tachometer-alt"></i>
+						<span>모니터링</span>
+						</a>
+					</li>
+					
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" href="profile.html">
+						<i class="fas fa-table"></i>
+						<span>상태 기준 정보</span>
+						</a>
+					</li>
+					
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" href="table.html">
+						<i class="fas fa-th-list"></i>
+						<span>상태 기록</span>
+						</a>
+					</li>
+					
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" href="login.html">
+						<i class="fas fa-record-vinyl"></i>
+						<span>조치 기록</span>
+						</a>
+					</li>
+					
+					
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" href="register.html">
+						<i class="fas fa-chart-bar"></i>
+						<span>통계</span></a>
+					</li>
+						
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" href="register.html">
+						<i class="fas fa-tint">
+						</i><span>양식장 정보</span>
+						</a>
+					</li>
+					
+					<li class="nav-item" role="presentation">				
+						<a class="nav-link" href="../farm/farmwtSearch.jsp">
+						<i class="fas fa-water">
+						</i><span>수조 정보</span>
+						</a>
+					</li>
+					
+				</ul>
+				<!--  End Menu Navigator -->
+					
+				
+				
+				<% } %>
+				
+				<div class="text-center d-none d-md-inline">
+					<button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
+				</div>
 			</div>
-		</article>
-	</main>
+		</nav>
+		
+		<div class="d-flex flex-column" id="content-wrapper">
+			<div id="content">
+				<!-- 상단 -->
+				<nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+					<div class="container-fluid">
+						<button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button">
+							<i class="fas fa-bars"></i>
+						</button>
+						
+						<!--  상단 페이지 제목 -->
+						<h3 class="text-dark mb-0 navbar-brand">
+							<strong>수조정보</strong>
+						</h3>
+						<form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+							<div class="input-group">
+								<div class="input-group-append"></div>
+							</div>
+						</form>
+						
+						<ul class="nav navbar-nav flex-nowrap ml-auto">
+							<li class="nav-item dropdown no-arrow mx-1" role="presentation"></li>
+							<li class="nav-item dropdown no-arrow mx-1" role="presentation">
+								<div class="shadow dropdown-list dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown"></div>
+							</li>
+							<div class="d-none d-sm-block topbar-divider"></div>
+							
+							
+							<!--  USER Management  -->
+							<li class="nav-item dropdown no-arrow" role="presentation">
+								<div class="nav-item dropdown no-arrow"> <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">
+									<span class="d-none d-lg-inline mr-2 text-gray-600 small"><%=user_name %></span>
+									<img class="border rounded-circle img-profile" src="../../common/assets/img/avatars/avatar1.jpeg"></a>
+									
+									<div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu">
+										<a class="dropdown-item" role="presentation" href="../user/userInfo.jsp">
+										<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;회원 정보</a>
+										
+										<div class="dropdown-divider"></div> <a class="dropdown-item" role="presentation" href="../auth/logoutPrc.jsp">
+										<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;로그아웃</a>
+									</div>
+								</div>						
+							</li>							
+						</ul>
+						
+					</div>
+				</nav>
+				
+					
+				   <!-- Start: 드랍다운 및 검색 -->
+            <div class="container-fluid text-right text-sm-right text-md-right text-lg-right text-xl-right d-xl-flex justify-content-xl-center align-items-xl-center mb-4">
+                <h5></h5><select class="form-control-sm ml-2 mb-2 mt-2 mr-2"><option value="12" selected="">가나다 수산</option><option value="13">test 수산</option><option value="14">테스트수산</option></select><input type="text" class="mr-2 form-control-sm">
+                <button class="btn btn-primary" type="button" style="opacity: 1;filter: blur(0px);">선택</button>
+            </div>
+            <!-- End: 드랍다운 및 검색 -->
+				  <!-- Start: 테이블 -->
+            <div class="container-fluid text-center">
+            <button style="float:right" onclick="location.href='farmwtInsertForm.jsp'" class="btn btn-primary" type="button" style="opacity: 1;filter: blur(0px);">등록</button>
+                <div class="table-responsive table-bordered d-inline">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr></tr>
+                        </thead>
+                        <tbody class="text-center">
+                            <tr></tr>
+                            <tr>
+                                <td class="table-primary border rounded-0" rowspan="2"><strong>수조정보</strong></td>
+                                <td class="table-primary" rowspan="2"><strong>수정일시</strong></td>
+                                <td class="table-primary" rowspan="2"><strong>수정자</strong></td>
+                                <td class="table-primary" rowspan="2"><strong>어종</strong></td>
+                                <td class="table-primary" rowspan="2"><strong>담당자</strong></td>
+                                <td class="table-primary" rowspan="1" colspan="6"><strong>장비명</strong></td>
+                            </tr>
+                            <tr>
+                                <td class="table-primary"><strong>DO</strong></td>
+                                <td class="table-primary"><strong>pH</strong></td>
+                                <td class="table-primary"><strong>염도</strong></td>
+                                <td class="table-primary"><strong>수온</strong></td>
+                                <td class="table-primary"><strong>NH4</strong></td>
+                                <td class="table-primary"><strong>NO2</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Cell 1</td>
+                                <td>Cell 2</td>
+                                <td>Cell 3</td>
+                                <td>Cell 4</td>
+                                <td>Cell 5</td>
+                                <td>Cell 6</td>
+                                <td>Cell 7</td>
+                                <td>Cell 8</td>
+                                <td>Cell 9</td>
+                                <td>Cell 10</td>
+                                <td>Cell 11</td>
+                            </tr>
+                            <tr>
+                                <td>Cell 1</td>
+                                <td>Cell 2</td>
+                                <td>Cell 3</td>
+                                <td>Cell 4</td>
+                                <td>Cell 5</td>
+                                <td>Cell 6</td>
+                                <td>Cell 7</td>
+                                <td>Cell 8</td>
+                                <td>Cell 9</td>
+                                <td>Cell 10</td>
+                                <td>Cell 11</td>
+                            </tr>
+                            <tr>
+                                <td>Cell 1</td>
+                                <td>Cell 2</td>
+                                <td>Cell 3</td>
+                                <td>Cell 4</td>
+                                <td>Cell 5</td>
+                                <td>Cell 6</td>
+                                <td>Cell 7</td>
+                                <td>Cell 8</td>
+                                <td>Cell 9</td>
+                                <td>Cell 10</td>
+                                <td>Cell 11</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- End: 테이블 -->
+					
+					
+				</div>
+				<!-- END LINE -->
+				</div>
+				
 
 	<!-- partial -->
 	<script src="../../common/Js/script.js"></script>

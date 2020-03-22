@@ -27,6 +27,18 @@
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
 
+<script>
+
+function waterTank(){
+	var wt = document.select;
+	wt.target = "_self";
+	wt.method = "post";
+	wt.action = "../farm/farmwtSearch.jsp";
+	wt.submit();
+}
+
+</script>
+
 </head>
 
 <body id="page-top">
@@ -97,7 +109,7 @@
 					</li>
 					
 					<li class="nav-item" role="presentation">				
-						<a class="nav-link" href="register.html">
+						<a class="nav-link" onclick="waterTank()">
 						<i class="fas fa-water">
 						</i><span>수조 정보</span>
 						</a>
@@ -154,7 +166,7 @@
 					</li>
 					
 					<li class="nav-item" role="presentation">				
-						<a class="nav-link" href="register.html">
+						<a class="nav-link" href="../farm/farmwtSearch.jsp">
 						<i class="fas fa-water">
 						</i><span>수조 정보</span>
 						</a>
@@ -209,7 +221,7 @@
 					</li>
 					
 					<li class="nav-item" role="presentation">				
-						<a class="nav-link" href="register.html">
+						<a class="nav-link" href="../farm/farmwtSearch.jsp">
 						<i class="fas fa-water">
 						</i><span>수조 정보</span>
 						</a>
@@ -275,62 +287,62 @@
 					</div>
 				</nav>
 				
-				
-				<div class="container-fluid text-right text-sm-right text-md-right text-lg-right text-xl-right mb-4">
-					<h5></h5>
-					<% if (user_auth.equals("sysadmin")) { %>
-				
-					<strong class="mr-2">선택</strong>
+				<form name="select">
+					<div class="container-fluid text-right text-sm-right text-md-right text-lg-right text-xl-right mb-4">
+						<h5></h5>
+						<% if (user_auth.equals("sysadmin")) { %>
 					
-					<select class="form-control-sm ml-2 mb-2 mt-2" id="selectAdmin" onchange="goSelectedAdmin()">
-					<option class="option_menu" value="init" selected>관리자를 선택하세요</option>
-						<%
-							String select_user_id = null;
-							String select_user_name = null;
-							ArrayList<usertableDTO> user_select = user_dao.select_user(user_auth);
-
-								for (int i = 0; i < user_select.size(); i++) {
-									select_user_id = user_select.get(i).getUserId();
-									select_user_name = user_select.get(i).getUserName();
-						%>
-						<option value="<%=select_user_id%>"><%=select_user_name%><hr>
-						</option>
-						<%
-							}
-						%>
+						<strong class="mr-2">선택</strong>
 						
-					</select>
-					<select class="form-control-sm ml-2 mb-2 mt-2" id="selectFarm" onchange="goSelectedFarm()">
-						<opiton value="0">양식장을 선택하세요</opiton>
-					
-				
-					</select>
-				
-					<% } else if(user_auth.equals("admin")) { %>
-					<select class="form-control-sm ml-2 mb-2 mt-2" id="selectAdmin" onchange="goSelectedAdmin()">
-					<option class="option_menu" value="init" selected>관리자를 선택하세요</option>
-						<%
-							String select_user_id = null;
-							String select_user_name = null;
-							ArrayList<usertableDTO> user_select = user_dao.select_user(user_auth);
-
-								for (int i = 0; i < user_select.size(); i++) {
-									select_user_id = user_select.get(i).getUserId();
-									select_user_name = user_select.get(i).getUserName();
-						%>
+						<select class="form-control-sm ml-2 mb-2 mt-2" id="selectAdmin" name ="userId" onchange="goSelectedAdmin()">
+						<option class="option_menu" value="init" selected>관리자를 선택하세요</option>
+							<%
+								String select_user_id = null;
+								String select_user_name = null;
+								ArrayList<usertableDTO> user_select = user_dao.select_user(user_auth);
+	
+									for (int i = 0; i < user_select.size(); i++) {
+										select_user_id = user_select.get(i).getUserId();
+										select_user_name = user_select.get(i).getUserName();
+							%>
+							<option value="<%=select_user_id%>"><%=select_user_name%><hr>
+							</option>
+							<%
+								}
+							%>
 							
-					<option value="<%=select_user_id%>"><%=select_user_name%><hr> </option>
-						<%
-							}
-						%>
+						</select>
+						<select class="form-control-sm ml-2 mb-2 mt-2" id="selectFarm" name="farmid" onchange="goSelectedFarm()">
+							<opiton value="0">양식장을 선택하세요</opiton>
 						
-					<% } else { %>
-							System.out.println("적용 중");
-				
-					<% } %>
-				
-				
-				</div>
+					
+						</select>
+					
+						<% } else if(user_auth.equals("admin")) { %>
+						<select class="form-control-sm ml-2 mb-2 mt-2" id="selectAdmin" name="selectAdmin" onchange="goSelectedAdmin()">
+						<option class="option_menu" value="init" selected>관리자를 선택하세요</option>
+							<%
+								String select_user_id = null;
+								String select_user_name = null;
+								ArrayList<usertableDTO> user_select = user_dao.select_user(user_auth);
+	
+									for (int i = 0; i < user_select.size(); i++) {
+										select_user_id = user_select.get(i).getUserId();
+										select_user_name = user_select.get(i).getUserName();
+							%>
+								
+						<option value="<%=select_user_id%>"><%=select_user_name%><hr> </option>
+							<%
+								}
+							%>
+							
+						<% } else { %>
+								System.out.println("적용 중");
+					
+						<% } %>
+					
+					</div>
+				</form>
 				
 				<div class="row offset-lg-1" style="margin-left:0.3%;" id="watertank_layout_grid">
 				
