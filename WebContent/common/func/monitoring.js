@@ -257,7 +257,6 @@ function goSelectedFarm() {
 		}
 	}	//End onreadystateChange
 	
-	
 	xhr.open("Post", "../../LogDataRequest", true);
 	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	xhr.send("farm_id=" + get_farm_id);

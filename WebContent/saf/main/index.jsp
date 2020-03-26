@@ -97,7 +97,7 @@
 					</li>
 					
 					<li class="nav-item" role="presentation">				
-						<a class="nav-link" href="register.html">
+						<a class="nav-link" href="../farm/farmwtSearch.jsp">
 						<i class="fas fa-water">
 						</i><span>수조 정보</span>
 						</a>
@@ -154,7 +154,7 @@
 					</li>
 					
 					<li class="nav-item" role="presentation">				
-						<a class="nav-link" href="register.html">
+						<a class="nav-link" href="../farm/farmwtSearch.jsp">
 						<i class="fas fa-water">
 						</i><span>수조 정보</span>
 						</a>
@@ -209,7 +209,7 @@
 					</li>
 					
 					<li class="nav-item" role="presentation">				
-						<a class="nav-link" href="register.html">
+						<a class="nav-link" href="../farm/farmwtSearch.jsp">
 						<i class="fas fa-water">
 						</i><span>수조 정보</span>
 						</a>
