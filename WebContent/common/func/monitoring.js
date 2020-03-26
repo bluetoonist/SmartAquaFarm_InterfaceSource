@@ -9,8 +9,10 @@ var xhr = new XMLHttpRequest();
 
 var temp; // debugg temp Variable (must be removed)
 
-function goSelectedAdmin() {
 
+
+
+function goSelectedAdmin() {
 	var getSelectValue = document.getElementById("selectAdmin");
 	var get_user_id = getSelectValue.value;
 
@@ -18,29 +20,32 @@ function goSelectedAdmin() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
 			var JsonObj = eval("(" + xhr.responseText + ")");
 			var result = JsonObj.result;
-			temp = result;
-
+			
 			var search_farm = document.getElementById("selectFarm");
 			
-			for (i = search_farm.length - 1; i >= 0; i--) {	
-				search_farm.options.remove(i);
-			}
+			// if search_farm is null			
 		
-			for (i = 0; i < result.length; i++) {
-				// farm_id : [0][0] 양식장 ID 인덱스
-				// farm_name : [0][1]; 양식장 이름 인덱스
-				if( i == 0  ){
-					var objOption = document.createElement("option");
-					objOption.value = 0
-					objOption.textContent = "양식장을 선택하세요";
-					search_farm.options.add(objOption);
-					
-				} 
-					var objOption = document.createElement("option");
-					objOption.value = result[i][0].farm_id;
-					objOption.textContent = result[i][1].farm_name;
-					search_farm.options.add(objOption);										
-			}
+				for (i = search_farm.length - 1; i >= 0; i--) {	
+					search_farm.options.remove(i);
+				}
+			
+			// if search_farm is not null
+		
+				for (i = 0; i < result.length; i++) {
+					// farm_id : [0][0] 양식장 ID 인덱스
+					// farm_name : [0][1]; 양식장 이름 인덱스
+					if( i == 0  ){
+						var objOption = document.createElement("option");
+						objOption.value = 0
+						objOption.textContent = "양식장을 선택하세요";
+						search_farm.options.add(objOption);						
+						} 
+						var objOption = document.createElement("option");
+						objOption.value = result[i][0].farm_id;
+						objOption.textContent = result[i][1].farm_name;
+						search_farm.options.add(objOption);										
+				}			
+							
 		} else {
 			return "False";
 		}
@@ -49,9 +54,11 @@ function goSelectedAdmin() {
 	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	xhr.send("user_id=" + get_user_id);
 }
+
+
+
 // 모니터링을 위한 동적 HTML 생성 함수
 function goSelectedFarm() {
-	
 	
 	var getSelectValue = document.getElementById("selectFarm");
 	var get_farm_id = getSelectValue.value;
@@ -62,14 +69,16 @@ function goSelectedFarm() {
 			
 			// watertank REC Data Dynamic Loading Logic
 			var result = JsonObj.result;
-			temp = result;
 			
 			var creDiv = document.getElementById("watertank_layout_grid");
+			temp = creDiv;
 			
+			console.log(temp);
 			// Check WaterTank Count value
 			// if check_wt_number == "0"
 			// remove all display before watertank
 			var check_wt_number = result[0][0].all_waterTank_count;
+			
 			
 			if (check_wt_number == 0) {
 				var deleteValue = creDiv.getElementsByClassName("row offset-lg-1").length
