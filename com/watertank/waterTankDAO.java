@@ -8,6 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
+import com.waterTank.NullPointerException;
+import com.waterTank.NumberFormatException;
+import com.waterTank.String;
+import com.waterTank.waterTankDTO;
+
 import util.DBCon;
 
 public class waterTankDAO {
@@ -130,5 +135,59 @@ public class waterTankDAO {
 		return wtlist;
 
 	}
+	/***********************************
+	    * @name    waterTankSearch
+	    * @author  Hwang Seon Ju
+	    * @param   farmid, search, searchinput
+	    * @return  ArrayList<waterTankTableDTO>
+	    * @remark  
+	    ***********************************/
 
+	   public ArrayList<waterTankDTO> waterTankSearch(int farmid, String search, String searchinput) throws NullPointerException, SQLException {
+	      Connection con = null;
+	      PreparedStatement pstmt = null;
+	      ResultSet rs = null;
+	      String sql2 = null;
+	      ArrayList<waterTankDTO> wtlist = new ArrayList<waterTankDTO>();
+
+	      try {
+	         con = DBCon.getConnection();
+	         sql2 = "select w.tankid, f.fishname, nvl(w.userid, ' ') as userid, nvl(w.dosensor, ' ') as dosensor, nvl(w.phsensor, ' ') as phsensor, nvl(w.psusensor, ' ') as psusensor, nvl(w.wtsensor, ' ') as wtsensor, nvl(w.nh4sensor, ' ') as nh4sensor, nvl(w.no2sensor, ' ') as no2sensor, w.lastuptid, "
+	               + " to_char(w.lastuptdate, 'YY/MM/DD HH24:MI:SS') as lastuptdate from watertank w, fish f where w.farmid = ? "
+	               + " and w.farmid = f.farmid and f.fishid = w.fishid";
+
+	         if (searchinput != null && !searchinput.equals("") && search != "null" && !search.equals("null")) {
+	            sql2 += " and w." + search.trim() + " LIKE '%" + searchinput.trim() + "%' order by w.tankid";
+	            
+	         } else {
+	            sql2 += " order by w.tankid";
+	         }
+
+	         pstmt = con.prepareStatement(sql2);
+	         pstmt.setInt(1, farmid);
+	         rs = pstmt.executeQuery();
+
+	         while (rs.next()) {
+	            waterTankDTO vo = new waterTankDTO();
+	            vo.setTankId(rs.getString("tankid"));
+	            vo.setRemark(rs.getString("fishname"));
+	            vo.setUserId(rs.getString("userid"));
+	            vo.setDoSensor(rs.getString("dosensor"));
+	            vo.setPhSensor(rs.getString("phsensor"));
+	            vo.setPsuSensor(rs.getString("psusensor"));
+	            vo.setWtSensor(rs.getString("wtsensor"));
+	            vo.setNh4Sensor(rs.getString("nh4sensor"));
+	            vo.setNo2Sensor(rs.getString("no2sensor"));
+	            vo.setLastUptId(rs.getString("lastuptid"));
+	            vo.setLastUptdate(rs.getString("lastuptdate"));
+	            wtlist.add(vo);
+	         }
+
+	      } catch (NumberFormatException e) {
+	         e.printStackTrace();
+	      } finally {
+	         DBCon.close(con, pstmt, rs);
+	      }
+	      return wtlist;
+	   }
 }
