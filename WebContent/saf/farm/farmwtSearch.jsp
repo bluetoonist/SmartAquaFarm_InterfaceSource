@@ -93,7 +93,7 @@
 		String Farmid = request.getParameter("farmid");
 		System.out.println("Farmid : "+Farmid);
 		System.out.println("user_id : "+user_id);
-		
+		Farmid="1";
 		
 		// 정수형 양식장 ID
 		int FarmID = 0;
