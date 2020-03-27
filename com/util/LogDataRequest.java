@@ -27,7 +27,7 @@ public class LogDataRequest extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 
 		String get_farm_id = request.getParameter("farm_id");
-
+		
 		if (get_farm_id == "0") {
 			return;
 		} else {
@@ -53,14 +53,15 @@ public class LogDataRequest extends HttpServlet {
 		
 		if (allwtTankCnt.equals("0" )) {
 			result.append("]}");
-			System.out.println(result.toString());
+			
 			return result.toString();			
 		}
 		
 		
 		// REC TABLE DATA Request Edit
-		for(int i=1; i<getWtRec.size(); i++)			
+		for(int i=0; i<getWtRec.size(); i++)			
 		{
+			
 			repairDAO retCounter = new repairDAO();
 			String resCnt = retCounter.retRepSeq(farm_id,  getWtRec.get(i).getTankId());		
 
@@ -77,7 +78,7 @@ public class LogDataRequest extends HttpServlet {
 			}
 	
 			result.append("{\"물고기종\":\"" + getWtRec.get(i).getFishId() + "\"},");
-			
+		
 			result.append("{\"DO\":\"" + getWtRec.get(i).getDoRec()+ "\"},");
 			
 			result.append("{\"WTREC\":\"" + getWtRec.get(i).getWtRec() + "\"},");
@@ -94,10 +95,10 @@ public class LogDataRequest extends HttpServlet {
 				result.append("{\"value\":\"" +resCnt + "\"}] ]}");	
 			} else {
 				result.append("{\"value\":\"" +resCnt + "\"}],");	
-			}
-			
+			}			
 		}
 		
+		System.out.println(result.toString());
 		return result.toString();
 	}
 }

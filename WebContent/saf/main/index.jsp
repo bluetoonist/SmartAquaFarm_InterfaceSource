@@ -97,7 +97,7 @@
 					</li>
 					
 					<li class="nav-item" role="presentation">				
-						<a class="nav-link" href="../farm/farmwtSearch.jsp">
+						<a class="nav-link" onclick="moveFarmWtSearchPage();">
 						<i class="fas fa-water">
 						</i><span>수조 정보</span>
 						</a>
@@ -368,6 +368,7 @@
 		<a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
 	</div>
 
+<script src="../../common/func/util.js"></script>
 <script src="../../common/func/monitoring.js"> </script>
 <script src="../../common/assets/js/jquery.min.js"></script>
 <script src="../../common/assets/bootstrap/js/bootstrap.min.js"></script>

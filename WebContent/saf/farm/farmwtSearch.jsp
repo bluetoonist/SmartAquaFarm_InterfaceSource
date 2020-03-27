@@ -1,17 +1,14 @@
-<%@ page import="farm.*"%>
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="java.sql.*"%>
+<%@ page import="java.util.ArrayList" %>
+
 <%@ page import="watertank.*" %>
 <%@ page import="farm.*" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!-- bean setup  -->
 <jsp:useBean id="user_dto" scope="page" class="user.usertableDTO" />
 <jsp:useBean id="user_dao" scope="page" class="user.usertableDAO" />
-
-<jsp:useBean id="farm_dto" scope="page" class="farm.farmDTO" />
-
-<jsp:useBean id="wt_dto" scope="page" class="watertank.waterTankDTO" />
 
 <!DOCTYPE html>
 <html>
@@ -91,9 +88,6 @@
 	
 		// 쿼리스트링 farmid
 		String Farmid = request.getParameter("farmid");
-		System.out.println("Farmid : "+Farmid);
-		System.out.println("user_id : "+user_id);
-		Farmid="1";
 		
 		// 정수형 양식장 ID
 		int FarmID = 0;
@@ -103,8 +97,7 @@
 			
 			%>
 				<script>
-				alert("양식장 아이디를 입력하세요");
-				location.href = "../main/index.jsp";
+				 MoveFarmSearchToIndexPage();
 				</script>
 			<%
 			
@@ -121,7 +114,7 @@
 		String searchinput = ""; // 검색창 변수
 		ArrayList<waterTankDTO> wtlist = null; // 양식장 정보 리스트 변수
 		
-		if (user_auth.equals("사용자")) { // 권한 : 사용자일 경우
+		if (user_auth.equals("user")) { // 권한 : 사용자일 경우
 			search = request.getParameter("search"); //검색 조건 값 받아옴
 			searchinput = request.getParameter("searchinput"); //검색창 값 받아옴
 
@@ -132,7 +125,7 @@
 
 			search = request.getParameter("search"); //검색 조건 값  
 			searchinput = request.getParameter("searchinput"); //검색창 값
-
+			
  			wtlist = wt_dao.waterTankSearch(FarmID, search, searchinput);
 			farmnamelist = farm_dao.farmSelect(FarmID); 
 
@@ -518,5 +511,5 @@
 	<!-- partial -->
 
 </body>
-
+<script src="../../common/func/util.js"></script>
 </html>

@@ -18,6 +18,7 @@ function goSelectedAdmin() {
 
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
+		
 			var JsonObj = eval("(" + xhr.responseText + ")");
 			var result = JsonObj.result;
 			
@@ -62,9 +63,10 @@ function goSelectedFarm() {
 	
 	var getSelectValue = document.getElementById("selectFarm");
 	var get_farm_id = getSelectValue.value;
-
+	
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
+			console.log(xhr.responseText);
 			var JsonObj = eval("(" + xhr.responseText + ")");
 			
 			// watertank REC Data Dynamic Loading Logic
@@ -142,7 +144,7 @@ function goSelectedFarm() {
 				    html += "                <table class=\"table table-bordered table-sm\">";
 				    html += "                    <tbody>";
 				    html += "                        <tr>";
-				    html += "                            <td class=\"text-left text-sm-left text-md-left text-lg-left text-xl-left flex-shrink-0\">"+watertank_number+ "</td>";
+				    html += "                            <td class=\"text-left text-sm-left text-md-left text-lg-left text-xl-left flex-shrink-0\">어종</td>";
 				    html += "                            <td>"+fish_category+"</td>"
 				    html += "                        </tr>";
 				   
