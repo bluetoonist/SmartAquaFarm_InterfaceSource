@@ -152,9 +152,11 @@ public class waterTankDAO {
 
 	      try {
 	         con = DBCon.getConnection();
-	         sql2 = "select w.tankid, f.fishname, nvl(w.userid, ' ') as userid, nvl(w.dosensor, ' ') as dosensor, nvl(w.phsensor, ' ') as phsensor, nvl(w.psusensor, ' ') as psusensor, nvl(w.wtsensor, ' ') as wtsensor, nvl(w.nh4sensor, ' ') as nh4sensor, nvl(w.no2sensor, ' ') as no2sensor, w.lastuptid, "
-	               + " to_char(w.lastuptdate, 'YY/MM/DD HH24:MI:SS') as lastuptdate from watertank w, fish f where w.farmid = ? "
-	               + " and w.farmid = f.farmid and f.fishid = w.fishid";
+	         sql2 = "select w.tankid, f.fishname, nvl(w.userid, ' ') as userid, nvl(w.dosensor, ' ') "
+	         		+ "as dosensor, nvl(w.phsensor, ' ') as phsensor, nvl(w.psusensor, ' ') "
+	         		+ "as psusensor, nvl(w.wtsensor, ' ') as wtsensor, nvl(w.nh4sensor, ' ') "
+	         		+ "as nh4sensor, nvl(w.no2sensor, ' ') as no2sensor, w.lastuptid, to_char(w.lastuptdate, 'YY/MM/DD HH24:MI:SS') "
+	         		+ "as lastuptdate from watertank w ,fish f where w.farmid = ? and w.fishid = f.fishid";
 
 	         if (searchinput != null && !searchinput.equals("") && search != "null" && !search.equals("null")) {
 	            sql2 += " and w." + search.trim() + " LIKE '%" + searchinput.trim() + "%' order by w.tankid";
