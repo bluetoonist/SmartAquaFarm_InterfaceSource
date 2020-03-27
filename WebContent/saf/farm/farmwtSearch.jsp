@@ -149,7 +149,8 @@
 				<% if(user_auth.equals("sysadmin")){ %>
 				<!-- Navigator Menu -->
 				<ul class="nav navbar-nav text-light" id="accordionSidebar">
-					<li class="nav-item" role="presentation"><a class="nav-link active" href="../main/index.jsp">
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" href="../main/index.jsp">
 						<i class="fas fa-tachometer-alt"></i>
 						<span>모니터링</span>
 						</a>
@@ -191,7 +192,7 @@
 					</li>
 					
 					<li class="nav-item" role="presentation">				
-						<a class="nav-link" onclick="waterTank()">
+						<a class="nav-link active" onclick="waterTank()">
 						<i class="fas fa-water">
 						</i><span>수조 정보</span>
 						</a>
@@ -260,7 +261,7 @@
 				
 					<!-- Navigator Menu -->
 				<ul class="nav navbar-nav text-light" id="accordionSidebar">
-					<li class="nav-item" role="presentation"><a class="nav-link active" href="index.html">
+					<li class="nav-item" role="presentation"><a class="nav-link" href="index.html">
 						<i class="fas fa-tachometer-alt"></i>
 						<span>모니터링</span>
 						</a>
@@ -302,7 +303,7 @@
 					</li>
 					
 					<li class="nav-item" role="presentation">				
-						<a class="nav-link" href="../farm/farmwtSearch.jsp">
+						<a class="nav-link active" href="../farm/farmwtSearch.jsp">
 						<i class="fas fa-water">
 						</i><span>수조 정보</span>
 						</a>
@@ -509,7 +510,12 @@
 				
 		</form>
 	<!-- partial -->
-
-</body>
 <script src="../../common/func/util.js"></script>
+<script src="../../common/func/monitoring.js"> </script>
+<script src="../../common/assets/js/jquery.min.js"></script>
+<script src="../../common/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../common/assets/js/theme.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+<script src="../../common/func/util.js"></script>
+</body>
 </html>
