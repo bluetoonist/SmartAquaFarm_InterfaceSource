@@ -63,7 +63,7 @@
 					</li>
 					
 					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="profile.html">
+						<a class="nav-link" href="../growinfo/growInfoList.jsp">
 						<i class="fas fa-table"></i>
 						<span>상태 기준 정보</span>
 						</a>
@@ -120,7 +120,7 @@
 					</li>
 					
 					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="profile.html">
+						<a class="nav-link" href="../growinfo/growInfoList.jsp">
 						<i class="fas fa-table"></i>
 						<span>상태 기준 정보</span>
 						</a>
@@ -175,7 +175,7 @@
 					</li>
 					
 					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="profile.html">
+						<a class="nav-link" href="../growinfo/growInfoList.jsp">
 						<i class="fas fa-table"></i>
 						<span>상태 기준 정보</span>
 						</a>
