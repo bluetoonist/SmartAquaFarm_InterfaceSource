@@ -164,8 +164,7 @@ public class waterTankDAO {
 	         } else {
 	            sql2 += " order by w.tankid";
 	         }
-	         System.out.println(sql2);
-	         
+	         	         
 	         pstmt = con.prepareStatement(sql2);
 	         pstmt.setInt(1, farmid);
 	         rs = pstmt.executeQuery();
