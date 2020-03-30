@@ -36,7 +36,7 @@ function moveFarmWtSearchPage() {
 		
 		dynamic_form.appendChild(hiddenField);
 		document.body.appendChild(dynamic_form);
-
+		alert(farmid);
 		dynamic_form.submit();
 	}
 }

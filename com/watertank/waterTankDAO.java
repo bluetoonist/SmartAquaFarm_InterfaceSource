@@ -8,10 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-import com.waterTank.NullPointerException;
-import com.waterTank.NumberFormatException;
-import com.waterTank.String;
-import com.waterTank.waterTankDTO;
+
 
 import util.DBCon;
 
@@ -64,7 +61,53 @@ public class waterTankDAO {
 
 		return tankCnt;
 	}
+	/**************************************
+	    * @name waterTankSelect()
+	    * @author �옣�빐由�
+	    * @param tankID, farmid
+	    * @return ArrayList
+	    * @remark �뼇�떇�옣 �닔議� �젙蹂� 異쒕젰 - farm/farmwtUpdateForm.jsp
+	    **************************************/
+	   public ArrayList waterTankSelect(String tankID, int farmid) throws NullPointerException, SQLException {
 
+	      ArrayList wtselectlist = new ArrayList();
+	      Connection con = null;
+	      PreparedStatement pstmt = null;
+	      ResultSet rs = null;
+
+	      try {
+	         con = DBCon.getConnection();
+	         String sql = " select w.tankid, nvl(f.fishname, ' ') as fishname, nvl(w.userid,' ') as userid, nvl(w.dosensor,' ') as dosensor, nvl(w.phsensor,' ') as phsensor, nvl(w.psusensor, ' ') as psusensor, nvl(w.wtsensor, ' ') as wtsensor,"
+	               + " nvl(w.nh4sensor, ' ') as nh4sensor , nvl(w.no2sensor, ' ' ) as no2sensor from watertank w, fish f where w.farmid = ? and w.farmid = f.farmid and f.fishid = w.fishid and w.tankid = ? ";
+
+	         pstmt = con.prepareStatement(sql);
+	         pstmt.setInt(1, farmid);
+	         pstmt.setString(2, tankID);
+	         rs = pstmt.executeQuery();
+
+	         while (rs.next()) {
+	            waterTankDTO vo = new waterTankDTO();
+	            vo.setTankId(rs.getString("tankid"));
+	            vo.setRemark(rs.getString("fishname"));
+	            vo.setUserId(rs.getString("userid"));
+	            vo.setDoSensor(rs.getString("dosensor"));
+	            vo.setPhSensor(rs.getString("phsensor"));
+	            vo.setPsuSensor(rs.getString("psusensor"));
+	            vo.setWtSensor(rs.getString("wtsensor"));
+	            vo.setNh4Sensor(rs.getString("nh4sensor"));
+	            vo.setNo2Sensor(rs.getString("no2sensor"));
+
+	            wtselectlist.add(vo);
+	         }
+
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         DBCon.close(con, pstmt, rs);
+	      }
+
+	      return wtselectlist;
+	   }
 	/***********************************
 	 * @name waterTankSearch
 	 * @author Hwang Seon Ju

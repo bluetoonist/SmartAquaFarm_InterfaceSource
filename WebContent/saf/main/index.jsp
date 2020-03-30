@@ -155,7 +155,7 @@
 					</li>
 					
 					<li class="nav-item" role="presentation">				
-						<a class="nav-link" href="../farm/farmwtSearch.jsp">
+						<a class="nav-link" href="moveFarmWtSearchPage();">
 						<i class="fas fa-water">
 						</i><span>수조 정보</span>
 						</a>
@@ -210,7 +210,7 @@
 					</li>
 					
 					<li class="nav-item" role="presentation">				
-						<a class="nav-link" href="../farm/farmwtSearch.jsp">
+						<a class="nav-link" href="moveFarmWtSearchPage();">
 						<i class="fas fa-water">
 						</i><span>수조 정보</span>
 						</a>
