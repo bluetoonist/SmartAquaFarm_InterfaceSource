@@ -70,6 +70,17 @@
 	      }
 	}
 //************************************************************************ END LINE
+// farmwtSearch.jps에서 등록 버튼 클릭시 등록화면으로 이동하는 기능
+//************************************************************************ START LINE
+	function gofarmwtInsertForm() {
+		var farm = document.farmSearch;
+		
+		farm.target = "_self";
+		farm.method = "post";
+		farm.action="farmwtInsertForm.jsp";
+		farm.submit();
+	}
+//************************************************************************ END LINE
 </script>
 </head>
 
@@ -94,13 +105,11 @@
 		
 		// Farmid가 null이면 index.jsp 페이지로 이동
 		if (Farmid == null) {
-			
-			%>
+%>
 				<script>
 				 MoveFarmSearchToIndexPage();
 				</script>
-			<%
-			
+<%
 		// 그 밖에 Farmid는 숫자로 변환
 		} else {
 			FarmID = Integer.parseInt(Farmid);
@@ -409,7 +418,7 @@
 <%
 				} else { // 권한 : admin, sysadmin일때 등록 버튼이 보이도록 한다.
 %> 
-            <button class="btn btn-primary" onclick="location.href='farmwtInsertForm.jsp'">등록</button>
+            <button class="btn btn-primary" onclick="gofarmwtInsertForm()">등록</button>
 <%
 			}
 %>
