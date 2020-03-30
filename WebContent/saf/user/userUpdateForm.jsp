@@ -1,4 +1,37 @@
+
+
+
+<%@ page import="farm.*"%>
+
+<%@ page import="java.util.*"%>
+<%@ page import="java.util.stream.Stream"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<!--  Bean Setup -->
+<jsp:useBean id="farm_dao" class="farm.farmDAO" />
+<jsp:useBean id="farm_dto" class="farm.farmDTO" />
+
+<jsp:useBean id="user_dao" class="user.usertableDAO" />
+<jsp:useBean id="user_dto" class="user.usertableDTO" />
+
+<%
+	/* Session  Configuration */
+	String user_id = (String) session.getAttribute("userId");
+	String user_name = (String) session.getAttribute("userName");
+	String user_auth = (String) session.getAttribute("userAuth");
+	
+	user_dto = user_dao.getuser(user_id);
+	
+	String tel = user_dto.getUserTel(); // 전화번호
+	String FarmID = user_dto.getFarmId(); // 양식장 id
+
+	ArrayList<farmDTO> fm_dto = farm_dao.getuserData(FarmID,user_id);
+
+	String farmname = farm_dto.getFarmName();
+	String address = farm_dto.getAddress();
+	// 사용자 소속양식장 추가 배열
+	//ArrayList userlist = dao.
+%>
 
 <!DOCTYPE html>
 <html>
@@ -17,6 +50,45 @@
     <link rel="stylesheet" href="../../common/assets/css/untitled.css?h=7feee93f573b1ef2766af1d8290eeb33">
 </head>
 
+
+<script>
+	function goDelete(Auth, Name, FarmID) {
+		var del = document.userUpdateForm;
+		if(confirm(Name+" 를 삭제하시겠습니까?")){
+			del.method = "post";
+			del.action = "userDeletePrc.jsp";
+			del.target = "_self";
+			del.submit();
+		}		
+	} 
+	
+	function checkValueUpdate(){
+		var form = document.userUpdateForm;
+		if(!form.userPW.value){
+			alert("비밀번호를 입력하세요");
+			return false;
+		}
+		if(!form.userPWChk.value){
+			alert("비밀번호확인을 입력하세요");
+			return false;
+		}
+		if(form.userPW.value != form.userPWChk.value){
+			alert("비밀번호를 동일하게 입력하세요");
+			return false;
+		}
+	
+		if(confirm("사용자 정보를 변경하시겠습니까?")){
+			form.method="post";
+			form.action="userUpdatePrc.jsp";
+			form.submit();
+		}else{
+			return false;
+		}
+	}
+
+</script>
+
+
 <body id="page-top">
     <div id="wrapper">
         <!-- Start: 메뉴바 -->
@@ -28,8 +100,8 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="index.html"><i class="fas fa-tachometer-alt"></i><span>모니터링</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="farmwtSearch.html"><i class="fas fa-table"></i><span>상태 기준 정보</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="../main/index.jsp"><i class="fas fa-tachometer-alt"></i><span>모니터링</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="../farm/farmwtSearch.jsp"><i class="fas fa-table"></i><span>상태 기준 정보</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="table.html"><i class="fas fa-th-list"></i><span>상태 기록</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="login.html"><i class="fas fa-record-vinyl"></i><span>조치 기록</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="register.html"><i class="fas fa-chart-bar"></i><span>통계</span></a><a class="nav-link" href="register.html"><i class="fas fa-tint"></i><span>양식장 정보 관리</span></a><a class="nav-link" href="farmwtSearch.html"><i class="fas fa-water"></i><span>수조 정보</span></a></li>
@@ -64,40 +136,7 @@
                     </ul>
             </div>
             </nav>
-            <div class="container-fluid">
-                <div class="row mb-3">
-                    <div class="col-lg-8 col-xl-10">
-                        <div class="row mb-3 d-none">
-                            <div class="col">
-                                <div class="card text-white bg-primary shadow">
-                                    <div class="card-body">
-                                        <div class="row mb-2">
-                                            <div class="col">
-                                                <p class="m-0">Peformance</p>
-                                                <p class="m-0"><strong>65.2%</strong></p>
-                                            </div>
-                                            <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
-                                        </div>
-                                        <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="card text-white bg-success shadow">
-                                    <div class="card-body">
-                                        <div class="row mb-2">
-                                            <div class="col">
-                                                <p class="m-0">Peformance</p>
-                                                <p class="m-0"><strong>65.2%</strong></p>
-                                            </div>
-                                            <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
-                                        </div>
-                                        <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            
                     <div class="col-xl-12">
                         <!-- Start: 회원정보수정란 -->
                         <div class="card shadow mb-3">
@@ -105,48 +144,62 @@
                                 <p class="text-primary m-0 font-weight-bold">회원 정보</p>
                             </div>
                             <div class="card-body">
-                                <form>
+                                <form> <!--  user id update form tag line -->
                                     <div class="form-row">
                                         <div class="col">
-                                            <div class="form-group"><label for="username"><strong>회원 이름</strong><br></label><input class="form-control" type="text" placeholder="회원이름" name="username"></div>
+                                            <div class="form-group"><label for="username"><strong>회원 이름</strong><br></label>
+                                            <input class="form-control" type="text" placeholder="회원이름" name="username">
+                                            </div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group"><label for="username"><strong>회원 직책</strong><br></label><input class="form-control" type="text" placeholder="직책" name="username" disabled=""></div>
+                                            <div class="form-group"><label for="username"><strong>회원 직책</strong><br></label>
+                                            <input class="form-control" type="text" placeholder="직책" name="username" disabled="">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col">
-                                            <div class="form-group"><label for="first_name"><strong>회원 아이디</strong></label><input class="form-control" type="text" placeholder="회원 아이디" name="first_name"></div>
+                                            <div class="form-group"><label for="first_name"><strong>회원 아이디</strong></label>
+                                            <input class="form-control" type="text" placeholder="회원 아이디" name="first_name">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col">
-                                            <div class="form-group"><label for="first_name"><strong>회원 전화번호</strong></label><input class="form-control" type="text" placeholder="회원 전화번호" name="first_name"></div>
+                                            <div class="form-group"><label for="first_name"><strong>회원 전화번호</strong></label>
+                                            <input class="form-control" type="text" placeholder="회원 전화번호" name="first_name">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group"><button class="btn btn-primary btn-sm" type="submit">저장하기</button></div>
-                                </form>
+                                </form><!--  user id update form tag end line -->
                             </div>
                         </div>
                         <!-- End: 회원정보수정란 -->
+                        
                         <!-- Start: 비밀번호변경란 -->
                         <div class="card shadow">
                             <div class="card-header py-3">
                                 <p class="text-primary m-0 font-weight-bold">비밀번호 변경</p>
                             </div>
                             <div class="card-body">
-                                <form>
-                                    <div class="form-group"><label for="address"><strong>현재 비밀번호</strong></label><input class="form-control" type="text" placeholder="현재 비밀번호" name="address"></div>
+                                <form>  <!--  user passsword update form tag line -->
+                                    <div class="form-group"><label for="address"><strong>현재 비밀번호</strong></label>
+                                    <input class="form-control" type="text" placeholder="현재 비밀번호" name="address">
+                                    </div>
                                     <div class="form-row">
                                         <div class="col">
-                                            <div class="form-group"><label for="city"><strong>변경 비밀번호</strong></label><input class="form-control" type="text" placeholder="변경 비밀번호" name="city"></div>
+                                            <div class="form-group"><label for="city"><strong>변경 비밀번호</strong></label>
+                                            <input class="form-control" type="text" placeholder="변경 비밀번호" name="city">
+                                            </div>
                                         </div>
                                     </div>
-                                </form>
-                                <form>
-                                    <div class="form-group"><label for="address"><strong>변경 비밀번호 확인</strong></label><input class="form-control" type="text" placeholder="변경 비밀번호 확인" name="address"></div>
+                        
+                                    <div class="form-group"><label for="address"><strong>변경 비밀번호 확인</strong></label>
+                                    <input class="form-control" type="text" placeholder="변경 비밀번호 확인" name="address">
+                                    </div>
                                     <div class="form-group"><button class="btn btn-primary btn-sm" type="submit">저장하기</button></div>
-                                </form>
+                                </form>  <!--  user passsword update form tag end line -->
                             </div>
                         </div>
                         <!-- End: 비밀번호변경란 -->
