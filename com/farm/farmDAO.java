@@ -6,10 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.farm.NullPointerException;
-import com.farm.NumberFormatException;
-import com.farm.String;
-
 import farm.farmDTO;
 
 import util.DBCon;
@@ -75,13 +71,13 @@ public class farmDAO {
 	    * @remark �뼇�떇�옣 �씠由� 異쒕젰(沅뚰븳 : admin, sysadmin) , �궗�슜泥� - main.jsp ,farmwtSearch.jsp
 	    ***********************************/
 
-	   public ArrayList<farmDTO> farmSelect(int farmid) throws NullPointerException, SQLException {
-	      
+	   public String farmSelect(int farmid) throws NullPointerException, SQLException {
 	      Connection con = null;
 	      PreparedStatement pstmt = null;
 	      ResultSet rs = null;
 	      String sql = null;
-	      ArrayList<farmDTO> farmnamelist = new ArrayList<farmDTO>();
+	      String farmname = null;
+          farmDTO vo = new farmDTO();
 	      
 	      try {
 	         con = DBCon.getConnection();
@@ -90,12 +86,10 @@ public class farmDAO {
 	         pstmt.setInt(1, farmid);
 	         rs = pstmt.executeQuery();
 
-	         while (rs.next()) {
-	            farmDTO vo = new farmDTO();
+	         if (rs.next()) {
 	            
-	            vo.setFarmName(rs.getString("farmname"));      // �뼇�떇�옣 �씠由�
+	            farmname = rs.getString("farmname");      
 	            
-	            farmnamelist.add(vo);
 	         }
 	         
 	      } catch (NumberFormatException e) {
@@ -103,7 +97,7 @@ public class farmDAO {
 	      } finally {
 	         DBCon.close(con, pstmt, rs);
 	      }
-	      return farmnamelist;
+	      return farmname;
 	   }
 	  
 	   /**************************************

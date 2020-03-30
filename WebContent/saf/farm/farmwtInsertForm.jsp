@@ -1,23 +1,54 @@
-<%@ page import="farm.*"%>
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="java.sql.*"%>
+<%@ page import="java.util.ArrayList" %>
 
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page import="farm.*"%>
+<%@ page import="growInfo.*"%>
+<%@ page import="watertank.*"%>
+<%@ page import="user.*"%>
 
-<!-- bean setup  -->
-<jsp:useBean id="user_dto" scope="page" class="user.usertableDTO" />
-<jsp:useBean id="user_dao" scope="page" class="user.usertableDAO" />
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<jsp:useBean id="farm_dto" scope="page" class="farm.farmDTO" />
-<jsp:useBean id="farm_dao" scope="page" class="farm.farmDAO" />
+<%
+	//ÌïúÍ∏Ä Ìå®Ïπò
+	request.setCharacterEncoding("UTF-8");
 
+	/* Session Infor*/
+	String user_id = (String) session.getAttribute("userId");
+	String user_name = (String) session.getAttribute("userName");
+	String user_auth = (String) session.getAttribute("userAuth");
+	
+	//usertableDAOÎäî mgr1Î°ú ÏÇ¨Ïö©
+	usertableDAO mgr1 = new usertableDAO();
+	//growInfoDAOÎäî mgr2Î°ú ÏÇ¨Ïö©
+	growInfoDAO mgr2 = new growInfoDAO();
+	//farmDAOÎäî mgr3Î°ú ÏÇ¨Ïö©
+	farmDAO mgr3 = new farmDAO();
+	
+	int FarmID = Integer.parseInt(request.getParameter("farmid"));
+	System.out.println(FarmID);
+	//Îã¥ÎãπÏûê Ï°∞Ìöå Î∂ÄÎ∂Ñ
+	ArrayList<usertableDTO> userAddlist = mgr1.usertableSelect(user_id);
+	// Ïñ¥Ï¢Ö ÏÑ†ÌÉù Î∂ÄÎ∂Ñ 
+	ArrayList<growInfoDTO> fishname_list = mgr2.fishSelect(FarmID);
+	
+	String farmname = mgr3.farmSelect(FarmID);
+%>
 
+<script>
+//farmwtInsertForm.jspÏóêÏÑú Ï°∞Ìöå Î≤ÑÌäº ÌÅ¥Î¶≠Ïãú Îã¥ÎãπÏûê Í≤ÄÏÉâ ÌôîÎ©¥ÏúºÎ°ú Ïù¥ÎèôÌïòÎäî Í∏∞Îä•
+//************************************************************************ START LINE
+function gofarmwtUserForm_in(FarmID) {
+	var url = "farmwtUserForm_in.jsp?FarmID=" + FarmID;
+	window.open(url, "farmwtUserForm_in.jsp", "scrollbars=yes, resizable=no, width=430px, height=400px");
+}
+//************************************************************************ END LINE
+</script>
 <!DOCTYPE html>
 <html>
 
 <head>
 <meta charset="UTF-8">
-<title>Ω∫∏∂∆Æ æÁΩƒ¿Â</title>
+<title>Ïä§ÎßàÌä∏ ÏñëÏãùÏû•</title>
 <link rel="stylesheet" href="../../common/assets/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="../../common/assets/fonts/fontawesome-all.min.css">
 <link rel="stylesheet" href="../../common/assets/fonts/ionicons.min.css">
@@ -26,251 +57,48 @@
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Dashboard - Brand</title>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css?h=3005b66ff8f82552f0df07549640937c">
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css?h=e352b4b3401049979e7ebdd84c3caf81">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css?h=18313f04cea0e078412a028c5361bd4e">
 </head>
 
 <body id="page-top">
-	<%
-		request.setCharacterEncoding("UTF-8");
-		/* farmDAO ∞¥√º ª˝º∫ */
-		farmDAO farmdao_obj = new farmDAO();
-		ArrayList<farmDTO> farmnamelist =null;
-		
-		
-		/* Session Infor*/
-		String user_id = (String) session.getAttribute("userId");
-		String user_name = (String) session.getAttribute("userName");
-		String user_auth = (String) session.getAttribute("userAuth");
-	
-		// ƒı∏ÆΩ∫∆Æ∏µ farmid
-		String Farmid = request.getParameter("farmid");
-		
-		// ¡§ºˆ«¸ æÁΩƒ¿Â ID
-		int FarmID;
-		
-		// Farmid∞° null¿Ã∏È index.jsp ∆‰¿Ã¡ˆ∑Œ ¿Ãµø
-		if (Farmid == null) {
-			
-			%>
-				<script>
-				alert("æÁΩƒ¿Â æ∆¿Ãµ∏¶ ¿‘∑¬«œººø‰");
-				location.href = "../main/index.jsp";
-				</script>
-			<%
-			
-			
-		// ±◊ π€ø° Farmid¥¬ º˝¿⁄∑Œ ∫Ø»Ø
-		} else {
-			FarmID = Integer.parseInt(Farmid);
-		}
-		
-		farmnamelist = farmdao_obj.farmSelect(Farmid);
-		System.out.println(farmnamelist);
-		
-	%>
-
-	<div id="wrapper">
-		<nav class="navbar navbar-dark bg-success align-items-start sidebar sidebar-dark bg-gradient-primary accordion p-0" style="background-color: rgb(198, 43, 43);">
-			<div class="container-fluid d-flex flex-column p-0">
-				<a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-					<div class="sidebar-brand-icon rotate-n-15">
-						<i class="fas fa-fish"></i>
-					</div>
-					
-					<div class="sidebar-brand-text mx-3">
-						<span class="text-monospace">sMART AQUA FARM</span>
-					</div>
-				</a>
-				<hr class="sidebar-divider my-0">
-				
-				<% if(user_auth.equals("sysadmin")){ %>
-				<!-- Navigator Menu -->
-				<ul class="nav navbar-nav text-light" id="accordionSidebar">
-					<li class="nav-item" role="presentation"><a class="nav-link active" href="../main/index.jsp">
-						<i class="fas fa-tachometer-alt"></i>
-						<span>∏¥œ≈Õ∏µ</span>
-						</a>
-					</li>
-					
-					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="profile.html">
-						<i class="fas fa-table"></i>
-						<span>ªÛ≈¬ ±‚¡ÿ ¡§∫∏</span>
-						</a>
-					</li>
-					
-					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="table.html">
-						<i class="fas fa-th-list"></i>
-						<span>ªÛ≈¬ ±‚∑œ</span>
-						</a>
-					</li>
-					
-					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="login.html">
-						<i class="fas fa-record-vinyl"></i>
-						<span>¡∂ƒ° ±‚∑œ</span>
-						</a>
-					</li>
-					
-					
-					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="register.html">
-						<i class="fas fa-chart-bar"></i>
-						<span>≈Î∞Ë</span></a>
-					</li>
-						
-					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="register.html">
-						<i class="fas fa-tint">
-						</i><span>æÁΩƒ¿Â ¡§∫∏ ∞¸∏Æ</span>
-						</a>
-					</li>
-					
-					<li class="nav-item" role="presentation">				
-						<a class="nav-link" onclick="waterTank()">
-						<i class="fas fa-water">
-						</i><span>ºˆ¡∂ ¡§∫∏</span>
-						</a>
-					</li>
-					
-				</ul>
-				<!--  End Menu Navigator -->
-				
-				
-				
-				<% } else if(user_auth.equals("admin")) { %>
-					
-					<!-- Navigator Menu -->
-				<ul class="nav navbar-nav text-light" id="accordionSidebar">
-					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="index.html">
-						<i class="fas fa-tachometer-alt"></i>
-						<span>∏¥œ≈Õ∏µ</span>
-						</a>
-					</li>
-					
-					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="profile.html">
-						<i class="fas fa-table"></i>
-						<span>ªÛ≈¬ ±‚¡ÿ ¡§∫∏</span>
-						</a>
-					</li>
-					
-					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="table.html">
-						<i class="fas fa-th-list"></i>
-						<span>ªÛ≈¬ ±‚∑œ</span>
-						</a>
-					</li>
-					
-					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="login.html">
-						<i class="fas fa-record-vinyl"></i>
-						<span>¡∂ƒ° ±‚∑œ</span>
-						</a>
-					</li>
-					
-					
-					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="register.html">
-						<i class="fas fa-chart-bar"></i>
-						<span>≈Î∞Ë</span></a>
-					</li>
-						
-					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="register.html">
-						<i class="fas fa-tint">
-						</i><span>æÁΩƒ¿Â ¡§∫∏ ∞¸∏Æ</span>
-						</a>
-					</li>
-					
-					<li class="nav-item" role="presentation">				
-						<a class="nav-link active" href="../farm/farmwtSearch.jsp">
-						<i class="fas fa-water">
-						</i><span>ºˆ¡∂ ¡§∫∏</span>
-						</a>
-					</li>
-					
-				</ul>
-				<!--  End Menu Navigator -->
-					
-				<% } else { %>
-				
-					<!-- Navigator Menu -->
-				<ul class="nav navbar-nav text-light" id="accordionSidebar">
-					<li class="nav-item" role="presentation"><a class="nav-link active" href="index.html">
-						<i class="fas fa-tachometer-alt"></i>
-						<span>∏¥œ≈Õ∏µ</span>
-						</a>
-					</li>
-					
-					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="profile.html">
-						<i class="fas fa-table"></i>
-						<span>ªÛ≈¬ ±‚¡ÿ ¡§∫∏</span>
-						</a>
-					</li>
-					
-					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="table.html">
-						<i class="fas fa-th-list"></i>
-						<span>ªÛ≈¬ ±‚∑œ</span>
-						</a>
-					</li>
-					
-					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="login.html">
-						<i class="fas fa-record-vinyl"></i>
-						<span>¡∂ƒ° ±‚∑œ</span>
-						</a>
-					</li>
-					
-					
-					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="register.html">
-						<i class="fas fa-chart-bar"></i>
-						<span>≈Î∞Ë</span></a>
-					</li>
-						
-					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="register.html">
-						<i class="fas fa-tint">
-						</i><span>æÁΩƒ¿Â ¡§∫∏</span>
-						</a>
-					</li>
-					
-					<li class="nav-item" role="presentation">				
-						<a class="nav-link" href="../farm/farmwtSearch.jsp">
-						<i class="fas fa-water">
-						</i><span>ºˆ¡∂ ¡§∫∏</span>
-						</a>
-					</li>
-					
-				</ul>
-				<!--  End Menu Navigator -->
-					
-				
-				
-				<% } %>
-				
-				<div class="text-center d-none d-md-inline">
-					<button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
-				</div>
-			</div>
-		</nav>
-		
-		<div class="d-flex flex-column" id="content-wrapper">
-			<div id="content">
-				<!-- ªÛ¥‹ -->
+    <div id="wrapper">
+        <nav class="navbar navbar-dark bg-success align-items-start sidebar sidebar-dark bg-gradient-primary accordion p-0" style="background-color: rgb(198,43,43);">
+            <div class="container-fluid d-flex flex-column p-0">
+                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-fish"></i></div>
+                    <div class="sidebar-brand-text mx-3"><span class="text-monospace">sMART AQUA FARM</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="nav navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="../main/index.jsp"><i class="fas fa-tachometer-alt"></i><span>Î™®ÎãàÌÑ∞ÎßÅ</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="#"><i class="fas fa-table"></i><span>ÏÉÅÌÉú Í∏∞Ï§Ä Ï†ïÎ≥¥</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="#"><i class="fas fa-th-list"></i><span>ÏÉÅÌÉú Í∏∞Î°ù</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="#"><i class="fas fa-record-vinyl"></i><span>Ï°∞Ïπò Í∏∞Î°ù</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="#"><i class="fas fa-chart-bar"></i><span>ÌÜµÍ≥Ñ</span></a><a class="nav-link" href="register.html"><i class="fas fa-tint"></i><span>ÏñëÏãùÏû• Ï†ïÎ≥¥ Í¥ÄÎ¶¨</span></a><a class="nav-link" href="farmwtSearch.jsp"><i class="fas fa-water"></i><span>ÏàòÏ°∞ Ï†ïÎ≥¥</span></a></li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <!-- ÏÉÅÎã® -->
 				<nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
 					<div class="container-fluid">
 						<button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button">
 							<i class="fas fa-bars"></i>
 						</button>
 						
-						<!--  ªÛ¥‹ ∆‰¿Ã¡ˆ ¡¶∏Ò -->
+						<!--  ÏÉÅÎã® ÌéòÏù¥ÏßÄ Ï†úÎ™© -->
 						<h3 class="text-dark mb-0 navbar-brand">
-							<strong>ºˆ¡∂¡§∫∏</strong>
+							<strong>ÏàòÏ°∞Ï†ïÎ≥¥ Îì±Î°ù</strong>
 						</h3>
 						<form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
 							<div class="input-group">
@@ -294,10 +122,10 @@
 									
 									<div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu">
 										<a class="dropdown-item" role="presentation" href="../user/userInfo.jsp">
-										<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;»∏ø¯ ¡§∫∏</a>
+										<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;ÌöåÏõê Ï†ïÎ≥¥</a>
 										
 										<div class="dropdown-divider"></div> <a class="dropdown-item" role="presentation" href="../auth/logoutPrc.jsp">
-										<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;∑Œ±◊æ∆øÙ</a>
+										<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Î°úÍ∑∏ÏïÑÏõÉ</a>
 									</div>
 								</div>						
 							</li>							
@@ -306,7 +134,11 @@
 					</div>
 				</nav>
 				
-				            <div class="container-fluid text-center">
+				<h3 align="center">
+					<%=farmname%>
+				</h3>
+				
+				<div class="container-fluid text-center">
                 <div class="table-responsive table-bordered">
                     <table class="table table-bordered">
                         <thead>
@@ -315,56 +147,112 @@
                         <tbody>
                             <tr></tr>
                             <tr>
-                                <td class="table-primary border rounded-0" rowspan="1" colspan="2"><strong>ºˆ¡∂π¯»£</strong></td>
-                                <td rowspan="1" colspan="2"><br></td>
+                                <td class="table-primary border rounded-0" rowspan="1" colspan="2"><strong>ÏàòÏ°∞Î≤àÌò∏</strong></td>
+                                <td rowspan="1" colspan="2">
+                                <input type="text" name="tankid" size="20" placeholder="ÏàòÏ°∞Î≤àÌò∏" style="border:none; background: transparent; width: 80%;" maxlength="10"></td>
                             </tr>
                             <tr>
-                                <td class="table-primary"><strong>æÓ¡æ</strong></td>
-                                <td class="flex-shrink-0"><select class="form-control-sm pl-2" style="padding-right: 0;padding-left: 0;padding-bottom: 0;padding-top: 1;margin-left: -80px;margin-right: -80px;"><optgroup label="æÓ¡æ¿ª º±≈√«œººø‰"><option value="12" selected="">≥“ƒ°</option><option value="13">π´¡ˆ∞≥º€æÓ</option></optgroup></select><br></td>
-                                <td
-                                    class="table-primary"><strong>¥„¥Á¿⁄</strong></td>
-                                    <td><button class="btn btn-primary btn-sm" type="button"><strong>¡∂»∏</strong></button><br></td>
-                            </tr>
+                                <td class="table-primary"><strong>Ïñ¥Ï¢Ö</strong></td>
+                                
+                                <td class="flex-shrink-0">
+                                <select class="form-control-sm pl-2" style="padding-right: 0; padding-left: 0; padding-bottom: 0; padding-top: 1; margin-left: -80px; margin-right: -80px;">
+	                                <optgroup label="Ïñ¥Ï¢ÖÏùÑ ÏÑ†ÌÉùÌïòÏÑ∏Ïöî">
+<%
+												for (int j = 0; j < fishname_list.size(); j++) {
+												System.out.println(fishname_list.get(j));
+%>
+												<option value="<%=fishname_list.get(j).getRemark()%>">
+												<%=fishname_list.get(j).getRemark()%></option>
+<%
+												}
+%>										</optgroup>
+									</select>
+                                <br></td>
+                                
+                                
+                             <td class="table-primary">
+<%
+						if (user_id != null) {
+%>
+							<strong>Îã¥ÎãπÏûê</strong></td>
+							<td>
+								 <input type="hidden" name="userid" maxlength="10" value="<%=user_id%>" /> 
+								 <button class="btn btn-primary btn-sm" type="button"  onclick="gofarmwtUserForm_in('<%=FarmID %>')">
+								 <strong>Ï°∞Ìöå</strong>
+								 </button>
+							</td>
+<%
+						} else {
+%>
+							<strong>Îã¥ÎãπÏûê</strong></td>
+							<td><button class="btn btn-primary btn-sm" type="button"  onclick="gofarmwtUserForm_in('<%=FarmID %>')">
+								 <strong>Ï°∞Ìöå</strong>
+								 </button>
+							</td>
+<%
+						} //size
+%>        
+                   </tr>
+                   
+                   
+                   
                             <tr>
-                                <td class="table-primary" rowspan="6"><strong>¿Â∫Ò∏Ì</strong></td>
+                                <td class="table-primary" rowspan="6"><strong>Ïû•ÎπÑÎ™Ö</strong></td>
                                 <td class="table-primary"><strong>DO</strong></td>
-                                <td colspan="2">Cell 3</td>
+                                <td colspan="2">
+                                <input type="text" name="dosensor" size="20" placeholder="DO" style="border:none; background: transparent; width: 80%;" maxlength="10">
+                                </td>
                             </tr>
                             <tr>
                                 <td class="table-primary"><strong>pH</strong></td>
-                                <td colspan="2">Cell 2</td>
+                                <td colspan="2">
+                                <input type="text" name="phsensor" size="20" placeholder="pH" style="border:none; background: transparent; width: 80%;" maxlength="10">
+                                </td>
                             </tr>
                             <tr>
                                 <td class="table-primary"><strong>PSU</strong></td>
-                                <td colspan="2">Cell 2</td>
+                                <td colspan="2">
+                                <input type="text" name="psusensor" size="20" placeholder="PSU" style="border:none; background: transparent; width: 80%;" maxlength="10">
+                                </td>
                             </tr>
                             <tr>
-                                <td class="table-primary"><strong>ºˆø¬</strong></td>
-                                <td colspan="2">Cell 2</td>
+                                <td class="table-primary"><strong>ÏàòÏò®</strong></td>
+                                <td colspan="2">
+                                <input type="text" name="wtsensor" size="20" placeholder="ÏàòÏò®" style="border:none; background: transparent; width: 80%;" maxlength="10">
+                                </td>
                             </tr>
                             <tr>
                                 <td class="table-primary"><strong>NH4</strong></td>
-                                <td colspan="2">Cell 2</td>
+                                <td colspan="2">
+                                <input type="text" name="nh4sensor" size="20" placeholder="NH4" style="border:none; background: transparent; width: 80%;" maxlength="10">
+                                </td>
                             </tr>
                             <tr>
                                 <td class="table-primary"><strong>NO2</strong></td>
-                                <td colspan="2">Cell 2</td>
+                                <td colspan="2">
+                                <input type="text" name="no2sensor" size="20" placeholder="NO2" style="border:none; background: transparent; width: 80%;" maxlength="10">
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-
-					
-					
-				</div>
-				<!-- END LINE -->
-				</div>
-				
-
-	<!-- partial -->
-	<script src="../../common/Js/script.js"></script>
-
+            <div class="card"></div>
+            <!-- Start: Dropdown Card -->
+            <div class="card shadow d-xl-flex mb-4"></div>
+            <!-- End: Dropdown Card -->
+        </div>
+        <footer class="bg-white d-xl-flex align-items-xl-end sticky-footer">
+            <div class="container my-auto">
+                <div class="text-center my-auto copyright"><span>Copyright ¬© Mokpo National University&nbsp; 2020</span></div>
+            </div>
+        </footer>
+    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <script src="../assets/js/jquery.min.js?h=83e266cb1712b47c265f77a8f9e18451"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js?h=e46528792882c54882f660b60936a0fc"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="../assets/js/theme.js?h=6d33b44a6dcb451ae1ea7efc7b5c5e30"></script>
 </body>
 
-</html>
+</html> 
