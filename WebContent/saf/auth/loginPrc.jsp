@@ -12,7 +12,7 @@
 	<%
 		String login_page_id = request.getParameter("username");
 		String login_page_pw = request.getParameter("password");
-		System.out.println(login_page_id + " " + login_page_pw);
+		
 
 		usertableDAO user_dao = new usertableDAO();
 		usertableDTO dto = user_dao.login_action(login_page_id, login_page_pw);

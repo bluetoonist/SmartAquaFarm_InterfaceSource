@@ -116,7 +116,7 @@
 		}
 		
 		farmnamelist = farm_dao.farmSelect(user_id);
-		System.out.println(farmnamelist);
+		
 		
  		String farmName = null;
 		String search = ""; // 검색 조건 변수
