@@ -6,10 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.farm.NullPointerException;
-import com.farm.NumberFormatException;
-import com.farm.String;
-
 import farm.farmDTO;
 
 import util.DBCon;
@@ -174,7 +170,7 @@ public class farmDAO {
 
 		      ArrayList<farmDTO> vlist = new ArrayList<farmDTO>();
 		      
-		      System.out.println(farm_ID+":"+user_ID);
+		      
 		      
 		      try {
 		         con = dbcp.getConnection();
@@ -229,7 +225,6 @@ public class farmDAO {
 			      ArrayList<farmDTO> vlist = new ArrayList<farmDTO>();			      
 			      ArrayList<Integer> farm_arr = new ArrayList<>();
 			      
-			      System.out.println(user_ID);
 			      
 			      try {
 			         con = dbcp.getConnection();
@@ -249,7 +244,7 @@ public class farmDAO {
 			         }
 			         
 			         for(int farm_id : farm_arr) {
-			        	 System.out.println(farm_id);
+			        	 
 			        	 String sql_farm = "select farmid,farmname,address from farm where farmid= ?";
 				         
 			        	 pstmt = con.prepareStatement(sql_farm);
