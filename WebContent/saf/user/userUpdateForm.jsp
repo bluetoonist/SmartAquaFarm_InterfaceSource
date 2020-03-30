@@ -1,6 +1,4 @@
 
-
-
 <%@ page import="farm.*"%>
 
 <%@ page import="java.util.*"%>
