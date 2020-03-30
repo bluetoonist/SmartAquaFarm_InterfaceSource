@@ -44,6 +44,7 @@
 		// 쿼리스트링 farmid
 		String Farmid = request.getParameter("farmid");
 		
+		
 		// 정수형 양식장 ID
 		int FarmID;
 		
