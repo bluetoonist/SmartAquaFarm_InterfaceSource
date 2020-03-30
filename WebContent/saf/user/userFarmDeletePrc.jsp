@@ -10,30 +10,34 @@
 	 ■ EDIT CONTENT			: 
 --%>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ page import="com.usertable.*" %>
-<%@ page import="com.farm.*" %>
-<%@ include file="../include/include/session.inc"%>
-<jsp:useBean id="dao" class="com.usertable.usertableDAO" />
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="user.*"%>
+<%@ page import="farm.*"%>
+
+<jsp:useBean id="dao" class="user.usertableDAO" />
 
 <%
+	/* Session  Configuration */
+	String user_id = (String) session.getAttribute("userId");
+	String user_name = (String) session.getAttribute("userName");
+	String user_auth = (String) session.getAttribute("userAuth");
+
 	// 한글 패치
 	request.setCharacterEncoding("EUC-KR");
 
 	// 전화번호, 양식장 id 가져오기
-	usertableDTO dto = dao.getuser(ID);
-	
-	String FarmID = dto.getFarmId();	// 양식장 id
-	
+	usertableDTO dto = dao.getuser(user_id);
+
+	String FarmID = dto.getFarmId(); // 양식장 id
+
 	String fid = request.getParameter("FarmID");
-	
-	if(Auth.equals("전체관리자")){
+
+	if (user_auth.equals("sysadmin")) {
 		dao.sysdelFarm(fid);
-	}else{
-		dao.delFarm(fid, ID);
+	} else {
+		dao.delFarm(fid, user_id);
 	}
-	
+
 	response.sendRedirect("./userInfo.jsp");
 %>
 <script>
