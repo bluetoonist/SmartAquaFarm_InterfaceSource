@@ -6,10 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.farm.NullPointerException;
-import com.farm.NumberFormatException;
-import com.farm.String;
-
 import farm.farmDTO;
 
 import util.DBCon;
@@ -23,7 +19,7 @@ public class farmDAO {
 	 * @author Hwang Seon Ju
 	 * @param ID
 	 * @return ArrayList<farmDTO>
-	 * @remark 양식장 이름 출력(권한 : 사용자) , 사용처 - main.jsp ,farmwtSearch.jsp
+	 * @remark �뼇�떇�옣 �씠由� 異쒕젰(沅뚰븳 : �궗�슜�옄) , �궗�슜泥� - main.jsp ,farmwtSearch.jsp
 	 ***********************************/
 
 	public ArrayList<farmDTO> farmSelect(String ID) throws NullPointerException, SQLException {
@@ -72,7 +68,7 @@ public class farmDAO {
 	    * @author Hwang Seon Ju
 	    * @param  farmid
 	    * @return ArrayList<farmDTO>
-	    * @remark �뼇�떇�옣 �씠由� 異쒕젰(沅뚰븳 : admin, sysadmin) , �궗�슜泥� - main.jsp ,farmwtSearch.jsp
+	    * @remark 占쎈펶占쎈뻼占쎌삢 占쎌뵠�뵳占� �빊�뮆�젾(亦낅슦釉� : admin, sysadmin) , 占쎄텢占쎌뒠筌ｏ옙 - main.jsp ,farmwtSearch.jsp
 	    ***********************************/
 
 	   public ArrayList<farmDTO> farmSelect(int farmid) throws NullPointerException, SQLException {
@@ -93,7 +89,7 @@ public class farmDAO {
 	         while (rs.next()) {
 	            farmDTO vo = new farmDTO();
 	            
-	            vo.setFarmName(rs.getString("farmname"));      // �뼇�떇�옣 �씠由�
+	            vo.setFarmName(rs.getString("farmname"));      // 占쎈펶占쎈뻼占쎌삢 占쎌뵠�뵳占�
 	            
 	            farmnamelist.add(vo);
 	         }
@@ -108,10 +104,10 @@ public class farmDAO {
 	  
 	   /**************************************
 	    * @name  getFarm()
-	    * @author  源��꽦�쁽
+	    * @author  繹먲옙占쎄쉐占쎌겱
 	    * @param   FarmID from FarmTable
 	    * @return  list
-	    * @remark  �궗�슜�옄 �젙蹂댁뿉�꽌 �뼇�떇�옣 媛믪쓣 媛��졇�삩�떎 - userInfo.jsp
+	    * @remark  占쎄텢占쎌뒠占쎌쁽 占쎌젟癰귣똻肉됵옙苑� 占쎈펶占쎈뻼占쎌삢 揶쏅�れ뱽 揶쏉옙占쎌죬占쎌궔占쎈뼄 - userInfo.jsp
 	    ****************** ********************/
 	   
 	   
@@ -233,7 +229,7 @@ public class farmDAO {
 			      
 			      try {
 			         con = dbcp.getConnection();
-			         /* 양식장 리스트 조회 */
+			         /* �뼇�떇�옣 由ъ뒪�듃 議고쉶 */
 			         sql = "select farmid from usertable where userid= ?";
 			         pstmt = con.prepareStatement(sql);
 			         pstmt.setString(1, user_ID);
