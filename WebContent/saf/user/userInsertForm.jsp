@@ -1,94 +1,133 @@
-<%--
-	■ SYSTEM				: 
-	■ SOURCE FILE NAME		: userInsertForm.jsp
-	■ DESCRIPTION			: 사용자 추가  Form
-	■ COMPANY				: 목포대학교 융합소프트웨어공학과 
-	■ PROGRAMMER			: 김성현 
-	■ DESIGNER				: 
-	■ PROGRAM DATE			: 2019.08.19
-	■ EDIT HISTORY			: 
-	■ EDIT CONTENT			: 
---%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../include/include/session.inc"%>
-<%@ page import="com.usertable.*" %>
-
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>스마트 모니터링 시스템</title>
 
-<link rel="stylesheet" href="../common/jqm-button/icon.css" />
-<link rel="stylesheet" href="../common/style.css">
-<script src="../common/main.js"></script>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Profile - Brand</title>
+    <link rel="stylesheet" href="../../common/assets/bootstrap/css/bootstrap.min.css?h=e352b4b3401049979e7ebdd84c3caf81">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+    <link rel="stylesheet" href="../../common/assets/fonts/fontawesome-all.min.css?h=18313f04cea0e078412a028c5361bd4e">
+    <link rel="stylesheet" href="../../common/assets/fonts/ionicons.min.css?h=18313f04cea0e078412a028c5361bd4e">
+    <link rel="stylesheet" href="../../common/assets/css/Header-Blue.css?h=7fad78607ce59d50c5d9dc2f028b4b7b">
+    <link rel="stylesheet" href="../../common/assets/css/Login-Form-Dark.css?h=d014ac7b8d4b9b6c8b9646f2e2315bc5">
+    <link rel="stylesheet" href="../../common/assets/css/untitled.css?h=7feee93f573b1ef2766af1d8290eeb33">
 </head>
 
-<body>
-
-	<header>
-		<%@ include file="../include/header.inc" %>
-	</header>
-	<section>
-
-	<h2>사용자 추가</h2>
-	<br>
-		<form name="userInsertForm">
-			<input type="button" name="add" class="save"
-			onclick="checkValue()"/>
-			<input type="button" name="cancel" class="cancel"
-			onclick="location.href='./userManagement.jsp'" />
-			<div class="info">양식에 맞게 입력해 주세요</div>
-
-			<table class="userInfo">
-				<tr>
-					<th width="20%">ID</th>
-					<td>
-					<input type="text" name="userID" maxlength="15" onkeydown="inputIdChk()" style="float:left; width:70%;"/>
-					<input type="button" class="duplicate" onclick="idCheck()" style="float: right;" />
-					<input type="hidden" name="idDuplication" value="idUncheck" />
-					</td>
-				</tr>
-				<tr>
-					<th>비밀번호</th>
-					<td><input type="password" name="userPW" maxlength="20" style="float:left; width:70%;"/></td>
-				</tr>
-				<tr>
-					<th>비밀번호확인</th>
-					<td><input type="password" name="userPWChk" maxlength="20" style="float:left; width:70%;"/></td>
-				</tr>
-				<tr>
-					<th>이름</th>
-					<td><input type="text" name="userName" maxlength="20" style="float:left; width:70%;"/></td>
-				</tr>
-				<tr>
-					<th>연락처</th>
-					<!-- String으로 쓴 이유 : sqldeveloper에 저장될때 앞에 0이 사라져서 -->
-					<td><input type="text" name="usertel" maxlength="13" style="float:left; width:70%;" onkeypress="OnlyNumber()" /></td>
-				</tr>
-				<tr>
-					<th>직책</th>
-					<td>
-					
-					<% if(Auth == "일반관리자"){ %>
-					<select name="userAuth1">
-						<option value="user">회원</option>
-					</select>
-					<% }else { %>
-					<select name="userAuth">
-						<option value="sysadmin">전체 관리자</option>
-						<option value="admin">일반 관리자</option>
-						<option value="user">회원</option>
-					</select>
-					<% } %>
-					</td>
-				</tr>
-			</table>
-
-		</form>
-
-	</section>
-
+<body id="page-top">
+    <div id="wrapper">
+        <!-- Start: 메뉴바 -->
+        <nav class="navbar navbar-dark bg-success align-items-start sidebar sidebar-dark bg-gradient-primary accordion p-0" style="background-color: rgb(198,43,43);">
+            <div class="container-fluid d-flex flex-column p-0">
+                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-fish"></i></div>
+                    <div class="sidebar-brand-text mx-3"><span class="text-monospace">sMART AQUA FARM</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="nav navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="index.html"><i class="fas fa-tachometer-alt"></i><span>모니터링</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="farmwtSearch.html"><i class="fas fa-table"></i><span>상태 기준 정보</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="table.html"><i class="fas fa-th-list"></i><span>상태 기록</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="login.html"><i class="fas fa-record-vinyl"></i><span>조치 기록</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="register.html"><i class="fas fa-chart-bar"></i><span>통계</span></a><a class="nav-link" href="register.html"><i class="fas fa-tint"></i><span>양식장 정보 관리</span></a><a class="nav-link" href="farmwtSearch.html"><i class="fas fa-water"></i><span>수조 정보</span></a></li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+        <!-- End: 메뉴바 -->
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                        <h3 class="text-dark mb-0 navbar-brand"><strong>사용자 등록</strong></h3>
+                        <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            <div class="input-group">
+                                <div class="input-group-append"></div>
+                            </div>
+                        </form>
+                        <ul class="nav navbar-nav flex-nowrap ml-auto">
+                            <li class="nav-item dropdown no-arrow mx-1" role="presentation"></li>
+                            <li class="nav-item dropdown no-arrow mx-1" role="presentation">
+                                <div class="shadow dropdown-list dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown"></div>
+                            </li>
+                            <div class="d-none d-sm-block topbar-divider"></div>
+                            <li class="nav-item dropdown no-arrow" role="presentation">
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">sysadmin</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar1.jpeg?h=0ecc82101fb9a10ca459432faa8c0656"></a>
+                                    <div
+                                        class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="userInfo.html"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;회원 정보</a>
+                                        <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;로그아웃</a></div>
+                    </div>
+                    </li>
+                    </ul>
+            </div>
+            </nav>
+            <div class="container text-right"><button class="btn btn-primary mr-2 mb-2" type="button">등록</button><button class="btn btn-primary mb-2" type="button">취소</button></div>
+            <div class="container">
+                <div class="card"></div>
+                <div class="row mb-2">
+                    <div class="col">
+                        <div class="table-responsive table-bordered text-truncate">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr></tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="table-primary text-center"><strong>회원 이름</strong></td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-xl-10"><input type="text" class="form-control" placeholder="회원이름" name="username"></div>
+                                                <div class="col text-right"><button class="btn btn-primary btn-block" type="button">중복확인</button></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-primary text-center"><strong>사용자 PW</strong></td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col"><input type="password" class="form-control" placeholder="비밀번호"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-primary text-center"><strong>사용자 PW 확인</strong></td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col"><input type="password" class="form-control" placeholder="비밀번호 확인"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-primary text-center"><strong>연락처</strong></td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col"><input type="text" class="form-control" placeholder="연락처 " name="username"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-primary text-center"><strong>직책</strong></td>
+                                        <td class="text-center"><select class="custom-select"><option value="12" selected="">전체관리자</option><option value="13">일반관리자</option><option value="14">사용자</option></select></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="bg-white d-xl-flex align-items-xl-end sticky-footer">
+            <div class="container my-auto">
+                <div class="text-center my-auto copyright"><span>Copyright © Mokpo National University&nbsp; 2020</span></div>
+            </div>
+        </footer>
+    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+    <script src="../../common/assets/js/jquery.min.js?h=83e266cb1712b47c265f77a8f9e18451"></script>
+    <script src="../../common/assets/bootstrap/js/bootstrap.min.js?h=e46528792882c54882f660b60936a0fc"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="../../common/assets/js/theme.js?h=6d33b44a6dcb451ae1ea7efc7b5c5e30"></script>
 </body>
+
 </html>
