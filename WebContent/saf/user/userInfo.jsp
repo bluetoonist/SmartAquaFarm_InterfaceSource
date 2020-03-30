@@ -1,58 +1,4 @@
-<%--
-	■ SYSTEM                :  SAF 
-	■ SOURCE FILE NAME      :  userInfo.jsp
-	■ DESCRIPTION           :  사용자 정보 확인 form
-	■ COMPANY               :  목포대학교 융합소프트웨어학과 
-	■ PROGRAMMER            :  김성현
-	■ DESIGNER              : 
-	■ PROGRAM DATE          :  2019.08.19
-	■ EDIT HISTORY          :  2019.08.22
-	■ EDIT CONTENT          : 
---%>
-
-<%-- CLASS DECLARE --%>
-
-<%@ page import="farm.farmDTO"%>
-<%@ page import="java.util.*"%>
-<%@ page import="java.util.stream.Stream"%>
-<%@ page import="farm.*"%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<jsp:useBean id="farm_dao" class="farm.farmDAO" />
-<jsp:useBean id="farm_dto" class="farm.farmDTO" />
-
-<jsp:useBean id="user_dao" class="user.usertableDAO" />
-<jsp:useBean id="user_dto" class="user.usertableDTO" />
-
-<%-- 전화번호, 양식장 id 가져오기 --%>
-
-<%
-	/* Session  Configuration */
-	String user_id = (String) session.getAttribute("userId");
-	String user_name = (String) session.getAttribute("userName");
-	String user_auth = (String) session.getAttribute("userAuth");
-	
-	String tel = null;
-	String FarmID =null;
-	String farmname = null;
-	String address = null;
-	
-	user_dto = user_dao.getuser(user_id);
-	
-	tel = user_dto.getUserTel(); // 전화번호
-	FarmID = user_dto.getFarmId(); // 양식장 id
-
-	ArrayList<farmDTO> fm_dto = farm_dao.getuserData(FarmID,user_id);
-
-	farmname = farm_dto.getFarmName();
-	address = farm_dto.getAddress();
-	// 사용자 소속양식장 추가 배열
-	//ArrayList userlist = dao.
-	
-	
-%>
-
 <!DOCTYPE html>
 <html>
 
@@ -60,22 +6,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Profile - Brand</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css?h=e352b4b3401049979e7ebdd84c3caf81">
+    <link rel="stylesheet" href="../../common/assets/bootstrap/css/bootstrap.min.css?h=e352b4b3401049979e7ebdd84c3caf81">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css?h=18313f04cea0e078412a028c5361bd4e">
-    <link rel="stylesheet" href="assets/fonts/ionicons.min.css?h=18313f04cea0e078412a028c5361bd4e">
-    <link rel="stylesheet" href="assets/css/Header-Blue.css?h=7fad78607ce59d50c5d9dc2f028b4b7b">
-    <link rel="stylesheet" href="assets/css/Login-Form-Dark.css?h=d014ac7b8d4b9b6c8b9646f2e2315bc5">
-    <link rel="stylesheet" href="assets/css/untitled.css?h=7feee93f573b1ef2766af1d8290eeb33">
-    <link rel="stylesheet" href="../../common/assets/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="../../common/assets/fonts/fontawesome-all.min.css">
-	<link rel="stylesheet" href="../../common/assets/fonts/ionicons.min.css">
-	<link rel="stylesheet" href="../../common/assets/css/Login-Form-Dark.css">
-	<link rel="stylesheet" href="../../common/assets/css/untitled.css">
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-    
+    <link rel="stylesheet" href="../../common/assets/fonts/fontawesome-all.min.css?h=18313f04cea0e078412a028c5361bd4e">
+    <link rel="stylesheet" href="../../common/assets/fonts/ionicons.min.css?h=18313f04cea0e078412a028c5361bd4e">
+    <link rel="stylesheet" href="../../common/assets/css/Header-Blue.css?h=7fad78607ce59d50c5d9dc2f028b4b7b">
+    <link rel="stylesheet" href="../../common/assets/css/Login-Form-Dark.css?h=d014ac7b8d4b9b6c8b9646f2e2315bc5">
+    <link rel="stylesheet" href="../../common/assets/css/untitled.css?h=7feee93f573b1ef2766af1d8290eeb33">
 </head>
 
 <body id="page-top">
@@ -90,10 +28,12 @@
                 <hr class="sidebar-divider my-0">
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item" role="presentation"><a class="nav-link" href="../main/index.jsp"><i class="fas fa-tachometer-alt"></i><span>모니터링</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="#l"><i class="fas fa-table"></i><span>상태 기준 정보</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="#"><i class="fas fa-th-list"></i><span>상태 기록</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="#"><i class="fas fa-record-vinyl"></i><span>조치 기록</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="#"><i class="fas fa-chart-bar"></i><span>통계</span></a><a class="nav-link" href="register.html"><i class="fas fa-tint"></i><span>양식장 정보 관리</span></a><a class="nav-link" href="farmwtSearch.html"><i class="fas fa-water"></i><span>수조 정보</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="../growinfo/growInfo.jsp"><i class="fas fa-table"></i><span>상태 기준 정보</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="table.html"><i class="fas fa-th-list"></i><span>상태 기록</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="login.html"><i class="fas fa-record-vinyl"></i><span>조치 기록</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="register.html"><i class="fas fa-chart-bar"></i><span>통계</span></a>
+                    <a class="nav-link" href="register.html"><i class="fas fa-tint"></i><span>양식장 정보 관리</span></a>
+                    <a class="nav-link" href="farmwtSearch.html"><i class="fas fa-water"></i><span>수조 정보</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -118,14 +58,14 @@
                             <li class="nav-item dropdown no-arrow" role="presentation">
                                 <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">sysadmin</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar1.jpeg?h=0ecc82101fb9a10ca459432faa8c0656"></a>
                                     <div
-                                        class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="userInfo.html"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;회원 정보</a>
-                                        <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;로그아웃</a></div>
+                                        class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="./userInfo.jsp"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;회원 정보</a>
+                                        <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation" href="../auth/logoutPrc.jsp"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;로그아웃</a></div>
                     </div>
                     </li>
                     </ul>
             </div>
             </nav>
-            <div class="container-fluid text-right"><a class="btn btn-primary text-center text-white mb-3" role="button">사용자관리</a></div>
+            <div class="container-fluid text-right"><a class="btn btn-primary text-center text-white mb-3" role="button" href="./userManagement.jsp">사용자관리</a></div>
             <div class="container-fluid">
                 <div class="row mb-3">
                     <div class="col-lg-8 col-xl-10">
@@ -254,10 +194,10 @@
             </div>
         </footer>
     </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
-    <script src="assets/js/jquery.min.js?h=83e266cb1712b47c265f77a8f9e18451"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js?h=e46528792882c54882f660b60936a0fc"></script>
+    <script src="../../common/assets/js/jquery.min.js?h=83e266cb1712b47c265f77a8f9e18451"></script>
+    <script src="../../common/assets/bootstrap/js/bootstrap.min.js?h=e46528792882c54882f660b60936a0fc"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-    <script src="assets/js/theme.js?h=6d33b44a6dcb451ae1ea7efc7b5c5e30"></script>
+    <script src="../../common/assets/js/theme.js?h=6d33b44a6dcb451ae1ea7efc7b5c5e30"></script>
 </body>
 
-</html> 
+</html>

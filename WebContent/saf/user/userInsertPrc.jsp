@@ -12,8 +12,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
-<%@ page import="com.usertable.*"%>
-<%@ include file="../include/include/session.inc"%>
+<%@ page import="user.*"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 

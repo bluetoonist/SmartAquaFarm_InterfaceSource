@@ -1,20 +1,20 @@
 <%--
-	■ SYSTEM                :  SAF 
-	■ SOURCE FILE NAME      :  userInfo.jsp
-	■ DESCRIPTION           :  사용자 정보 확인 form
-	■ COMPANY               :  목포대학교 융합소프트웨어학과 
-	■ PROGRAMMER            :  김성현
-	■ DESIGNER              : 
-	■ PROGRAM DATE          :  2019.08.19
-	■ EDIT HISTORY          :  2019.08.22
-	■ EDIT CONTENT          : 
+	■ SYSTEM				: 
+	■ SOURCE FILE NAME		: userUpdateForm.jsp
+	■ DESCRIPTION			: 사용자 정보 수정  Form
+	■ COMPANY				: 목포대학교 융합소프트웨어공학과 
+	■ PROGRAMMER			: 김성현 
+	■ DESIGNER				: 
+	■ PROGRAM DATE			: 2019.08.30
+	■ EDIT HISTORY			: 
+	■ EDIT CONTENT			: 
 --%>
-
 <%-- CLASS DECLARE --%>
 
 <%@ page import="farm.farmDTO"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.util.stream.Stream"%>
+
 <%@ page import="farm.*"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -33,28 +33,55 @@
 	String user_name = (String) session.getAttribute("userName");
 	String user_auth = (String) session.getAttribute("userAuth");
 	
-	String tel = null;
-	String FarmID =null;
-	String farmname = null;
-	String address = null;
-	
 	user_dto = user_dao.getuser(user_id);
 	
-	tel = user_dto.getUserTel(); // 전화번호
-	FarmID = user_dto.getFarmId(); // 양식장 id
+	String tel = user_dto.getUserTel(); // 전화번호
+	String FarmID = user_dto.getFarmId(); // 양식장 id
 
 	ArrayList<farmDTO> fm_dto = farm_dao.getuserData(FarmID,user_id);
 
-	farmname = farm_dto.getFarmName();
-	address = farm_dto.getAddress();
+	String farmname = farm_dto.getFarmName();
+	String address = farm_dto.getAddress();
 	// 사용자 소속양식장 추가 배열
 	//ArrayList userlist = dao.
-	
-	
 %>
+<script>
 
+	function goDelete(Auth, Name, FarmID) {
+		var del = document.userUpdateForm;
+		if(confirm(Name+" 를 삭제하시겠습니까?")){
+			del.method = "post";
+			del.action = "userDeletePrc.jsp";
+			del.target = "_self";
+			del.submit();
+		}		
+	} 
+	
+	function checkValueUpdate(){
+		var form = document.userUpdateForm;
+		if(!form.userPW.value){
+			alert("비밀번호를 입력하세요");
+			return false;
+		}
+		if(!form.userPWChk.value){
+			alert("비밀번호확인을 입력하세요");
+			return false;
+		}
+		if(form.userPW.value != form.userPWChk.value){
+			alert("비밀번호를 동일하게 입력하세요");
+			return false;
+		}
+	
+		if(confirm("사용자 정보를 변경하시겠습니까?")){
+			form.method="post";
+			form.action="userUpdatePrc.jsp";
+			form.submit();
+		}else{
+			return false;
+		}
+	}
 
-
+</script>
 <!DOCTYPE html>
 
 <head>
@@ -124,76 +151,103 @@
 
 	<main> <!-- 수조 상태를 나타낼 화면 -->
 	<div class="title">
-		<h2>사용자 정보 관리</h2>
+		<h2>사용자 정보 수정</h2>
 		<a onclick="MoveMyPage()">안녕하세요 <%=user_name%>님 </a>
 	</div>
 	<div></div>
 
-	<article>
+	
 
-		<div class="wrapper">
-			<!-- PRICING-TABLE CONTAINER -->
-			<div class="pricing-table group">
-				<h1 class="heading">사용자 정보 관리</h1>
-			</div>
 		
-			<div class=user_manage_form>
-				<form class=userInfoForm>
-				<% if(user_auth.equals("user")){ %>
-				<% }else{ %>
-					<input type="button" style="width:80px;" value="사용자관리"> 
-					<% } %>
-					<input type="button" onclick="location.href='userUpdateForm.jsp'" value="수정"> 
-					<input type="button" onclick="location.href='../main/index.jsp'" value="취소">
-				</form>
-				<br> <span class=formBox1>
-					<div class=up_text>반갑습니다</div> <br>
-				<hr>
-					<div class=down_text><%=user_dto.getUserName()%> 반갑습니다</div>
 
-				</span> <br>
+	<article>
+	
+		<!-- PRICING-TABLE CONTAINER -->
+		<div class="pricing-table group">
+			<h1 class="heading">사용자 정보 수정</h1>
+		</div>
+	
+		<div class=user_update_form>
+			<form class=userUpdateForm name="userUpdateForm">
+				<input type="button" class="button" value="삭제" onclick="goDelete(); return false;"/>
+				<input type="button" class="button" value="수정" onclick="checkValueUpdate(); return false;"/>
+				<input type="button" class="button" value="취소" onclick="location.href='../main/index.jsp'"/>
 				<br>
 				<br>
-				<br>
-				<!-- End FormBox -->
+				<!-- Start FormBox -->
 				<span class=formBox1>
-					<div class=up_text>직책</div> <br>
+					<div class=up_text>ID</div> 
+				<br>
+				<hr>
+					<div class=down_text><input type="text" style="float:left; width:99%;" name="id" readonly value="<%= user_id %>" /></div>
+				</span>
+				<!-- End FormBox -->
+				<br>
+				<br>
+				<br>	
+				<br>
+				<!-- Start FormBox -->
+				<span class=formBox1>
+					<div class=up_text>비밀번호</div>
+				<br>
+				<hr>
+					<div class=down_text><input type="password" name="userPW" maxlength="20" style="float:left; width:99%;" placeholder="비밀번호를 입력하세요."/></div>
+				</span>
+				<!-- End FormBox -->
+				<br>
+				<br>
+				<br>
+				<br>
+				<!-- Start FormBox -->
+				<span class=formBox1>
+					<div class=up_text>비밀번호 확인</div>
+				<br>
+				<hr>
+					<div class=down_text><input type="password" name="userPWChk" maxlength="20" style="float:left; width:99%;" placeholder="비밀번호 확인을 입력하세요."/></div>
+				</span>
+				<!-- End FormBox -->
+				<br>
+				<br>
+				<br>
+				<br>
+				<!-- Start FormBox -->
+				<span class=formBox1>
+					<div class=up_text>이름</div>
+				<br>
+				<hr>
+					<div class=down_text><input type="text" name="name" style="float:left; width:99%;" value="<%=user_name%>" maxlength="20" /></div>
+				</span>
+				<!-- End FormBox -->
+				<br>
+				<br>
+				<br>
+				<br>
+				<!-- Start FormBox -->
+				<span class=formBox1>
+					<div class=up_text>연락처</div>
+				<br>
+				<hr>
+					<div class=down_text><input type="text" name="usertel" maxlength="13" value="<%= tel %>"
+					 style="float:left; width:99%;" onkeypress="OnlyNumber()" /></div>
+				</span>
+				<!-- End FormBox -->
+				<br>
+				<br>
+				<br>
+				<br>
+				<!-- Start FormBox -->
+				<span class=formBox1>
+					<div class=up_text>직책</div>
+				<br>
 				<hr>
 					<div class=down_text><%= user_auth %></div>
 				</span>
 				<!-- End FormBox -->
-				<br>
-				<br>
-				<br>
-				<br> <span class=formBox1>
-					<div class=up_text>연락처</div> <br>
-				<hr>
-					<div class=down_text><%= tel %></div>
-				</span>
-				<!-- End FormBox -->
-				<br>
-				<br>
-				<br>
-				<br> <span class=formBox1>
-					<div class=up_text>소속 양식장</div> <br>
-				<hr>
-				<% 
-				for(int i =0; i<fm_dto.size(); i++){ %>
-					<div class=down_text> 양식장 이름 : <%= fm_dto.get(i).getFarmName() %> &nbsp;&nbsp;&nbsp;&nbsp; 양식장 주소 :  <%= fm_dto.get(i).getAddress() %> </div>
-					<% } %>
-				</span>
-				<!-- End FormBox -->
-			</div>
-			
-	
-
+		</form>
 		</div>
-
 	</article>
 	</main>
-	<!-- partial -->
-	<script src="../../common/Js/script.js"></script>
+	</form>
 
 </body>
-
 </html>
