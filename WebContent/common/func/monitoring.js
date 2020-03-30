@@ -82,13 +82,18 @@ function goSelectedFarm() {
 			var check_wt_number = result[0][0].all_waterTank_count;
 			
 			// 수조 정보 초기화
-		
+			console.log("초기화 시작");
 			var deleteValue = document.getElementById("watertank_layout_grid")
 			var remove_length=deleteValue.getElementsByClassName("card shadow mb-md-0 offset-md-1s ml-5").length
 				
 			for(i=remove_length-1; i>=0 ; i--) {
 				deleteValue.getElementsByClassName("card shadow mb-md-0 offset-md-1s ml-5")[i].remove();
 			}
+			
+			creDiv.textContent = "새로고침 완료";
+			console.log("새로고침 완료");
+			console.log("초기화 끝");
+			
 			
 			
 			if (check_wt_number == 0) {
@@ -161,8 +166,8 @@ function goSelectedFarm() {
 				    //  DO					
 				    html += "                        <tr>";				   
 				    if(watertank_do >= 8.5) { //DO Safety
-				    	html += "                            <td class=\"table-danger text-left text-sm-left text-md-left text-lg-left text-xl-left\">DO</td>";
-				    	html += "                            <td class=\"table-danger\">" +watertank_do+ "</td>"
+				    	html += "                            <td class=\" text-left text-sm-left text-md-left text-lg-left text-xl-left\">DO</td>";
+				    	html += "                            <td>"+watertank_do+"</td>"
 				    } else if ( watertank_do >= 4.5) { //DO Warning
 				    	html += "                            <td class=\"table-warning text-left text-sm-left text-md-left text-lg-left text-xl-left\">DO</td>";					    	
 				    	html += "                            <td class=\"table-warning\">"+watertank_do+"</td>"

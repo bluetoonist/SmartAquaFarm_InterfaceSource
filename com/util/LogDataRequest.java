@@ -98,7 +98,7 @@ public class LogDataRequest extends HttpServlet {
 			}			
 		}
 		
-		
+		System.out.println(result.toString());
 		return result.toString();
 	}
 }

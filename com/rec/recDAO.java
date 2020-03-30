@@ -52,10 +52,10 @@ public class recDAO {
 			
 			for (int i = 0; i < tankidArray.size(); i++) {
 				recDTO tempbean = new recDTO();
-				
+				System.out.println(tankidArray.get(i));
 				sql = "select TANKID, STATE,YRCODE,FISHID,DOREC,WTREC,PHREC,NH4REC,NO2REC,RECSEQ"
 						+ " from ( select * from rec order by ROWNUM DESC)" + " where  ROWNUM=1 and tankid= ? and farmid = ?";
-				
+				System.out.println(sql);
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, tankidArray.get(i));
 				pstmt.setString(2,farmID);

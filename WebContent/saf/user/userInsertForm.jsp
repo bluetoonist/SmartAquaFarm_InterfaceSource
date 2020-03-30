@@ -70,7 +70,7 @@
 				<tr>
 					<th>직책</th>
 					<td>
-					
+					<% System.out.println(Auth); %>
 					<% if(Auth == "일반관리자"){ %>
 					<select name="userAuth1">
 						<option value="user">회원</option>
