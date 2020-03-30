@@ -66,7 +66,7 @@ function goSelectedFarm() {
 	
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			console.log(xhr.responseText);
+			
 			var JsonObj = eval("(" + xhr.responseText + ")");
 			
 			// watertank REC Data Dynamic Loading Logic
@@ -75,18 +75,32 @@ function goSelectedFarm() {
 			var creDiv = document.getElementById("watertank_layout_grid");
 			temp = creDiv;
 			
-			console.log(temp);
+			
 			// Check WaterTank Count value
 			// if check_wt_number == "0"
 			// remove all display before watertank
 			var check_wt_number = result[0][0].all_waterTank_count;
 			
+			// 수조 정보 초기화
+			console.log("초기화 시작");
+			var deleteValue = document.getElementById("watertank_layout_grid")
+			var remove_length=deleteValue.getElementsByClassName("card shadow mb-md-0 offset-md-1s ml-5").length
+				
+			for(i=remove_length-1; i>=0 ; i--) {
+				deleteValue.getElementsByClassName("card shadow mb-md-0 offset-md-1s ml-5")[i].remove();
+			}
+			
+			creDiv.textContent = "새로고침 완료";
+			console.log("새로고침 완료");
+			console.log("초기화 끝");
+			
+			
 			
 			if (check_wt_number == 0) {
-				var deleteValue = creDiv.getElementsByClassName("row offset-lg-1").length
-				
+				var deleteValue = document.getElementById("watertank_layout_grid")
+				var remove_length=deleteValue.getElementsByClassName("card shadow mb-md-0 offset-md-1s ml-5").length
 					
-				for(i=deleteValue-1; i>=0 ; i--) {
+				for(i=remove_length-1; i>=0 ; i--) {
 					creDiv.getElementsByClassName("row")[i].remove();
 				}
 				
