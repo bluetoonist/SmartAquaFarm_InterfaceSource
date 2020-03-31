@@ -7,6 +7,107 @@
 <%@ page import="user.*"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<script>
+//farmwtUpdateForm.jsp, farmwtInsertForm.jsp 에서 취소,목록보기 버튼을 누를시 farmwtSearch.jsp 로 넘어가능 기능
+//************************************************************************ STARTLINE
+	function farmCancel(formname) {
+		if (formname =="formUpdate"){
+		document.farmSelect.method = "post";
+		 document.farmSelect.action = "farmwtSearch.jsp"; // 확인 클릭시 페이지 이동
+		 document.farmSelect.target = "_self";
+		 document.farmSelect.submit();
+		}
+		if (formname=="formInsert"){
+		 // 폼 찾기
+		 var form = document.farmwtInsertForm;  
+		 // 취소를 누를 경우
+		 form.target = "_self";
+		 form.method = "post";
+		 form.action = "farmwtSearch.jsp";
+		 form.submit();
+		}
+	}
+/* ***************************************************************** END LINE*/
+//farmwtUpdateForm.jsp 에서 수정 버튼을 누를시 farmwtUpdatePrc.jsp 로 넘어가능 기능
+//************************************************************************ START LINE
+ function goUpdate() { // 수정 버튼 클릭시
+ 	
+ 	var frm = document.farmSelect;
+ 	
+ 	if (frm.dosensor.value==' ') {
+ 		alert("DO 센서명을 입력하세요.");
+ 		return;
+ 	}
+ 	if (frm.phsensor.value==' ') {
+ 		alert("pH센서명을 입력하세요.");
+ 		return;
+ 	}
+ 	if (frm.psusensor.value==' ') {
+ 		alert("psu센서명을 입력하세요.");
+ 		return;
+ 	}
+ 	if (frm.wtsensor.value==' ') {
+ 		alert("수온 센서명을 입력하세요.");
+ 		return;
+ 	}
+ 	if (frm.nh4sensor.value==' ') {
+ 		alert("NH4센서명을 입력하세요.");
+ 		return;
+ 	}
+ 	if (frm.no2sensor.value==' ') {
+ 		alert("NO2센서명을 입력하세요.");
+ 		return;
+ 	} 
+ 	if (frm.userid.value==' '){
+ 		alert("담당자를 선택하세요.");
+ 		return;
+ 	}
+ 	
+ 	if (confirm("수조 정보를 업데이트 하시겠습니까?")) { // 수정 전 경고창으로 확인받기
+ 		farmSelect.method = "post";
+ 		frm.action = "farmwtUpdatePrc.jsp"; // 확인 클릭시 페이지 이동
+ 		frm.target = "_self";
+ 		frm.submit();
+
+ 	} else {
+ 		return false;
+ 	}
+ }
+//************************************************************************ END LINE
+// farmwtUpdateForm.jsp에서 삭제 버튼 클릭시 수조정보 삭제되는 기능
+//************************************************************************ START LINE
+function gofarmdelete() {
+	var farm = document.farmSelect;
+	
+	tankid = farm.tankID2.value;
+	fishname = farm.fishnames.value;
+	userid = farm.userid.value;
+	dosensor = farm.dosensor.value;
+	phsensor = farm.phsensor.value;
+	psusensor = farm.psusensor.value;
+	wtsensor = farm.wtsensor.value;
+	nh4sensor = farm.wtsensor.value;
+	no2sensor = farm.no2sensor.value;
+		
+	if(userid == " " && dosensor == " " && phsensor == " " && psusensor == " " &&
+			wtsensor == " " && nh4sensor == " " && no2sensor == " "){
+		farmSelect.method = "post";
+		alert("이미 삭제된 수조정보입니다.");
+		farmSelect.target = "_self";
+		
+		
+	} else if (confirm("수조" + tankid + "의 정보를 삭제하시겠습니까?") == true) {			//삭제하기 전 경고창으로 확인받기
+		farmSelect.method = "post";
+		farm.action = "farmwtDeletePrc.jsp";		//확인 클릭시 페이지 이동
+		farmSelect.target = "_self";
+		farm.submit();
+	} else {
+		return;
+	}
+}
+//************************************************************************ END LINE
+
+</script>
 <%
 	//한글 패치
 	request.setCharacterEncoding("UTF-8");
@@ -15,84 +116,92 @@
 	String user_id = (String) session.getAttribute("userId");
 	String user_name = (String) session.getAttribute("userName");
 	String user_auth = (String) session.getAttribute("userAuth");
-	
+
 	//farmDAO는 mgr1로 사용
-		farmDAO mgr1 = new farmDAO();
-		//waterTankDAO는 mgr2로 사용
-		waterTankDAO mgr2 = new waterTankDAO();
-		//growInfoDAO는 mgr3로 사용
-		growInfoDAO mgr3 = new growInfoDAO();
-		//usertableDAO는 mgr4로 사용
-		usertableDAO mgr4 = new usertableDAO();
+	farmDAO mgr1 = new farmDAO();
+	//waterTankDAO는 mgr2로 사용
+	waterTankDAO mgr2 = new waterTankDAO();
+	//growInfoDAO는 mgr3로 사용
+	growInfoDAO mgr3 = new growInfoDAO();
+	//usertableDAO는 mgr4로 사용
+	usertableDAO mgr4 = new usertableDAO();
 
-		//전페이지에서 가져온 수조번호 값
-		String tankID = request.getParameter("tankID"); //tankID 값 요청(int)해서 받기
+	//전페이지에서 가져온 수조번호 값
+	String tankID = request.getParameter("tankID"); //tankID 값 요청(int)해서 받기
 
-		//전페이지에서 가져온 양식장 아이디 값
-		int FarmID = Integer.parseInt(request.getParameter("FarmID"));
+	//전페이지에서 가져온 양식장 아이디 값
+	int FarmID = Integer.parseInt(request.getParameter("FarmID"));
+	
+	
+	//취소 버튼 누를때 formname 비교 하기 위해서
+	String formname = "formUpdate";
+	
+	//수정할 DB에 있는 값 불러오기
+	ArrayList<waterTankDTO> wtselectlist = mgr2.waterTankSelect(tankID, FarmID);
+
+	//양식장 이름 출력에 사용
+	String farmname = mgr1.farmSelect(FarmID);
+	
+	//어종 셀렉트박스 출력 부분 
+	ArrayList<growInfoDTO> fishname_list = mgr3.fishSelect(FarmID);
+
+	//담당자
+	ArrayList<usertableDTO> userAddlist = mgr4.usertableSelect(user_id);
+	
+	String tankid = null;
+	String lastuptdate =null;
+	String lastuptid = null;
+	String fishname = null;
+	String userid = null;
+	String dosensor = null;
+	String phsensor = null;
+	String psusensor = null;
+	String wtsensor = null;
+	String nh4sensor = null;
+	String no2sensor = null;
+	
+	/* farmDAO에서 받아온 wtselectlist 출력 */
+	for (int i = 0; i < wtselectlist.size(); i++) {
 		
-		System.out.println(tankID);
-		System.out.println(FarmID);
+		//만약 DB에 있는 값이 NULL이면 아무것도 출력 안되게 하려고 적음
+		tankid = wtselectlist.get(i).getTankId();
+		lastuptdate =wtselectlist.get(i).getLastUptdate();
+		lastuptid = wtselectlist.get(i).getLastUptId();
+		fishname = wtselectlist.get(i).getRemark();
+		userid = wtselectlist.get(i).getUserId();
+		dosensor = wtselectlist.get(i).getDoSensor();
+		phsensor = wtselectlist.get(i).getPhSensor();
+		psusensor = wtselectlist.get(i).getPsuSensor();
+		wtsensor = wtselectlist.get(i).getWtSensor();
+		nh4sensor = wtselectlist.get(i).getNh4Sensor();
+		no2sensor = wtselectlist.get(i).getNo2Sensor();
 		
-		//취소 버튼 누를때 formname 비교 하기 위해서
-		String formname = "formUpdate";
+		if (userid == null) {
+			userid = "";
+		}
+		if (dosensor == null) {
+			dosensor = "";
+		}
+		if (phsensor == null) {
+			phsensor = "";
+		}
+		if (psusensor == null) {
+			psusensor = "";
+		}
+		if (wtsensor == null) {
+			wtsensor = "";
+		}
+		if (nh4sensor == null) {
+			nh4sensor = "";
+		}
+		if (no2sensor == null) {
+			no2sensor = "";
+		}
+	
 		
-		//수정할 DB에 있는 값 불러오기
-		ArrayList wtselectlist = mgr2.waterTankSelect(tankID, FarmID);
-
-		//양식장 이름 출력에 사용
-		String farmname = mgr1.farmSelect(FarmID);
-
-		//어종 셀렉트박스 출력 부분 
-		ArrayList<growInfoDTO> fishname_list = mgr3.fishSelect(FarmID);
-
-		String test = request.getParameter("userid");
-
-		//담당자
-		ArrayList<usertableDTO> userAddlist = mgr4.usertableSelect(test);
-
-		/* farmDAO에서 받아온 wtselectlist 출력 */
-		for (int i = 0; i < wtselectlist.size(); i++) {
-			/* System.out.println(i); */
-			waterTankDTO vo = (waterTankDTO) wtselectlist.get(i);
-			vo = (waterTankDTO) wtselectlist.get(i);
-
-			//만약 DB에 있는 값이 NULL이면 아무것도 출력 안되게 하려고 적음
-			String tankid = vo.getTankId();
-			String lastuptdate = vo.getLastUptdate();
-			String lastuptid = vo.getLastUptId();
-			String fishname = vo.getRemark();
-			String userid = vo.getUserId();
-			String dosensor = vo.getDoSensor();
-			String phsensor = vo.getPhSensor();
-			String psusensor = vo.getPsuSensor();
-			String wtsensor = vo.getWtSensor();
-			String nh4sensor = vo.getNh4Sensor();
-			String no2sensor = vo.getNo2Sensor();
-			
-			
-			if (userid == null) {
-				userid = "";
-			}
-			if (dosensor == null) {
-				dosensor = "";
-			}
-			if (phsensor == null) {
-				phsensor = "";
-			}
-			if (psusensor == null) {
-				psusensor = "";
-			}
-			if (wtsensor == null) {
-				wtsensor = "";
-			}
-			if (nh4sensor == null) {
-				nh4sensor = "";
-			}
-			if (no2sensor == null) {
-				no2sensor = "";
-			}
+	
 %>
+
 
 <!-- bean setup  -->
 <jsp:useBean id="user_dto" scope="page" class="user.usertableDTO" />
@@ -172,15 +281,21 @@
             </div>
             </nav>
             <div class="container-fluid">
-                <h5 class="text-dark d-xl-flex justify-content-xl-center align-items-xl-center mb-0 navbar-brand"><strong>가나다수산</strong></h5>
-                <h3 class="text-dark d-xl-flex justify-content-xl-center align-items-xl-center mb-0 navbar-brand"><button class="btn btn-primary btn-sm mr-2" type="button"><strong>취소</strong></button><button class="btn btn-primary btn-sm mr-2" type="button"><strong>수정</strong></button><button class="btn btn-primary btn-sm" type="button"><strong>삭제</strong></button><br></h3>
+                <h5 class="text-dark d-xl-flex justify-content-xl-center align-items-xl-center mb-0 navbar-brand"><strong><%= tankid %></strong></h5>
+                <h3 class="text-dark d-xl-flex justify-content-xl-center align-items-xl-center mb-0 navbar-brand">
+                <button class="btn btn-primary btn-sm mr-2" type="button" onclick="farmCancel('<%=formname%>'); "><strong>취소</strong></button>
+                <button class="btn btn-primary btn-sm mr-2" type="button" onclick="goUpdate();"><strong>수정</strong></button>
+                <button class="btn btn-primary btn-sm" type="button" onclick="gofarmdelete(); "><strong>삭제</strong></button><br></h3>
                 <h3 class="text-dark d-xl-flex justify-content-xl-center align-items-xl-center mb-0 navbar-brand"><br></h3>
             </div>
             
             <form name="farmSelect" target="return false;">
-			<input type="hidden" name="FarmID" value="<%=FarmID%>" />
-			<input type="hidden" name="tankID2" value="<%=tankID%>" />
+			<input type="hidden" name="farmid" value="<%=FarmID%>" />
+			<input type="hidden" name="tankID" value="<%=tankID%>" />
 			<input type="hidden" name="formname" value="<%=formname %>" />
+			<!-- 값 수정 -->
+			<input type="hidden" name="userid" value="admin1"/>
+			<input type="hidden" name="selectFish" value="넙치"/>
 			
 	            <div class="container-fluid text-center">
 	                <div class="table-responsive table-bordered">
@@ -193,15 +308,25 @@
 	                            <tr>
 	                                <td class="table-primary border rounded-0" rowspan="1" colspan="2"><strong>수조번호</strong></td>
 	                                <td rowspan="1" colspan="2">   
-	                                <input type="text" name="tankid" size="20" placeholder="수조번호" style="border:none; background: transparent; width: 100%;" maxlength="10"></td>
+	                                <input type="text" name="tankid" size="20" value=<%=FarmID %> style="border:none; background: transparent; width: 100%;" maxlength="10"></td>
 	                            </td>
 	                            </tr>
 	                             <tr>
-	                                <td class="table-primary"><strong>어종</strong></td>
-	                                
+	                                <td class="table-primary">
+	                                <strong>어종</strong></td>
+	                            
 	                                <td class="flex-shrink-0">
 	                                <select class="form-control-sm pl-2" style="padding-top: 1;">
-
+		                                <optgroup label="어종을 선택하세요">
+<%
+													for (int j = 0; j < fishname_list.size(); j++) {
+													System.out.println(fishname_list.get(j));
+%>
+													<option value="<%=fishname_list.get(j).getRemark()%>">
+													<%=fishname_list.get(j).getRemark()%></option>
+<%
+													}
+%>										</optgroup>
 										</select>
 	                                <br></td>
 	                                
@@ -233,44 +358,46 @@
 	                                <td class="table-primary" rowspan="6"><strong>장비명</strong></td>
 	                                <td class="table-primary"><strong>DO</strong></td>
 	                                <td colspan="2">
-	                                <input type="text" name="dosensor" size="20" placeholder="DO" style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                <input type="text" name="dosensor" size="20" value=<%=dosensor  %> style="border:none; background: transparent; width: 100%;" maxlength="10">
 	                                </td>
 	                            </tr>
 	                            <tr>
 	                                <td class="table-primary"><strong>pH</strong></td>
 	                                <td colspan="2">
-	                                <input type="text" name="phsensor" size="20" placeholder="pH" style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                <input type="text" name="phsensor" size="20" value=<%=phsensor  %> style="border:none; background: transparent; width: 100%;" maxlength="10">
 	                                </td>
 	                            </tr>
 	                            <tr>
 	                                <td class="table-primary"><strong>PSU</strong></td>
 	                                <td colspan="2">
-	                                <input type="text" name="psusensor" size="20" placeholder="PSU" style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                <input type="text" name="psusensor" size="20" value=<%=psusensor  %>  style="border:none; background: transparent; width: 100%;" maxlength="10">
 	                                </td>
 	                            </tr>
 	                            <tr>
 	                                <td class="table-primary"><strong>수온</strong></td>
 	                                <td colspan="2">
-	                                <input type="text" name="wtsensor" size="20" placeholder="수온" style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                <input type="text" name="wtsensor" size="20" value=<%=wtsensor  %> style="border:none; background: transparent; width: 100%;" maxlength="10">
 	                                </td>
 	                            </tr>
 	                            <tr>
 	                                <td class="table-primary"><strong>NH4</strong></td>
 	                                <td colspan="2">
-	                                <input type="text" name="nh4sensor" size="20" placeholder="NH4" style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                <input type="text" name="nh4sensor" size="20" value=<%= nh4sensor %> style="border:none; background: transparent; width: 100%;" maxlength="10">
 	                                </td>
 	                            </tr>
 	                            <tr>
 	                                <td class="table-primary"><strong>NO2</strong></td>
 	                                <td colspan="2">
-	                                <input type="text" name="no2sensor" size="20" placeholder="NO2" style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                <input type="text" name="no2sensor" size="20" value=<%= no2sensor %> style="border:none; background: transparent; width: 100%;" maxlength="10">
 	                                </td>
 	                            </tr>
 	                        </tbody>
 	                    </table>
 	                </div>
 	            </div>
+	<%} %>
             </form>
+		
             <div class="card"></div>
             <!-- Start: Dropdown Card -->
             <div class="card shadow d-xl-flex mb-4"></div>
@@ -278,7 +405,9 @@
         </div>
         <footer class="bg-white d-xl-flex align-items-xl-end sticky-footer">
             <div class="container my-auto">
-                <div class="text-center my-auto copyright"><span>Copyright © Mokpo National University&nbsp; 2020</span></div>
+                <div class="text-center my-auto copyright">
+                <span>Copyright © Mokpo National University&nbsp; 2020</span>
+                </div>
             </div>
         </footer>
     </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>

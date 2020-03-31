@@ -71,13 +71,14 @@ public class farmDAO {
 	    * @remark 占쎈펶占쎈뻼占쎌삢 占쎌뵠�뵳占� �빊�뮆�젾(亦낅슦釉� : admin, sysadmin) , 占쎄텢占쎌뒠筌ｏ옙 - main.jsp ,farmwtSearch.jsp
 	    ***********************************/
 
-	   public ArrayList<farmDTO> farmSelect(int farmid) throws NullPointerException, SQLException {
+	   public String farmSelect(int farmid) throws NullPointerException, SQLException {
 	      
 	      Connection con = null;
 	      PreparedStatement pstmt = null;
 	      ResultSet rs = null;
 	      String sql = null;
-	      ArrayList<farmDTO> farmnamelist = new ArrayList<farmDTO>();
+	      
+	      String farmname = null;
 	      
 	      try {
 	         con = DBCon.getConnection();
@@ -89,9 +90,9 @@ public class farmDAO {
 	         while (rs.next()) {
 	            farmDTO vo = new farmDTO();
 	            
-	            vo.setFarmName(rs.getString("farmname"));      // 占쎈펶占쎈뻼占쎌삢 占쎌뵠�뵳占�
+	            farmname = rs.getString("farmname");      // 占쎈펶占쎈뻼占쎌삢 占쎌뵠�뵳占�
 	            
-	            farmnamelist.add(vo);
+	
 	         }
 	         
 	      } catch (NumberFormatException e) {
@@ -99,7 +100,7 @@ public class farmDAO {
 	      } finally {
 	         DBCon.close(con, pstmt, rs);
 	      }
-	      return farmnamelist;
+	      return farmname;
 	   }
 	  
 	   /**************************************

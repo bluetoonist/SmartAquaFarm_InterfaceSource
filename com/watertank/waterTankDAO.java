@@ -58,6 +58,69 @@ public class waterTankDAO {
 
 		return tankCnt;
 	}
+	
+	 /**************************************
+	    * @name waterTankUpdate()
+	    * @author �옣�빐由�
+	    * @param tankID, fishName, userID, DOSensor, pHSensor, psuSensor, WTSensor,
+	    *                NH4Sensor, NO2Sensor, Session_ID, farmid
+	    * @return void
+	    * @remark �뼇�떇�옣 �젙蹂� �닔�젙 - farm/farmwtUpdatePrc.jsp
+	    **************************************/
+
+	   public int waterTankUpdate(String tankID, String fishName, String userID, String DOSensor, String pHSensor,
+	         String psuSensor, String WTSensor, String NH4Sensor, String NO2Sensor, String Session_ID, int farmid)
+	         throws NullPointerException, SQLException {
+
+	      Connection con = DBCon.getConnection();
+	      PreparedStatement pstmt = null;
+	      ResultSet rs = null;
+	      String sql = "";
+	      	
+	      try {
+	         String sql2 = " select f.fishid from fish f, waterTank w where w.farmid = ? and w.farmid = f.farmid and f.fishname = ? ";
+
+	         pstmt = con.prepareStatement(sql2);
+	         pstmt.setInt(1, farmid);
+	         pstmt.setString(2, fishName);
+	         rs = pstmt.executeQuery();
+
+	         int fishid = 0;
+
+	         if (rs.next()) {
+	            fishid = rs.getInt("fishid");
+
+	         }
+
+	         sql = " update waterTank "
+	               + "set farmID = ?, lastUptDate = sysdate, lastUptID = ?,  fishid = ?, userID = ?, DOSensor = ?, "
+	               + "pHSensor = ?, psuSensor = ? , WTSensor = ?, NH4Sensor = ?, NO2Sensor = ? where tankID = ? and farmID = ? ";
+
+	         pstmt = con.prepareStatement(sql);
+
+	         pstmt.setInt(1, farmid);
+	         pstmt.setString(2, Session_ID);
+	         pstmt.setInt(3, fishid);
+	         pstmt.setString(4, userID);
+	         pstmt.setString(5, DOSensor);
+	         pstmt.setString(6, pHSensor);
+	         pstmt.setString(7, psuSensor);
+	         pstmt.setString(8, WTSensor);
+	         pstmt.setString(9, NH4Sensor);
+	         pstmt.setString(10, NO2Sensor);
+	         pstmt.setString(11, tankID);
+	         pstmt.setInt(12, farmid);
+	         pstmt.executeUpdate();
+	         
+	      } catch (Exception e) {
+	    	  return 0;
+
+	      } finally {
+	         DBCon.close(con, pstmt, rs);
+	      }
+	      return farmid;
+	   }
+	
 	/**************************************
 	    * @name waterTankSelect()
 	    * @author �옣�빐由�
@@ -65,9 +128,9 @@ public class waterTankDAO {
 	    * @return ArrayList
 	    * @remark �뼇�떇�옣 �닔議� �젙蹂� 異쒕젰 - farm/farmwtUpdateForm.jsp
 	    **************************************/
-	   public ArrayList waterTankSelect(String tankID, int farmid) throws NullPointerException, SQLException {
+	   public ArrayList<waterTankDTO> waterTankSelect(String tankID, int farmid) throws NullPointerException, SQLException {
 
-	      ArrayList wtselectlist = new ArrayList();
+		   ArrayList<waterTankDTO> wtselectlist = new ArrayList<waterTankDTO>();
 	      Connection con = null;
 	      PreparedStatement pstmt = null;
 	      ResultSet rs = null;
@@ -76,7 +139,8 @@ public class waterTankDAO {
 	         con = DBCon.getConnection();
 	         String sql = " select w.tankid, nvl(f.fishname, ' ') as fishname, nvl(w.userid,' ') as userid, nvl(w.dosensor,' ') as dosensor, nvl(w.phsensor,' ') as phsensor, nvl(w.psusensor, ' ') as psusensor, nvl(w.wtsensor, ' ') as wtsensor,"
 	               + " nvl(w.nh4sensor, ' ') as nh4sensor , nvl(w.no2sensor, ' ' ) as no2sensor from watertank w, fish f where w.farmid = ? and w.farmid = f.farmid and f.fishid = w.fishid and w.tankid = ? ";
-
+	         
+	         System.out.println(sql);
 	         pstmt = con.prepareStatement(sql);
 	         pstmt.setInt(1, farmid);
 	         pstmt.setString(2, tankID);

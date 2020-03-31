@@ -855,7 +855,7 @@ public class usertableDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		ArrayList<usertableDTO> userAddlist = new ArrayList();
+		ArrayList<usertableDTO> userAddlist = new ArrayList<usertableDTO>();
 
 		try {
 			con = DBCon.getConnection();
@@ -865,7 +865,7 @@ public class usertableDAO {
 
 			rs = pstmt.executeQuery();
 
-			if (rs.next()) {
+			while (rs.next()) {
 				usertableDTO vo = new usertableDTO();
 				vo.setUserId(rs.getString("userid"));
 				userAddlist.add(vo);
