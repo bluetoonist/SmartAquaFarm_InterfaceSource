@@ -55,19 +55,12 @@
 	//수조 정보 수정 메소드 사용
 	int finish = mgr.waterTankUpdate(tankID, fishName, userID, DOSensor, pHSensor,
 			psuSensor, WTSensor, NH4Sensor, NO2Sensor, user_id, FarmID);
-
-	//메소드 사용 후 farmwtSearch로 이동. farmid 설정해서 보냄
-	response.sendRedirect("farmwtSearch.jsp"); 
+	
+	
+	
+	request.setAttribute("farmid", FarmID);
+	
+	RequestDispatcher dispatcher = request.getRequestDispatcher("farmwtSearch.jsp");
+	
+	dispatcher.forward(request,response);
 %>
-<script>
-	function update(){
-		var sd = document.send;
-		sd.target="_self";
-		sd.method="post";
-		sd.action="farmwtSearch.jsp";
-		sd.submit();
-	}
-</script>
-<form name="send">
-	<hidden name="farmid" value="<%= FarmID %>">
-</form>

@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="java.util.ArrayList" %>
 
@@ -6,7 +7,6 @@
 <%@ page import="watertank.*"%>
 <%@ page import="user.*"%>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <script>
 //farmwtUpdateForm.jsp, farmwtInsertForm.jsp 에서 취소,목록보기 버튼을 누를시 farmwtSearch.jsp 로 넘어가능 기능
 //************************************************************************ STARTLINE
@@ -198,8 +198,6 @@ function gofarmdelete() {
 			no2sensor = "";
 		}
 	
-		
-	
 %>
 
 
@@ -248,7 +246,7 @@ function gofarmdelete() {
             <div id="content">
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                     <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
-                        <h3 class="text-dark mb-0 navbar-brand"><strong>수조 정보 등록</strong></h3>
+                        <h3 class="text-dark mb-0 navbar-brand"><strong>수조 정보 수정</strong></h3>
                         <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                             <div class="input-group">
                                 <div class="input-group-append"></div>
@@ -299,16 +297,17 @@ function gofarmdelete() {
 			
 	            <div class="container-fluid text-center">
 	                <div class="table-responsive table-bordered">
-	                    <table class="table table-bordered">
+	                    <table class="table table-bordered" style="text-align:center;">
 	                        <thead>
 	                            <tr></tr>
 	                        </thead>
 	                        <tbody>
 	                            <tr></tr>
 	                            <tr>
-	                                <td class="table-primary border rounded-0" rowspan="1" colspan="2"><strong>수조번호</strong></td>
+	                                <td class="table-primary border rounded-0" rowspan="1" colspan="2">
+	                                <strong>수조번호</strong></td>
 	                                <td rowspan="1" colspan="2">   
-	                                <input type="text" name="tankid" size="20" value=<%=FarmID %> style="border:none; background: transparent; width: 100%;" maxlength="10"></td>
+	                                <input type="text" name="tankid" size="20" value=<%=FarmID%> style="border:none; background: transparent; width: 100%;" maxlength="10"></td>
 	                            </td>
 	                            </tr>
 	                             <tr>
@@ -358,37 +357,37 @@ function gofarmdelete() {
 	                                <td class="table-primary" rowspan="6"><strong>장비명</strong></td>
 	                                <td class="table-primary"><strong>DO</strong></td>
 	                                <td colspan="2">
-	                                <input type="text" name="dosensor" size="20" value=<%=dosensor  %> style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                <input type="text" name="dosensor" size="20" value=<%=dosensor%> style="border:none; background: transparent; width: 100%;" maxlength="10">
 	                                </td>
 	                            </tr>
 	                            <tr>
 	                                <td class="table-primary"><strong>pH</strong></td>
 	                                <td colspan="2">
-	                                <input type="text" name="phsensor" size="20" value=<%=phsensor  %> style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                <input type="text" name="phsensor" size="20" value=<%=phsensor%> style="border:none; background: transparent; width: 100%;" maxlength="10">
 	                                </td>
 	                            </tr>
 	                            <tr>
 	                                <td class="table-primary"><strong>PSU</strong></td>
 	                                <td colspan="2">
-	                                <input type="text" name="psusensor" size="20" value=<%=psusensor  %>  style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                <input type="text" name="psusensor" size="20" value=<%=psusensor%>  style="border:none; background: transparent; width: 100%;" maxlength="10">
 	                                </td>
 	                            </tr>
 	                            <tr>
 	                                <td class="table-primary"><strong>수온</strong></td>
 	                                <td colspan="2">
-	                                <input type="text" name="wtsensor" size="20" value=<%=wtsensor  %> style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                <input type="text" name="wtsensor" size="20" value=<%=wtsensor%> style="border:none; background: transparent; width: 100%;" maxlength="10">
 	                                </td>
 	                            </tr>
 	                            <tr>
 	                                <td class="table-primary"><strong>NH4</strong></td>
 	                                <td colspan="2">
-	                                <input type="text" name="nh4sensor" size="20" value=<%= nh4sensor %> style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                <input type="text" name="nh4sensor" size="20" value=<%=nh4sensor%> style="border:none; background: transparent; width: 100%;" maxlength="10">
 	                                </td>
 	                            </tr>
 	                            <tr>
 	                                <td class="table-primary"><strong>NO2</strong></td>
 	                                <td colspan="2">
-	                                <input type="text" name="no2sensor" size="20" value=<%= no2sensor %> style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                <input type="text" name="no2sensor" size="20" value=<%=no2sensor%> style="border:none; background: transparent; width: 100%;" maxlength="10">
 	                                </td>
 	                            </tr>
 	                        </tbody>

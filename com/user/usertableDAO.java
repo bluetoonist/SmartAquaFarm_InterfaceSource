@@ -812,7 +812,7 @@ public class usertableDAO {
 
 		try {
 			con = DBCon.getConnection();
-			sql2 = "select userid, username from usertable where farmid=?";
+			sql2 = "select userid, username from usertable where farmid like '%' ||?|| '%'";
 
 			if (searchuserinput != null && !searchuserinput.equals("") && searchuser != "null"
 					&& !searchuser.equals("null")) {

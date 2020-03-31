@@ -99,9 +99,12 @@
 		String user_auth = (String) session.getAttribute("userAuth");
 	
 		// 쿼리스트링 farmid
-		String Farmid = request.getParameter("farmid");
+		String Farmid = null;
 		
-		// 정수형 양식장 ID
+		Farmid = request.getParameter("farmid"); 
+		
+		
+		// 정수형 양식장 ID (String)request.getAttribute("farmid");
 		int FarmID = 0;
 		
 		// Farmid가 null이면 index.jsp 페이지로 이동
@@ -116,8 +119,9 @@
 			FarmID = Integer.parseInt(Farmid);
 		}
 		
+		System.out.println("FarmID : "+FarmID);
+		
 		farmnamelist = farm_dao.farmSelect(user_id);
-		System.out.println(farmnamelist);
 		
  		String farmName = null;
 		String search = ""; // 검색 조건 변수

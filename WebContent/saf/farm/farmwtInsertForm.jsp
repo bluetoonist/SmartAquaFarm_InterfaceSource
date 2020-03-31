@@ -25,13 +25,20 @@
 	farmDAO mgr3 = new farmDAO();
 	
 	int selectFarm = Integer.parseInt(request.getParameter("farmid"));
-	System.out.println(selectFarm);
+	System.out.println("farmid : "+selectFarm);
 	//담당자 조회 부분
 	ArrayList<usertableDTO> userAddlist = mgr1.usertableSelect(user_id);
 	// 어종 선택 부분 
 	ArrayList<growInfoDTO> fishname_list = mgr2.fishSelect(selectFarm);
 	
 	String farmname = mgr3.farmSelect(selectFarm);
+	
+	String sel_userid = request.getParameter("sel_userid");
+	if(sel_userid == null){
+		sel_userid = "";
+	}
+	System.out.println("조회를 통해 받은 userid : "+sel_userid);
+	
 %>
 
 <script>
@@ -39,7 +46,10 @@
 //************************************************************************ START LINE
 function gofarmwtUserForm_in(FarmID) {
 	var url = "farmwtUserForm_in.jsp?FarmID=" + FarmID;
-	window.open(url, "farmwtUserForm_in.jsp", "scrollbars=yes, resizable=no, width=430px, height=400px");
+	windowsObj = window.open(url, "farmwtUserForm_in.jsp", "scrollbars=yes, resizable=no, width=430px, height=400px");
+	
+	document.getElementById("wait_Data").text = document.getElementById("parentText").value;
+
 }
 //************************************************************************ END LINE
 </script>
@@ -132,7 +142,7 @@ function gofarmwtUserForm_in(FarmID) {
             
             <div class="container-fluid text-center">
                 <div class="table-responsive table-bordered">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" style="text-align:center;">
                         <thead>
                             <tr></tr>
                         </thead>
@@ -141,7 +151,7 @@ function gofarmwtUserForm_in(FarmID) {
                             <tr>
                                 <td class="table-primary border rounded-0" rowspan="1" colspan="2"><strong>수조번호</strong></td>
                                 <td rowspan="1" colspan="2">   
-                                <input type="text" name="tankid" size="20" placeholder="수조번호" style="border:none; background: transparent; width: 80%;" maxlength="10"></td>
+                                <input type="text" name="tankid" size="20" placeholder="수조번호" style="border:none; background: transparent; width:100%;" maxlength="10"></td>
                             </td>
                             </tr>
                              <tr>
@@ -164,63 +174,49 @@ function gofarmwtUserForm_in(FarmID) {
                                 
                                 
                              <td class="table-primary">
-<%
-						if (user_id != null) {
-%>
+
 							<strong>담당자</strong></td>
-							<td>
-								 <input type="hidden" name="userid" maxlength="10" value="<%=user_id%>" /> 
-								 <button class="btn btn-primary btn-sm" type="button"  onclick="gofarmwtUserForm_in('<%=selectFarm %>')">
+							<td id="wait_Data"><button class="btn btn-primary btn-sm" type="button" onclick="gofarmwtUserForm_in('<%=selectFarm %>')">
 								 <strong>조회</strong>
 								 </button>
 							</td>
-<%
-						} else {
-%>
-							<strong>담당자</strong></td>
-							<td><button class="btn btn-primary btn-sm" type="button"  onclick="gofarmwtUserForm_in('<%=selectFarm %>')">
-								 <strong>조회</strong>
-								 </button>
-							</td>
-<%
-						} //size
-%>        
+
                    </tr>
                             <tr>
                                 <td class="table-primary" rowspan="6"><strong>장비명</strong></td>
                                 <td class="table-primary"><strong>DO</strong></td>
                                 <td colspan="2">
-                                <input type="text" name="dosensor" size="20" placeholder="DO" style="border:none; background: transparent; width: 80%;" maxlength="10">
+                                <input type="text" name="dosensor" size="20" placeholder="DO" style="border:none; background: transparent; width: 100%;" maxlength="10">
                                 </td>
                             </tr>
                             <tr>
                                 <td class="table-primary"><strong>pH</strong></td>
                                 <td colspan="2">
-                                <input type="text" name="phsensor" size="20" placeholder="pH" style="border:none; background: transparent; width: 80%;" maxlength="10">
+                                <input type="text" name="phsensor" size="20" placeholder="pH" style="border:none; background: transparent; width: 100%;" maxlength="10">
                                 </td>
                             </tr>
                             <tr>
                                 <td class="table-primary"><strong>PSU</strong></td>
                                 <td colspan="2">
-                                <input type="text" name="psusensor" size="20" placeholder="PSU" style="border:none; background: transparent; width: 80%;" maxlength="10">
+                                <input type="text" name="psusensor" size="20" placeholder="PSU" style="border:none; background: transparent; width: 100%;" maxlength="10">
                                 </td>
                             </tr>
                             <tr>
                                 <td class="table-primary"><strong>수온</strong></td>
                                 <td colspan="2">
-                                <input type="text" name="wtsensor" size="20" placeholder="수온" style="border:none; background: transparent; width: 80%;" maxlength="10">
+                                <input type="text" name="wtsensor" size="20" placeholder="수온" style="border:none; background: transparent; width: 100%;" maxlength="10">
                                 </td>
                             </tr>
                             <tr>
                                 <td class="table-primary"><strong>NH4</strong></td>
                                 <td colspan="2">
-                                <input type="text" name="nh4sensor" size="20" placeholder="NH4" style="border:none; background: transparent; width: 80%;" maxlength="10">
+                                <input type="text" name="nh4sensor" size="20" placeholder="NH4" style="border:none; background: transparent; width: 100%;" maxlength="10">
                                 </td>
                             </tr>
                             <tr>
                                 <td class="table-primary"><strong>NO2</strong></td>
                                 <td colspan="2">
-                                <input type="text" name="no2sensor" size="20" placeholder="NO2" style="border:none; background: transparent; width: 80%;" maxlength="10">
+                                <input type="text" name="no2sensor" size="20" placeholder="NO2" style="border:none; background: transparent; width: 100%;" maxlength="10">
                                 </td>
                             </tr>
                         </tbody>
