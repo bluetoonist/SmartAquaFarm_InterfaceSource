@@ -809,20 +809,19 @@ public class usertableDAO {
 		ResultSet rs = null;
 		String sql2 = null;
 		ArrayList<usertableDTO> userlist = new ArrayList();
-
+		
 		try {
 			con = DBCon.getConnection();
 			sql2 = "select userid, username from usertable where farmid like '%' ||?|| '%'";
-
-			if (searchuserinput != null && !searchuserinput.equals("") && searchuser != "null"
-					&& !searchuser.equals("null")) {
-				sql2 += "and " + searchuser.trim() + " LIKE '%" + searchuserinput.trim() + "%' order by username";
-
-			} else {
-				// 모든 정보 출력
-				sql2 += " order by username";
-			}
-
+			
+	        if (searchuserinput != null && !searchuserinput.equals("") && searchuser != null
+	              && !searchuser.equals("null")) {
+	           sql2 += "and " + searchuser.trim() + " LIKE '%' ||" + searchuserinput.trim() + "|| '%' order by username";
+	        } else {
+	           // 모든 정보 출력
+	           sql2 += " order by username";
+	        }
+	        
 			pstmt = con.prepareStatement(sql2);
 			pstmt.setString(1, farmid);
 			rs = pstmt.executeQuery();

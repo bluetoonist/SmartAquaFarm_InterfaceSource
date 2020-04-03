@@ -23,66 +23,7 @@
 <link rel="stylesheet" href="../../common/assets/css/untitled.css">
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-<script>
-//farmwtSearch.jsp에서 수조번호 클릭시 수정화면으로 이동하는 기능
-//************************************************************************ START LINE
-	function goRead(tankid,FarmID) {
-		var farm = document.farmSearch;
-		if (tankid != null) {
-			//farm.tankID.value = tankid;
-			alert(tankid + "수조가 선택되었습니다.");
-			farm.target = "_self";
-			farm.method = "post";
-			farm.action = "farmwtUpdateForm.jsp?tankID="+tankid+"&FarmID="+FarmID;
-			farm.submit();
-		}
-	}
-//************************************************************************ END LINE
-// farmwtSearch.jsp에서 조회버튼 클릭시 검색조건 또는 검색창이 null일 경우 경고창
-//************************************************************************ START LINE
-	function searchCheck(){	
-			if(farmSearch.searchinput.value == '' && farmSearch.search.value == 'null') {
-				alert("조건 선택 및 검색 단어를 입력하세요.");
-				farmSearch.target = "_self"; 							//새창이 열리지않고 현재창이 바뀜
-				farmSearch.method = "post";
-	          farmSearch.searchinput.focus();				//Enter 눌러도 넘어감
-	          return;
-			}
-			else if(farmSearch.searchinput.value == '' && farmSearch.search.value != 'null') {			//검색창 값이 null일 경우
-				alert("검색 단어를 입력하세요.");
-				farmSearch.target = "_self";				//새창이 열리지않고 현재창이 바뀜
-				farmSearch.method = "post";
-	          farmSearch.searchinput.focus();				//Enter 눌러도 넘어감
-	          return;
-	      }
-	      else if(farmSearch.search.value == 'null' && farmSearch.searchinput.value != ''){			//검색조건이 선택되지 않았을(null) 경우
-	      	alert("조건을 선택하세요.");
-	      	farmSearch.target = "_self";
-	      	farmSearch.method = "post";
-	      	farmSearch.search.focus();				//Enter 눌러도 넘어감
-	          return;
-	      } 
-	      else {											//둘 다 null이 아닐 경우
-	      	farmSearch.target = "_self";
-	      	farmSearch.method = "post";
-	      	farmSearch.action = "farmwtSearch.jsp";  
-	      	farmSearch.submit();
-	      }
-	}
-//************************************************************************ END LINE
-// farmwtSearch.jps에서 등록 버튼 클릭시 등록화면으로 이동하는 기능
-//************************************************************************ START LINE
-	function gofarmwtInsertForm() {
-	
-		var farm = document.farmSearch;
-		
-		farm.target = "_self";
-		farm.method = "post";
-		farm.action="farmwtInsertForm.jsp";
-		farm.submit();
-	}
-//************************************************************************ END LINE
-</script>
+
 </head>
 
 <body id="page-top">
@@ -530,6 +471,5 @@
 <script src="../../common/assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="../../common/assets/js/theme.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-<script src="../../common/func/util.js"></script>
 </body>
 </html>

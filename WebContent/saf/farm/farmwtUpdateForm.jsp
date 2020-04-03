@@ -8,104 +8,6 @@
 <%@ page import="user.*"%>
 
 <script>
-//farmwtUpdateForm.jsp, farmwtInsertForm.jsp 에서 취소,목록보기 버튼을 누를시 farmwtSearch.jsp 로 넘어가능 기능
-//************************************************************************ STARTLINE
-	function farmCancel(formname) {
-		if (formname =="formUpdate"){
-		document.farmSelect.method = "post";
-		 document.farmSelect.action = "farmwtSearch.jsp"; // 확인 클릭시 페이지 이동
-		 document.farmSelect.target = "_self";
-		 document.farmSelect.submit();
-		}
-		if (formname=="formInsert"){
-		 // 폼 찾기
-		 var form = document.farmwtInsertForm;  
-		 // 취소를 누를 경우
-		 form.target = "_self";
-		 form.method = "post";
-		 form.action = "farmwtSearch.jsp";
-		 form.submit();
-		}
-	}
-/* ***************************************************************** END LINE*/
-//farmwtUpdateForm.jsp 에서 수정 버튼을 누를시 farmwtUpdatePrc.jsp 로 넘어가능 기능
-//************************************************************************ START LINE
- function goUpdate() { // 수정 버튼 클릭시
- 	
- 	var frm = document.farmSelect;
- 	
- 	if (frm.dosensor.value==' ') {
- 		alert("DO 센서명을 입력하세요.");
- 		return;
- 	}
- 	if (frm.phsensor.value==' ') {
- 		alert("pH센서명을 입력하세요.");
- 		return;
- 	}
- 	if (frm.psusensor.value==' ') {
- 		alert("psu센서명을 입력하세요.");
- 		return;
- 	}
- 	if (frm.wtsensor.value==' ') {
- 		alert("수온 센서명을 입력하세요.");
- 		return;
- 	}
- 	if (frm.nh4sensor.value==' ') {
- 		alert("NH4센서명을 입력하세요.");
- 		return;
- 	}
- 	if (frm.no2sensor.value==' ') {
- 		alert("NO2센서명을 입력하세요.");
- 		return;
- 	} 
- 	if (frm.userid.value==' '){
- 		alert("담당자를 선택하세요.");
- 		return;
- 	}
- 	
- 	if (confirm("수조 정보를 업데이트 하시겠습니까?")) { // 수정 전 경고창으로 확인받기
- 		farmSelect.method = "post";
- 		frm.action = "farmwtUpdatePrc.jsp"; // 확인 클릭시 페이지 이동
- 		frm.target = "_self";
- 		frm.submit();
-
- 	} else {
- 		return false;
- 	}
- }
-//************************************************************************ END LINE
-// farmwtUpdateForm.jsp에서 삭제 버튼 클릭시 수조정보 삭제되는 기능
-//************************************************************************ START LINE
-function gofarmdelete() {
-	var farm = document.farmSelect;
-	
-	tankid = farm.tankID2.value;
-	fishname = farm.fishnames.value;
-	userid = farm.userid.value;
-	dosensor = farm.dosensor.value;
-	phsensor = farm.phsensor.value;
-	psusensor = farm.psusensor.value;
-	wtsensor = farm.wtsensor.value;
-	nh4sensor = farm.wtsensor.value;
-	no2sensor = farm.no2sensor.value;
-		
-	if(userid == " " && dosensor == " " && phsensor == " " && psusensor == " " &&
-			wtsensor == " " && nh4sensor == " " && no2sensor == " "){
-		farmSelect.method = "post";
-		alert("이미 삭제된 수조정보입니다.");
-		farmSelect.target = "_self";
-		
-		
-	} else if (confirm("수조" + tankid + "의 정보를 삭제하시겠습니까?") == true) {			//삭제하기 전 경고창으로 확인받기
-		farmSelect.method = "post";
-		farm.action = "farmwtDeletePrc.jsp";		//확인 클릭시 페이지 이동
-		farmSelect.target = "_self";
-		farm.submit();
-	} else {
-		return;
-	}
-}
-//************************************************************************ END LINE
 
 </script>
 <%
@@ -197,7 +99,6 @@ function gofarmdelete() {
 		if (no2sensor == null) {
 			no2sensor = "";
 		}
-	
 %>
 
 
@@ -237,22 +138,33 @@ function gofarmdelete() {
                     <li class="nav-item" role="presentation"><a class="nav-link" href="profile.html"><i class="fas fa-table"></i><span>상태 기준 정보</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="table.html"><i class="fas fa-th-list"></i><span>상태 기록</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="login.html"><i class="fas fa-record-vinyl"></i><span>조치 기록</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="register.html"><i class="fas fa-chart-bar"></i><span>통계</span></a><a class="nav-link" href="register.html"><i class="fas fa-tint"></i><span>양식장 정보 관리</span></a><a class="nav-link" href="farmwtSearch.jsp"><i class="fas fa-water"></i><span>수조 정보</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="register.html"><i class="fas fa-chart-bar"></i><span>통계</span></a>
+                    <a class="nav-link" href="register.html"><i class="fas fa-tint"></i><span>양식장 정보 관리</span></a>
+                    <a class="nav-link" onclick="moveFarmWtSearch()"><i class="fas fa-water"></i><span>수조 정보</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
         </nav>
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
-                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
-                        <h3 class="text-dark mb-0 navbar-brand"><strong>수조 정보 수정</strong></h3>
-                        <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div class="input-group">
-                                <div class="input-group-append"></div>
-                            </div>
-                        </form>
-                        <ul class="nav navbar-nav flex-nowrap ml-auto">
+                <!-- 상단 -->
+				<nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+					<div class="container-fluid">
+						<button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button">
+							<i class="fas fa-bars"></i>
+						</button>
+						
+						<!--  상단 페이지 제목 -->
+						<h3 class="text-dark mb-0 navbar-brand">
+							<strong>수조정보수정</strong>
+						</h3>
+						<form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+							<div class="input-group">
+								<div class="input-group-append"></div>
+							</div>
+						</form>
+						
+						<ul class="nav navbar-nav flex-nowrap ml-auto">
 							<li class="nav-item dropdown no-arrow mx-1" role="presentation"></li>
 							<li class="nav-item dropdown no-arrow mx-1" role="presentation">
 								<div class="shadow dropdown-list dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown"></div>
@@ -263,7 +175,7 @@ function gofarmdelete() {
 							<!--  USER Management  -->
 							<li class="nav-item dropdown no-arrow" role="presentation">
 								<div class="nav-item dropdown no-arrow"> <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">
-									<span class="d-none d-lg-inline mr-2 text-gray-600 small"><%= user_name %></span>
+									<span class="d-none d-lg-inline mr-2 text-gray-600 small"><%=user_name %></span>
 									<img class="border rounded-circle img-profile" src="../../common/assets/img/avatars/avatar1.jpeg"></a>
 									
 									<div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu">
@@ -276,8 +188,10 @@ function gofarmdelete() {
 								</div>						
 							</li>							
 						</ul>
-            </div>
-            </nav>
+						
+					</div>
+				</nav>
+				
             <div class="container-fluid">
                 <h5 class="text-dark d-xl-flex justify-content-xl-center align-items-xl-center mb-0 navbar-brand"><strong><%= tankid %></strong></h5>
                 <h3 class="text-dark d-xl-flex justify-content-xl-center align-items-xl-center mb-0 navbar-brand">
@@ -318,24 +232,24 @@ function gofarmdelete() {
 	                                <select class="form-control-sm pl-2" style="padding-top: 1;">
 		                                <optgroup label="어종을 선택하세요">
 <%
-													for (int j = 0; j < fishname_list.size(); j++) {
-													System.out.println(fishname_list.get(j));
+											for (int j = 0; j < fishname_list.size(); j++) {
+											System.out.println(fishname_list.get(j));
 %>
-													<option value="<%=fishname_list.get(j).getRemark()%>">
-													<%=fishname_list.get(j).getRemark()%></option>
+											<option value="<%=fishname_list.get(j).getRemark()%>">
+											<%=fishname_list.get(j).getRemark()%></option>
 <%
-													}
+											}
 %>										</optgroup>
 										</select>
 	                                <br></td>
 	                                
 	                                
-	                             <td class="table-primary">
+	                        <td class="table-primary">
 <%
 							if (user_id != null) {
 %>
 								<strong>담당자</strong></td>
-								<td>
+								<td id="wait_Data">
 									 <input type="hidden" name="userid" maxlength="10" value="<%=user_id%>" /> 
 									 <button class="btn btn-primary btn-sm" type="button"  onclick="gofarmwtUserForm_in('<%=FarmID %>')">
 									 <strong>조회</strong>
@@ -345,7 +259,8 @@ function gofarmdelete() {
 							} else {
 %>
 								<strong>담당자</strong></td>
-								<td><button class="btn btn-primary btn-sm" type="button"  onclick="gofarmwtUserForm_in('<%=FarmID %>')">
+								<td id="wait_Data">
+								<button class="btn btn-primary btn-sm" type="button"  onclick="gofarmwtUserForm_in('<%=FarmID %>')">
 									 <strong>조회</strong>
 									 </button>
 								</td>
@@ -409,7 +324,13 @@ function gofarmdelete() {
                 </div>
             </div>
         </footer>
-    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+    </div>
+    <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div> 
+	<script src="../../common/func/util.js"></script>
+	<script src="../../common/func/monitoring.js"> </script>
+	<script src="../../common/assets/js/jquery.min.js"></script>
+	<script src="../../common/assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../../common/assets/js/theme.js"></script>
     <script src="assets/js/jquery.min.js?h=83e266cb1712b47c265f77a8f9e18451"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js?h=e46528792882c54882f660b60936a0fc"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>

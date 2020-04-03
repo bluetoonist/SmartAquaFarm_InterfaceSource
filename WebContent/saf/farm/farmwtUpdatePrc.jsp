@@ -20,6 +20,7 @@
 <%
 	//한글패치
 	request.setCharacterEncoding("UTF-8");
+	ServletContext context = this.getServletContext();
 
 	/* Session Infor*/
 	String user_id = (String) session.getAttribute("userId");
@@ -62,5 +63,6 @@
 	
 	RequestDispatcher dispatcher = request.getRequestDispatcher("farmwtSearch.jsp");
 	
-	dispatcher.forward(request,response);
+	dispatcher.forward(request, response);
+	
 %>

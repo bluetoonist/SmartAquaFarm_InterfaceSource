@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.waterTank.waterTankDTO;
+
 import util.DBCon;
 
 public class waterTankDAO {
@@ -57,6 +59,88 @@ public class waterTankDAO {
 		}
 
 		return tankCnt;
+	}
+	
+	public void waterTankDelete(String tankID, int farmid) throws NullPointerException, SQLException {
+	      Connection con = null;
+	      PreparedStatement pstmt = null;
+	      ResultSet rs = null;
+	      String sql1 = null;
+	      String sql2 = null;
+
+	      try {
+	         con = DBCon.getConnection();
+	         sql2 = " Delete watertank where farmid = ? and tankid = ?";
+
+	         pstmt = con.prepareStatement(sql2);
+	         pstmt.setInt(1, farmid);
+	         pstmt.setString(2, tankID);
+	         rs = pstmt.executeQuery();
+
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         DBCon.close(con, pstmt, rs);
+	      }
+	   }
+	
+	/**********************************
+	 * @name   waterTankInsert
+	 * @author 源��닔�븘
+	 * @param  watertankDTO, fishName, ID
+	 * 				-
+	 * @return 
+	 * @remark  �뼇�떇�옣 �젙蹂� �벑濡�
+	 * 			�궗�슜泥�-farmwtInsertForm.jsp
+	 ***********************************/
+	public void waterTankInsert(waterTankDTO bean, String fishName, String ID, String farmid, String userid)
+			throws NullPointerException, SQLException {
+
+		ResultSet rs = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = "";
+		con = DBCon.getConnection();
+
+		try {
+			String sql1 = " select f.fishid from fish f, waterTank w where w.farmid = ? and w.farmid = f.farmid and f.fishname = ? ";
+
+			pstmt = con.prepareStatement(sql1);
+			pstmt.setString(1, farmid);
+			pstmt.setString(2, fishName);
+	
+			rs = pstmt.executeQuery();
+
+			int fishId = 0;
+			
+			if (rs.next()) {
+				fishId = rs.getInt("fishid");
+			}
+
+			//�뼇�떇�옣 �벑濡�
+			String sql2= "insert into WATERTANK(farmid, tankid, userid, fishid, dosensor, phsensor, psusensor, wtsensor, nh4sensor, no2sensor, regid, REGDATE, lastuptdate, lastuptid) "
+					+ "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate, sysdate,?)";
+
+			pstmt = con.prepareStatement(sql2);
+			pstmt.setString(1, farmid);
+			pstmt.setString(2, bean.getTankId());
+			pstmt.setString(3, userid);
+			pstmt.setInt(4, fishId);
+			pstmt.setString(5, bean.getDoSensor());
+			pstmt.setString(6, bean.getPhSensor());
+			pstmt.setString(7, bean.getPsuSensor());
+			pstmt.setString(8, bean.getWtSensor());
+			pstmt.setString(9, bean.getNh4Sensor());
+			pstmt.setString(10, bean.getNo2Sensor());
+			pstmt.setString(11, ID);
+			pstmt.setString(12, ID);
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBCon.close(con, pstmt, rs);
+		}
 	}
 	
 	 /**************************************

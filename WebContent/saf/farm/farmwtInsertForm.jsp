@@ -41,18 +41,6 @@
 	
 %>
 
-<script>
-//farmwtInsertForm.jsp에서 조회 버튼 클릭시 담당자 검색 화면으로 이동하는 기능
-//************************************************************************ START LINE
-function gofarmwtUserForm_in(FarmID) {
-	var url = "farmwtUserForm_in.jsp?FarmID=" + FarmID;
-	windowsObj = window.open(url, "farmwtUserForm_in.jsp", "scrollbars=yes, resizable=no, width=430px, height=400px");
-	
-	document.getElementById("wait_Data").text = document.getElementById("parentText").value;
-
-}
-//************************************************************************ END LINE
-</script>
 <!DOCTYPE html>
 <html>
 
@@ -68,13 +56,8 @@ function gofarmwtUserForm_in(FarmID) {
 	
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
 	    
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css?h=36245dc35771469fb7939fcad300b75e">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css?h=18313f04cea0e078412a028c5361bd4e">
-    <link rel="stylesheet" href="assets/css/Header-Blue.css?h=7fad78607ce59d50c5d9dc2f028b4b7b">
-    <link rel="stylesheet" href="assets/css/Login-Form-Dark.css?h=d014ac7b8d4b9b6c8b9646f2e2315bc5">
-    <link rel="stylesheet" href="assets/css/untitled.css?h=7feee93f573b1ef2766af1d8290eeb33">
 </head>
 
 <body id="page-top">
@@ -93,7 +76,7 @@ function gofarmwtUserForm_in(FarmID) {
                     <li class="nav-item" role="presentation"><a class="nav-link" href="#"><i class="fas fa-record-vinyl"></i><span>조치 기록</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="#"><i class="fas fa-chart-bar"></i><span>통계</span></a>
                     <a class="nav-link" href="register.html"><i class="fas fa-tint"></i><span>양식장 정보 관리</span></a>
-                    <a class="nav-link" onclick="moveFarmWtSearchPage();"><i class="fas fa-water"></i><span>수조 정보</span></a></li>
+                    <a class="nav-link" onclick="moveFarmWtSearch();"><i class="fas fa-water"></i><span>수조 정보</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -139,90 +122,101 @@ function gofarmwtUserForm_in(FarmID) {
             <br>
             <h3 align="center"><%=farmname %></h3>
             <br>
-            
-            <div class="container-fluid text-center">
-                <div class="table-responsive table-bordered">
-                    <table class="table table-bordered" style="text-align:center;">
-                        <thead>
-                            <tr></tr>
-                        </thead>
-                        <tbody>
-                            <tr></tr>
-                            <tr>
-                                <td class="table-primary border rounded-0" rowspan="1" colspan="2"><strong>수조번호</strong></td>
-                                <td rowspan="1" colspan="2">   
-                                <input type="text" name="tankid" size="20" placeholder="수조번호" style="border:none; background: transparent; width:100%;" maxlength="10"></td>
-                            </td>
-                            </tr>
-                             <tr>
-                                <td class="table-primary"><strong>어종</strong></td>
-                                
-                                <td class="flex-shrink-0">
-                                <select class="form-control-sm pl-2" style="padding-top: 1;">
-	                                <optgroup label="어종을 선택하세요">
-<%
-												for (int j = 0; j < fishname_list.size(); j++) {
-												System.out.println(fishname_list.get(j));
-%>
-												<option value="<%=fishname_list.get(j).getRemark()%>">
-												<%=fishname_list.get(j).getRemark()%></option>
-<%
-												}
-%>										</optgroup>
-									</select>
-                                <br></td>
-                                
-                                
-                             <td class="table-primary">
+             <!-- Start: 등록버튼 -->
+            <div class="container-fluid text-right mb-4">
 
-							<strong>담당자</strong></td>
-							<td id="wait_Data"><button class="btn btn-primary btn-sm" type="button" onclick="gofarmwtUserForm_in('<%=selectFarm %>')">
-								 <strong>조회</strong>
-								 </button>
-							</td>
+            <button class="btn btn-primary" onclick="farmwtInsert()">등록</button>
 
-                   </tr>
-                            <tr>
-                                <td class="table-primary" rowspan="6"><strong>장비명</strong></td>
-                                <td class="table-primary"><strong>DO</strong></td>
-                                <td colspan="2">
-                                <input type="text" name="dosensor" size="20" placeholder="DO" style="border:none; background: transparent; width: 100%;" maxlength="10">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="table-primary"><strong>pH</strong></td>
-                                <td colspan="2">
-                                <input type="text" name="phsensor" size="20" placeholder="pH" style="border:none; background: transparent; width: 100%;" maxlength="10">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="table-primary"><strong>PSU</strong></td>
-                                <td colspan="2">
-                                <input type="text" name="psusensor" size="20" placeholder="PSU" style="border:none; background: transparent; width: 100%;" maxlength="10">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="table-primary"><strong>수온</strong></td>
-                                <td colspan="2">
-                                <input type="text" name="wtsensor" size="20" placeholder="수온" style="border:none; background: transparent; width: 100%;" maxlength="10">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="table-primary"><strong>NH4</strong></td>
-                                <td colspan="2">
-                                <input type="text" name="nh4sensor" size="20" placeholder="NH4" style="border:none; background: transparent; width: 100%;" maxlength="10">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="table-primary"><strong>NO2</strong></td>
-                                <td colspan="2">
-                                <input type="text" name="no2sensor" size="20" placeholder="NO2" style="border:none; background: transparent; width: 100%;" maxlength="10">
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
             </div>
+            <!-- End: 등록버튼 -->
+            <form name="farmSelect">
+            <input type="hidden" name="farmid" value="<%=selectFarm%>">
+	            <div class="container-fluid text-center">
+	                <div class="table-responsive table-bordered">
+	                    <table class="table table-bordered" style="text-align:center;">
+	                        <thead>
+	                            <tr></tr>
+	                        </thead>
+	                        <tbody>
+	                            <tr></tr>
+	                            <tr>
+	                                <td class="table-primary border rounded-0" rowspan="1" colspan="2"><strong>수조번호</strong></td>
+	                                <td rowspan="1" colspan="2">   
+	                                <input type="text" name="tankid" size="20" placeholder="수조번호" style="border:none; background: transparent; width:100%;" maxlength="10"></td>
+	                            </td>
+	                            </tr>
+	                             <tr>
+	                                <td class="table-primary"><strong>어종</strong></td>
+	                                
+	                                <td class="flex-shrink-0">
+	                                <select name="selectFish" class="form-control-sm pl-2" style="padding-top: 1;">
+		                                <optgroup label="어종을 선택하세요">
+	<%
+													for (int j = 0; j < fishname_list.size(); j++) {
+													System.out.println(fishname_list.get(j));
+	%>
+													<option value="<%=fishname_list.get(j).getRemark()%>">
+													<%=fishname_list.get(j).getRemark()%></option>
+	<%
+													}
+	%>										</optgroup>
+										</select>
+	                                <br></td>
+	                                
+	                                
+	                             <td class="table-primary">
+	
+								<strong>담당자</strong></td>
+								<td id="wait_Data">
+									<button class="btn btn-primary btn-sm" type="button" onclick="gofarmwtUserForm_in('<%=selectFarm %>')">
+
+									 	<strong>조회</strong>
+									</button>
+								</td>
+	
+	                   </tr>
+	                            <tr>
+	                                <td class="table-primary" rowspan="6"><strong>장비명</strong></td>
+	                                <td class="table-primary"><strong>DO</strong></td>
+	                                <td colspan="2">
+	                                <input type="text" name="dosensor" size="20" placeholder="DO" style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                </td>
+	                            </tr>
+	                            <tr>
+	                                <td class="table-primary"><strong>pH</strong></td>
+	                                <td colspan="2">
+	                                <input type="text" name="phsensor" size="20" placeholder="pH" style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                </td>
+	                            </tr>
+	                            <tr>
+	                                <td class="table-primary"><strong>PSU</strong></td>
+	                                <td colspan="2">
+	                                <input type="text" name="psusensor" size="20" placeholder="PSU" style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                </td>
+	                            </tr>
+	                            <tr>
+	                                <td class="table-primary"><strong>수온</strong></td>
+	                                <td colspan="2">
+	                                <input type="text" name="wtsensor" size="20" placeholder="수온" style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                </td>
+	                            </tr>
+	                            <tr>
+	                                <td class="table-primary"><strong>NH4</strong></td>
+	                                <td colspan="2">
+	                                <input type="text" name="nh4sensor" size="20" placeholder="NH4" style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                </td>
+	                            </tr>
+	                            <tr>
+	                                <td class="table-primary"><strong>NO2</strong></td>
+	                                <td colspan="2">
+	                                <input type="text" name="no2sensor" size="20" placeholder="NO2" style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                </td>
+	                            </tr>
+	                        </tbody>
+	                    </table>
+	                </div>
+	            </div>
+            </form>
             <div class="card"></div>
             <!-- Start: Dropdown Card -->
             <div class="card shadow d-xl-flex mb-4"></div>
@@ -234,10 +228,7 @@ function gofarmwtUserForm_in(FarmID) {
             </div>
         </footer>
     </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
-    <script src="../assets/js/jquery.min.js?h=83e266cb1712b47c265f77a8f9e18451"></script>
-    <script src="../assets/bootstrap/js/bootstrap.min.js?h=e46528792882c54882f660b60936a0fc"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-    <script src="../assets/js/theme.js?h=6d33b44a6dcb451ae1ea7efc7b5c5e30"></script>
     
 	<script src="../../common/func/util.js"></script>
 	<script src="../../common/func/monitoring.js"> </script>
