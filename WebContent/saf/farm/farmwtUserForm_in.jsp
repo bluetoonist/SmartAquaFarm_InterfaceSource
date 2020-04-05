@@ -19,6 +19,10 @@
 	String searchuserinput = request.getParameter("searchuserinput");	//검색창 값
 	String FarmID = request.getParameter("FarmID");
 	
+	System.out.println("FarmID : "+FarmID);
+	System.out.println("searchuser : "+searchuser);
+	System.out.println("searchuserinput :" +searchuserinput);
+	
 	ArrayList<usertableDTO> userlist = cdd.usertableSearch(FarmID, searchuser, searchuserinput);
 %>
 <head>
@@ -59,8 +63,8 @@
 	    </div>
 	    <div class="container text-center">
 		    <select class="mr-2" name="searchuser">
-			    <option value='username'>ID</option>
-			    <option value='userid'>이름 </option>
+			    <option value='username'>이름</option>
+			    <option value='userid'>ID</option>
 			</select>
 			
 			<!-- 담당자 재검색시 검색조건 값 유지 -->

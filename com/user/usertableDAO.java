@@ -804,26 +804,33 @@ public class usertableDAO {
 	public ArrayList<usertableDTO> usertableSearch(String farmid, String searchuser, String searchuserinput)
 			throws NullPointerException, SQLException {
 
-		Connection con = null;
+		Connection con = DBCon.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql2 = null;
 		ArrayList<usertableDTO> userlist = new ArrayList();
 		
 		try {
-			con = DBCon.getConnection();
 			sql2 = "select userid, username from usertable where farmid like '%' ||?|| '%'";
 			
 	        if (searchuserinput != null && !searchuserinput.equals("") && searchuser != null
 	              && !searchuser.equals("null")) {
-	           sql2 += "and " + searchuser.trim() + " LIKE '%' ||" + searchuserinput.trim() + "|| '%' order by username";
-	        } else {
-	           // 모든 정보 출력
-	           sql2 += " order by username";
+	        	
+	        	if(searchuser.equals("userid")) {
+	        		sql2 += "and userid LIKE '%' ||?|| '%' order by username";
+	        	}else {
+	        		sql2 += "and username LIKE '%' ||?|| '%' order by username";	
+	        	}
 	        }
 	        
 			pstmt = con.prepareStatement(sql2);
 			pstmt.setString(1, farmid);
+			
+			if(searchuserinput != null && !searchuserinput.equals("") && searchuser != null
+	              && !searchuser.equals("null")) {
+			pstmt.setString(2, searchuserinput);
+			}
+			
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
