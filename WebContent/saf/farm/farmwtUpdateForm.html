@@ -29,16 +29,16 @@
                     <li class="nav-item" role="presentation"><a class="nav-link" href="userInfo.html"><i class="fas fa-table"></i><span>상태 기준 정보</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="table.html"><i class="fas fa-th-list"></i><span>상태 기록</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="login.html"><i class="fas fa-record-vinyl"></i><span>조치 기록</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="register.html"><i class="fas fa-chart-bar"></i><span>통계</span></a><a class="nav-link" href="register.html"><i class="fas fa-tint"></i><span>양식장 정보 관리</span></a><a class="nav-link active" href="farmwtUserForm.html"><i class="fas fa-water"></i><span>수조 정보</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="register.html"><i class="fas fa-chart-bar"></i><span>통계</span></a><a class="nav-link" href="register.html"><i class="fas fa-tint"></i><span>양식장 정보 관리</span></a><a class="nav-link active" href="farmwtUpdateForm.html"><i class="fas fa-water"></i><span>수조 정보</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
         </nav>
         <div class="d-flex flex-column" id="content-wrapper">
-            <div class="text-right" id="content">
+            <div id="content">
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                     <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
-                        <h3 class="text-dark mb-0 navbar-brand"><strong>수조 정보 등록</strong></h3>
+                        <h3 class="text-dark mb-0 navbar-brand"><strong>수조 정보 수정</strong></h3>
                         <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                             <div class="input-group">
                                 <div class="input-group-append"></div>
@@ -61,10 +61,12 @@
             </div>
             </nav>
             <div class="container-fluid">
-                <h1 class="text-center"><strong>가나다 수산</strong></h1>
+                <h3 class="text-dark d-xl-flex justify-content-xl-center align-items-xl-center mb-0 navbar-brand"><strong>가나다수산</strong></h3>
+                <h3 class="text-dark d-xl-flex justify-content-xl-center align-items-xl-center mb-0 navbar-brand"><button class="btn btn-primary btn-sm mr-2" type="button"><strong>취소</strong></button><button class="btn btn-primary btn-sm mr-2" type="button"><strong>수정</strong></button><button class="btn btn-primary btn-sm" type="button"><strong>삭제</strong></button><br></h3>
+                <h3
+                    class="text-dark d-xl-flex justify-content-xl-center align-items-xl-center mb-0 navbar-brand"><br></h3>
             </div>
-            <div class="container-fluid mb-2"><button class="btn btn-primary" type="button">등록</button></div>
-            <div class="container-fluid text-center">
+            <div class="container-fluid text-truncate text-center">
                 <div class="table-responsive table-bordered text-truncate">
                     <table class="table table-bordered">
                         <thead>
@@ -112,10 +114,6 @@
                     </table>
                 </div>
             </div>
-            <div class="card"></div>
-            <!-- Start: Dropdown Card -->
-            <div class="card shadow d-xl-flex mb-4"></div>
-            <!-- End: Dropdown Card -->
         </div>
         <footer class="bg-white d-xl-flex align-items-xl-end sticky-footer">
             <div class="container my-auto">
