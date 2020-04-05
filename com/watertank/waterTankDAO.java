@@ -224,7 +224,7 @@ public class waterTankDAO {
 	         String sql = " select w.tankid, nvl(f.fishname, ' ') as fishname, nvl(w.userid,' ') as userid, nvl(w.dosensor,' ') as dosensor, nvl(w.phsensor,' ') as phsensor, nvl(w.psusensor, ' ') as psusensor, nvl(w.wtsensor, ' ') as wtsensor,"
 	               + " nvl(w.nh4sensor, ' ') as nh4sensor , nvl(w.no2sensor, ' ' ) as no2sensor from watertank w, fish f where w.farmid = ? and w.farmid = f.farmid and f.fishid = w.fishid and w.tankid = ? ";
 	         
-	         System.out.println(sql);
+	         
 	         pstmt = con.prepareStatement(sql);
 	         pstmt.setInt(1, farmid);
 	         pstmt.setString(2, tankID);

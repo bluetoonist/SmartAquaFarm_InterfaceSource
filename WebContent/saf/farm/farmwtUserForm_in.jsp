@@ -40,10 +40,12 @@
     <link rel="stylesheet" href="../../common/assets/css/Header-Blue.css?h=7fad78607ce59d50c5d9dc2f028b4b7b">
     <link rel="stylesheet" href="../../common/assets/css/Login-Form-Dark.css?h=d014ac7b8d4b9b6c8b9646f2e2315bc5">
     <link rel="stylesheet" href="../../common/assets/css/untitled.css?h=7feee93f573b1ef2766af1d8290eeb33">
+    
+    
 </head>
 
 <body>
-	    <form name = "farmUser">
+	<form name = "farmUser">
 		<input type="hidden" name="FarmID" value="<%=FarmID %>"/>
 <%		
 		if(searchuser == "null") {		// 담당자 검색 조건이 null일 때 공백 출력
@@ -59,8 +61,8 @@
 	    </div>
 	    <div class="container text-center">
 		    <select class="mr-2" name="searchuser">
-			    <option value='username'>ID</option>
-			    <option value='userid'>이름 </option>
+			    <option value="username">ID</option>
+			    <option value="userid" >이름 </option>
 			</select>
 			
 			<!-- 담당자 재검색시 검색조건 값 유지 -->
@@ -130,11 +132,19 @@
 	        </div>
 	    </div>
 	    
+	</form>
+	
 		<script src="../../common/func/util.js"></script>
 	    <script src="../../common/assets/js/jquery.min.js?h=83e266cb1712b47c265f77a8f9e18451"></script>
 	    <script src="../../common/assets/bootstrap/js/bootstrap.min.js?h=e46528792882c54882f660b60936a0fc"></script>
 	    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
 	    <script src="../../common/assets/js/theme.js?h=6d33b44a6dcb451ae1ea7efc7b5c5e30"></script>
-	</form>
+		<script language="javascript">
+		window.onload = function(){ 
+			var select_box_initail = document.getElementsByName("searchuser");
+			select_box_initail[0].getElementsByTagName("option")[0].selected = true;
+			}
+		</script>
+    
 </body>
 </html>

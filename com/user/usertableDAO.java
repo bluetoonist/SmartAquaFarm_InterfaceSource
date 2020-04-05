@@ -803,12 +803,16 @@ public class usertableDAO {
 
 	public ArrayList<usertableDTO> usertableSearch(String farmid, String searchuser, String searchuserinput)
 			throws NullPointerException, SQLException {
-
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql2 = null;
 		ArrayList<usertableDTO> userlist = new ArrayList();
+		
+		System.out.println(farmid);
+		System.out.println(searchuser);
+		System.out.println(searchuserinput);
 		
 		try {
 			con = DBCon.getConnection();
@@ -822,6 +826,7 @@ public class usertableDAO {
 	           sql2 += " order by username";
 	        }
 	        
+	        System.out.println(sql2);
 			pstmt = con.prepareStatement(sql2);
 			pstmt.setString(1, farmid);
 			rs = pstmt.executeQuery();
