@@ -139,6 +139,12 @@
 	    <script src="../../common/assets/bootstrap/js/bootstrap.min.js?h=e46528792882c54882f660b60936a0fc"></script>
 	    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
 	    <script src="../../common/assets/js/theme.js?h=6d33b44a6dcb451ae1ea7efc7b5c5e30"></script>
+	    <script language="javascript">
+		window.onload = function(){ 
+			var select_box_initail = document.getElementsByName("searchuser");
+			select_box_initail[0].getElementsByTagName("option")[0].selected = true;
+			}
+		</script>
 	</form>
 </body>
 </html>
