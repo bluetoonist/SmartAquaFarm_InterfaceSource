@@ -1,5 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ page import="farm.*" %>
+<%@ page import="user.*" %>
+<%@ page import="java.util.*" %>
+<%
+	//한글 패치
+	request.setCharacterEncoding("EUC-KR");
+	
+	/* Session Infor*/
+	String user_id = (String) session.getAttribute("userId");
+	String user_name = (String) session.getAttribute("userName");
+	String user_auth = (String) session.getAttribute("userAuth");
+	
+	usertableDAO dao = new usertableDAO();
+	usertableDTO dto = new usertableDTO();
+	farmDAO farmdao = new farmDAO();
+	farmDTO farmdto = new farmDTO();
+	
+	// 전체 관리자일 경우 리스트 목록
+	ArrayList userlist = dao.sysuserselect(user_auth);
+	// 일반 관리자일 경우 리스트 목록
+	ArrayList userlist2 = dao.adminuserselect(user_auth);
+%>
 <!DOCTYPE html>
 <html>
 
@@ -14,7 +35,6 @@
     <link rel="stylesheet" href="../../common/assets/css/Login-Form-Dark.css?h=d014ac7b8d4b9b6c8b9646f2e2315bc5">
     <link rel="stylesheet" href="../../common/assets/css/untitled.css?h=7feee93f573b1ef2766af1d8290eeb33">
     	
-    
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
     
@@ -30,15 +50,58 @@
                     <div class="sidebar-brand-text mx-3"><span class="text-monospace">SMART AQUA FARM</span></div>
                 </a>
                 <hr class="sidebar-divider my-0">
-                <ul class="nav navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="../main/index.jsp""><i class="fas fa-tachometer-alt"></i><span>모니터링</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="farmwtSearch.html"><i class="fas fa-table"></i><span>상태 기준 정보</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="table.html"><i class="fas fa-th-list"></i><span>상태 기록</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="login.html"><i class="fas fa-record-vinyl"></i><span>조치 기록</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="register.html"><i class="fas fa-chart-bar"></i><span>통계</span></a>
-                    <a class="nav-link" href="register.html"><i class="fas fa-tint"></i><span>양식장 정보 관리</span></a>
-                    <a class="nav-link" href="../farm/farmwtSearch.jsp"><i class="fas fa-water"></i><span>수조 정보</span></a></li>
-                </ul>
+                <!-- Navigator Menu -->
+            <ul class="nav navbar-nav text-light" id="accordionSidebar">
+               <li class="nav-item" role="presentation"><a class="nav-link active" href="../main/index.jsp">
+                  <i class="fas fa-tachometer-alt"></i>
+                  <span>모니터링</span>
+                  </a>
+               </li>
+               
+               <li class="nav-item" role="presentation">
+                  <a class="nav-link" href="../growinfo/growInfoList.jsp">
+                  <i class="fas fa-table"></i>
+                  <span>상태 기준 정보</span>
+                  </a>
+               </li>
+               
+               <li class="nav-item" role="presentation">
+                  <a class="nav-link" href="../watertank/stateRec.jsp">
+                  <i class="fas fa-th-list"></i>
+                  <span>상태 기록</span>
+                  </a>
+               </li>
+               
+               <li class="nav-item" role="presentation">
+                  <a class="nav-link" href="../watertank/repairRec.jsp">
+                  <i class="fas fa-record-vinyl"></i>
+                  <span>조치 기록</span>
+                  </a>
+               </li>
+               
+               
+               <li class="nav-item" role="presentation">
+                  <a class="nav-link" href="alert('준비중');">
+                  <i class="fas fa-chart-bar"></i>
+                  <span>통계</span></a>
+               </li>
+                  
+               <li class="nav-item" role="presentation">
+                  <a class="nav-link" href="../user/farmListForm.jsp">
+                  <i class="fas fa-tint">
+                  </i><span>양식장 정보 관리</span>
+                  </a>
+               </li>
+               
+               <li class="nav-item" role="presentation">            
+                  <a class="nav-link" onclick="moveFarmWtSearchPage();">
+                  <i class="fas fa-water">
+                  </i><span>수조 정보</span>
+                  </a>
+               </li>
+               
+            </ul>
+            <!--  End Menu Navigator -->
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
         </nav>
@@ -69,14 +132,13 @@
                     </ul>
             </div>
             </nav>
-            <div class="container-fluid text-right mb-2"><button class="btn btn-primary" type="button">추가</button></div>
+            <div class="container-fluid text-right mb-2"><button class="btn btn-primary" onclick="">추가</button></div>
             <div class="container-fluid">
                 <div class="table-responsive table-bordered">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th class="table-primary text-center">ID</th>
-                                <th class="table-primary text-center">PW</th>
                                 <th class="table-primary text-center">이름</th>
                                 <th class="table-primary text-center">연락처</th>
                                 <th class="table-primary text-center">직책</th>
@@ -85,34 +147,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="text-center">Cell 1</td>
-                                <td class="text-center">Cell 2</td>
-                                <td class="text-center">Cell 2</td>
-                                <td class="text-center">Cell 2</td>
-                                <td class="text-center">Cell 2</td>
-                                <td class="text-center">Cell 2</td>
-                                <td class="text-center">Cell 2</td>
-                            </tr>
-                            <tr></tr>
-                            <tr>
-                                <td class="text-center">Cell 1</td>
-                                <td class="text-center">Cell 2</td>
-                                <td class="text-center">Cell 3</td>
-                                <td class="text-center">Cell 4</td>
-                                <td class="text-center">Cell 5</td>
-                                <td class="text-center">Cell 6</td>
-                                <td class="text-center">Cell 7</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">Cell 1</td>
-                                <td class="text-center">Cell 2</td>
-                                <td class="text-center">Cell 3</td>
-                                <td class="text-center">Cell 4</td>
-                                <td class="text-center">Cell 5</td>
-                                <td class="text-center">Cell 6</td>
-                                <td class="text-center">Cell 7</td>
-                            </tr>
+                           
+<%
+					//userDAO에서 받아온 userlist 출력
+					for (int i = 0; i < userlist.size(); i++) {
+						dto = (usertableDTO) userlist.get(i);
+						
+						// farmid를 이름으로 바꿈
+						String farmid = dto.getFarmId();
+						ArrayList<farmDTO> farmnm =  dao.changename(farmid);
+						
+						
+%>						 <tr>
+		                    <td class="text-center"><%=dto.getUserId()%></td>
+							<td class="text-center"><%=dto.getUserName()%></td>
+							<td class="text-center"><%=dto.getUserTel()%></td>
+							<td class="text-center"><%=dto.getUserAuth()%></td>
+							<td class="text-center"><%=dto.getFarmId() %></td>
+							<td class="text-center"><%=dto.getRegDate()%></td>
+                        </tr>
+<%
+						} 
+%>             
+                        
+                           
                         </tbody>
                     </table>
                 </div>

@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.stream.Stream;
+import java.util.*;
 
 import farm.farmDTO;
 
@@ -112,8 +114,8 @@ public class farmDAO {
 	    ****************** ********************/
 	   
 	   
-	   public ArrayList<farmDTO> getFarm(int arr[])  throws NullPointerException, SQLException {
-	      Connection con = null;
+	   public ArrayList<farmDTO> getFarm(String auth, String farmid)  throws NullPointerException, SQLException {
+	      Connection con = DBCon.getConnection();
 	      PreparedStatement pstmt = null;
 	      ResultSet rs = null;
 	      String sql = null;
@@ -121,24 +123,45 @@ public class farmDAO {
 	      ArrayList list = new ArrayList();
 
 	      try {
-	         con = DBCon.getConnection();
+	    	  if(auth.equals("sysadmin")) {// 전체 관리자일 경우
+	    		  sql = "select farmid, farmname, address from farm";
+	    		  pstmt = con.prepareStatement(sql);
+	    		  rs = pstmt.executeQuery();
+	    		  
+	    	  }else if(auth.equals("admin")) {// 일반 관리자일 경우
+	    		  // ,를 기점으로 값 나눠 배열에 넣기
+	              int arr[] = Stream.of(farmid.split(",")).mapToInt(Integer::parseInt).toArray();
+	 	         for (int i = 0; i < arr.length; i++) {
+	    		  sql = "select farmid, farmname, address from farm where farmid = ?";
+	    		  pstmt = con.prepareStatement(sql);
+	    		  pstmt.setInt(1, arr[i]);
+	    		  rs = pstmt.executeQuery();
+	    		  
+	    	      while (rs.next()) {
+	    	          farmDTO bean = new farmDTO();
+		               bean.setFarmId(rs.getInt("farmid"));
+		               bean.setFarmName(rs.getString("farmname"));
+		               bean.setAddress(rs.getString("address"));
+		               list.add(bean);
+		            }
+	 	         }
+	    	  }else if(auth.equals("user")) {// 사용자일 경우
+	    		  sql = "select farmid, farmname, address from farm where farmid = ?";
+	    		  pstmt = con.prepareStatement(sql);
+	    		  pstmt.setString(1, farmid);
+	    		  rs = pstmt.executeQuery();
 
-	         for (int i = 0; i < arr.length; i++) {
-
-	            sql = "select farmid, farmname, address " + "from farm " + "where farmid = ?";
-
-	            pstmt = con.prepareStatement(sql);
-	            pstmt.setInt(1, arr[i]);
-	            rs = pstmt.executeQuery();
-	            farmDTO bean = new farmDTO();
-
-	            while (rs.next()) {
-	               bean.setFarmId(rs.getInt("farmid"));
-	               bean.setFarmName(rs.getString("farmname"));
-	               bean.setAddress(rs.getString("address"));
-	               list.add(bean);
-	            }
-	         }
+	    	  }
+    		  
+	    	  if(!auth.equals("admin")) {
+	    		  while (rs.next()) {
+	    	          farmDTO bean = new farmDTO();
+	    			  bean.setFarmId(rs.getInt("farmid"));
+		              bean.setFarmName(rs.getString("farmname"));
+		              bean.setAddress(rs.getString("address"));
+		              list.add(bean);
+		            }
+	    	  }
 	      } catch (Exception e) {
 	         e.printStackTrace();
 	      } finally {

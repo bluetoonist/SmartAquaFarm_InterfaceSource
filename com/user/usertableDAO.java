@@ -126,7 +126,7 @@ public class usertableDAO {
 		try {
 			con = dbcp.getConnection();
 
-			sql = "select farmid, usertel,username from usertable where userid = ? ";
+			sql = "select farmid, userid, userpw, usertel, username from usertable where userid = ? ";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user_ID);
 			rs = pstmt.executeQuery();
@@ -134,11 +134,15 @@ public class usertableDAO {
 			if (rs.next()) {
 
 				if (rs.getString("farmid") == null) {
+					dto.setUserId(rs.getString("userid"));
+					dto.setUserPw(rs.getString("userpw"));
 					dto.setUserName(rs.getString("username"));
 					dto.setFarmId("");
 					dto.setUserTel(rs.getString("usertel"));
 
 				} else {
+					dto.setUserId(rs.getString("userid"));
+					dto.setUserPw(rs.getString("userpw"));
 					dto.setUserName(rs.getString("username"));
 					dto.setFarmId(rs.getString("farmid"));
 					dto.setUserTel(rs.getString("usertel"));
@@ -182,7 +186,7 @@ public class usertableDAO {
 
 			// 전체 관리자일 떄 조회 기능
 			if (user_auth.equals("sysadmin")) {
-				sql = "select username ,userid  " + "from usertable " + "where userauth = 'admin' ";
+				sql = "select username ,userid from usertable where userauth = 'admin' or userauth = 'user' ";
 
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
@@ -279,18 +283,51 @@ public class usertableDAO {
 		try {
 			con = dbcp.getConnection();
 			// sql문 작성(수정문)
-			sql = "update usertable set userPW = ?, username=?, usertel = ? where userid= ?";
+			sql = "update usertable set username=?, usertel = ? where userid= ?";
 
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, bean.getUserPw()); // userDTO에 저장된 사용자 비밀번호
-			pstmt.setString(2, bean.getUserName()); // userDTO에 저장된 사용자 이름
-			pstmt.setString(3, bean.getUserTel()); // userDTO에 저장된 사용자 전화번호
-			pstmt.setString(4, bean.getUserId()); // userDTO에 저장된 사용자 id
+			pstmt.setString(1, bean.getUserName()); // userDTO에 저장된 사용자 이름
+			pstmt.setString(2, bean.getUserTel()); // userDTO에 저장된 사용자 전화번호
+			pstmt.setString(3, bean.getUserId()); // userDTO에 저장된 사용자 id
+			pstmt.executeQuery();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		} finally {
+			con.setAutoCommit(true);
+			dbcp.close(con, pstmt, null);
+		}
+	}
+	
+
+	/**************************************
+	 * @name updatePw()
+	 * @author 김성현
+	 * @param usertableDTO bean
+	 * @return void
+	 * @throws SQLException
+	 * @remark 사용자 정보 수정, 사용처 - updatePrc.jsp
+	 **************************************/
+
+	// 회원정보 수정하기
+	public void updatePw(usertableDTO dto) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+
+		try {
+			con = dbcp.getConnection();
+			// sql문 작성(수정문)
+			sql = "update usertable set userPW = ? where userid= ?";
+
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getUserPw()); // userDTO에 저장된 사용자 비밀번호
+			pstmt.setString(2, dto.getUserId()); // userDTO에 저장된 사용자 id
 			pstmt.executeQuery();
 			con.commit();
 
 		} catch (Exception e) {
-
 			e.printStackTrace();
 		} finally {
 			con.setAutoCommit(true);
@@ -507,14 +544,11 @@ public class usertableDAO {
 		String sql = null;
 		ResultSet rs = null;
 
-		// 받은 양식장 String id를 int형으로 형변환
-		int farmid = Integer.parseInt(fid);
-
 		try {
 			con = DBCon.getConnection();
 			sql = "delete from farm where farmid=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, farmid);
+			pstmt.setString(1, fid);
 			pstmt.executeUpdate();
 
 		} catch (Exception e) {
@@ -588,26 +622,11 @@ public class usertableDAO {
 
 		try {
 
-			// farmid을 farmName로 바꾸는 작업
-// 	  String sql1 = " select f.farmname from farm f, usertable u where u.farmid=? and u.farmid=f.farmid and f.farmid=? ";
-//       pstmt= con.prepareStatement(sql1);
-//       
-//       pstmt.setInt(1, farmId);
-//       rs = pstmt.executeQuery();
-//       
-//       String farmName="";
-//       
-//       if(rs.next()) {
-//          
-//          farmName = rs.getString("farmname");
-			//
-//       }
-			String sql1 = "select USERID" + "     , USERPW" + "     , USERNAME" + "     ,nvl(usertel, 'X') as usertel"
-					+ "     , USERAUTH"
+			String sql1 = "select USERID, USERPW , USERNAME ,nvl(usertel, 'X') as usertel, USERAUTH"
 					+ "     , decode(userauth, 'sysadmin', '전체관리자', 'admin', '일반관리자', 'user', '사용자', '') as authname"
 					+ "     , nvl(farmid, 'X') as farmid"
-					+ "     , to_char(REGDATE, 'yyyy/mm/dd hh24:mi:ss') as REGDATE " + "     , REGID"
-					+ "     , LASTUPTDATE" + "     , LASTUPTID"
+					+ "     , to_char(REGDATE, 'yyyy/mm/dd hh24:mi:ss') as REGDATE, REGID"
+					+ "     , LASTUPTDATE, LASTUPTID"
 					+ "  from usertable where Not userauth In ('sysadmin') ";
 
 			pstmt = con.prepareStatement(sql1);
@@ -616,23 +635,13 @@ public class usertableDAO {
 			while (rs.next()) {
 
 				usertableDTO vo = new usertableDTO();
-
 				vo.setUserId(rs.getString("userid"));
-
 				vo.setUserPw(rs.getString("userpw"));
-
 				vo.setUserName(rs.getString("username"));
-
 				vo.setUserTel(rs.getString("usertel"));
-
 				vo.setUserAuth(rs.getString("authname"));
-
 				vo.setFarmId(rs.getString("farmid"));
 
-				/*
-				 * if (rs.getString("farmid") == null) { vo.setFarmId("X"); } else {
-				 * vo.setFarmId(rs.getString("farmid")); }
-				 */
 				vo.setRegDate(rs.getString("regdate"));
 				userlist.add(vo);
 			}
@@ -644,6 +653,74 @@ public class usertableDAO {
 		return userlist;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/***********************************
+	 *
+	 * @name adminuserselect
+	 * @author 김성현
+	 * @param farmid(String)
+	 * @return farmlist
+	 * @remark farmid를 farmname으로 수정-userManagement.jsp
+	 ***********************************/
+	// 조건에 따라 양식장 조회하기(검색)
+	public ArrayList<farmDTO> changename(String farmid) throws NullPointerException, SQLException {
+		ArrayList<farmDTO> farmlist = new ArrayList<farmDTO>();
+		Connection con = dbcp.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "";
+	    
+	    String farmName= null;
+		
+		try {
+			String[] farmSplit = farmid.split(",");
+
+			for(int i=0; i<farmSplit.length; i++) {
+				System.out.println(farmSplit[i]);
+			
+				// farmid을 farmName로 바꾸는 작업
+				String sql1 = "select farmname from farm where farmid = ?";
+			    pstmt= con.prepareStatement(sql1);
+	    
+			    pstmt.setString(1, farmSplit[i]);
+			    rs = pstmt.executeQuery();
+
+			    if(rs.next()) {	
+			    	farmDTO dto = new farmDTO();
+			    	farmName = rs.getString("farmname");
+			    	System.out.println(farmName);
+			    }
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbcp.close(con, pstmt, rs);
+		}
+		return farmlist;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/***********************************
 	 *
 	 * @name adminuserselect

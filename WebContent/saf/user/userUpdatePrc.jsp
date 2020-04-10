@@ -22,18 +22,25 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 
-	/* Session  Configuration */
+	/* Session Infor*/
 	String user_id = (String) session.getAttribute("userId");
 	String user_name = (String) session.getAttribute("userName");
 	String user_auth = (String) session.getAttribute("userAuth");
+
+	String flag = request.getParameter("flag");
 	
-	user_dto.setUserPw(request.getParameter("userPW"));
-	user_dto.setUserName(request.getParameter("name"));
+	System.out.println(flag);
+	
+	if(flag.equals("Password")){
+		user_dto.setUserPw(request.getParameter("userPW"));
+		user_dto.setUserId(user_id);
+		user_dao.updatePw(user_dto);
+	}else if(flag.equals("nametel")){
+	user_dto.setUserName(request.getParameter("username"));
 	user_dto.setUserTel(request.getParameter("usertel"));
-	user_dto.setUserAuth(user_auth);
-	user_dto.setUserId(request.getParameter("id"));
-	
+	user_dto.setUserId(user_id);
 	user_dao.updateMember(user_dto);
+	}
 	
 	String msg = "수정이 완료되었습니다."; //입력 된거 확인시키려고
 

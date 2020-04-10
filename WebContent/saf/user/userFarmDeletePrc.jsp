@@ -17,26 +17,31 @@
 <jsp:useBean id="dao" class="user.usertableDAO" />
 
 <%
+	request.setCharacterEncoding("UTF-8");
+
 	/* Session  Configuration */
 	String user_id = (String) session.getAttribute("userId");
 	String user_name = (String) session.getAttribute("userName");
 	String user_auth = (String) session.getAttribute("userAuth");
 
-	// 한글 패치
-	request.setCharacterEncoding("EUC-KR");
+	String farmID = request.getParameter("farmId");
+	String farmName = request.getParameter("farmName");
 
+	
+	
+	
+	
 	// 전화번호, 양식장 id 가져오기
 	usertableDTO dto = dao.getuser(user_id);
 
 	String FarmID = dto.getFarmId(); // 양식장 id
 
-	String fid = request.getParameter("FarmID");
 
 	if (user_auth.equals("sysadmin")) {
-		dao.sysdelFarm(fid);
+		dao.sysdelFarm(farmID);
 	} else {
-		dao.delFarm(fid, user_id);
-	}
+		dao.delFarm(farmID, user_id);
+	} 
 
 	response.sendRedirect("./userInfo.jsp");
 %>
