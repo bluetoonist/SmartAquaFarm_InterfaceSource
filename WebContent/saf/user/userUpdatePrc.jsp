@@ -1,13 +1,10 @@
 <%--
-	■ SYSTEM				: 
-	■ SOURCE FILE NAME		: userUpdatePrc.jsp
-	■ DESCRIPTION			: 사용자 정보 수정 Prc
-	■ COMPANY				: 목포대학교 융합소프트웨어공학과 
-	■ PROGRAMMER			: 김성현 
-	■ DESIGNER				: 
-	■ PROGRAM DATE			: 2019.08.19
-	■ EDIT HISTORY			: 
-	■ EDIT CONTENT			: 
+    ■ SYSTEM                : 스마트 양식장 인터페이스
+    ■ SOURCE FILE NAME      : userUpdatePrc.jsp
+    ■ DESCRIPTION           : 회원정보 수정 프로시저
+    ■ COMPANY               : 목포대학교 분산멀티미디어 연구실, 목포대학교  카시오 연구실    
+    ■ PROGRAM DATE          : 2020.03.27
+    ■ EDIT HISTORY          : 2020.04.11    
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

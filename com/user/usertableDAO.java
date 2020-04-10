@@ -186,7 +186,7 @@ public class usertableDAO {
 
 			// 전체 관리자일 떄 조회 기능
 			if (user_auth.equals("sysadmin")) {
-				sql = "select username ,userid from usertable where userauth = 'admin' or userauth = 'user' ";
+				sql = "select username ,userid from usertable where userauth = 'admin'";
 
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
@@ -213,6 +213,59 @@ public class usertableDAO {
 		return bean;
 	}
 
+	/*
+	 * @ Author : sunghyun
+	 * 
+	 * @ PAGE : userInfo.jsp
+	 * 
+	 * @ Parameter : user_auth
+	 * 
+	 * @ Description : return to (user_name and user_id)
+	 * 
+	 * @ DATE : 2020-03-03
+	 */
+
+	public ArrayList<usertableDTO> select_(String user_auth) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		String sql = null;
+
+		ArrayList<usertableDTO> bean = new ArrayList<usertableDTO>();
+
+		try {
+			con = dbcp.getConnection();
+
+			// 전체 관리자일 떄 조회 기능
+			if (user_auth.equals("sysadmin")) {
+				sql = "select username ,userid from usertable where userauth = 'admin' or userauth = 'user' ";
+
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				while (rs.next()) {
+					usertableDTO temp_bean = new usertableDTO();
+					temp_bean.setUserName(rs.getString("USERNAME"));
+					temp_bean.setUserId(rs.getString("USERID"));
+					bean.add(temp_bean);
+				}
+
+				// 일반 관리자일 떄 조회 기능
+			} else if (user_auth.equals("admin")) {
+
+			} else if (user_auth.equals("user")) {
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbcp.close(con, pstmt, rs);
+		}
+
+		return bean;
+	}
 	/*
 	 * @ Author : Kim Sung Hyun
 	 * 

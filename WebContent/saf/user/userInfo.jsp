@@ -1,9 +1,16 @@
+<%--
+    ■ SYSTEM                : 스마트 양식장 인터페이스
+    ■ SOURCE FILE NAME      : userInfo.jsp
+    ■ DESCRIPTION           : 회원 정보 페이지
+    ■ COMPANY               : 목포대학교 분산멀티미디어 연구실, 목포대학교  카시오 연구실    
+    ■ PROGRAM DATE          : 2020.03.27
+    ■ EDIT HISTORY          : 2020.04.11    
+--%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="farm.*" %>
 <%@ page import="user.*" %>
 <%@ page import="java.util.*" %>
 <%
-
 	request.setCharacterEncoding("UTF-8");
 	
 	/* Session Infor*/
@@ -28,7 +35,7 @@
     
     //리스트 불러오기
     list = farmdao.getFarm(user_auth, FarmID);
-    userlist = dao.select_user(user_auth);
+    userlist = dao.select_(user_auth);
     
 %>
 <script>
