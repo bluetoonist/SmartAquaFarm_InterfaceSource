@@ -1,18 +1,25 @@
-<%@ page import="java.sql.*"%>
-<%@ page import="java.util.ArrayList" %>
+<%--
+    ■ SYSTEM                : 스마트 양식장 인터페이스
+    ■ SOURCE FILE NAME      : farmwtInsertForm.jsp
+    ■ DESCRIPTION           : 양식장 수조 정보 등록 양식 페이지
+    ■ COMPANY               : 목포대학교 분산멀티미디어 연구실, 목포대학교  카시오 연구실    
+    ■ PROGRAM DATE          : 2020.03.27
+    ■ EDIT HISTORY          : 2020.04.11    
+--%>
 
 <%@ page import="farm.*"%>
-<%@ page import="growInfo.*"%>
-<%@ page import="watertank.*"%>
 <%@ page import="user.*"%>
-
+<%@ page import="watertank.*"%>
+<%@ page import="growInfo.*"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="java.util.ArrayList" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%
 	//한글 패치
 	request.setCharacterEncoding("UTF-8");
 
-	/* Session Infor*/
+	/* Session Configuration*/
 	String user_id = (String) session.getAttribute("userId");
 	String user_name = (String) session.getAttribute("userName");
 	String user_auth = (String) session.getAttribute("userAuth");
@@ -25,7 +32,7 @@
 	farmDAO mgr3 = new farmDAO();
 	
 	int selectFarm = Integer.parseInt(request.getParameter("farmid"));
-	System.out.println("farmid : "+selectFarm);
+	
 	//담당자 조회 부분
 	ArrayList<usertableDTO> userAddlist = mgr1.usertableSelect(user_id);
 	// 어종 선택 부분 
@@ -37,8 +44,6 @@
 	if(sel_userid == null){
 		sel_userid = "";
 	}
-	System.out.println("조회를 통해 받은 userid : "+sel_userid);
-	
 %>
 
 <!DOCTYPE html>

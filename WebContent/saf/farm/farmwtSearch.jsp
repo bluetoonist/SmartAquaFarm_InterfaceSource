@@ -1,3 +1,12 @@
+<%--
+    ■ SYSTEM                : 스마트 양식장 인터페이스
+    ■ SOURCE FILE NAME      : farmwtSearch.jsp
+    ■ DESCRIPTION           : 양식장 정보 수조 정보 조회 페이지
+    ■ COMPANY               : 목포대학교 분산멀티미디어 연구실, 목포대학교  카시오 연구실    
+    ■ PROGRAM DATE          : 2020.03.27
+    ■ EDIT HISTORY          : 2020.04.11    
+--%>
+
 <%@ page import="java.sql.*"%>
 <%@ page import="java.util.ArrayList" %>
 
@@ -30,20 +39,18 @@
 	<%
 		request.setCharacterEncoding("UTF-8");
 		/* farmDAO 객체 생성 */
-		ArrayList<farmDTO> farmnamelist = null;
 		farmDAO farm_dao = new farmDAO();
+		ArrayList<farmDTO> farmnamelist = null;
+		
 		waterTankDAO wt_dao = new waterTankDAO();
 		
-		/* Session Infor*/
+		/* Session Configuration */
 		String user_id = (String) session.getAttribute("userId");
 		String user_name = (String) session.getAttribute("userName");
 		String user_auth = (String) session.getAttribute("userAuth");
 	
 		// 쿼리스트링 farmid
-		String Farmid = null;
-		
-		Farmid = request.getParameter("farmid"); 
-		
+		String Farmid = request.getParameter("farmid");;
 		
 		// 정수형 양식장 ID (String)request.getAttribute("farmid");
 		int FarmID = 0;
@@ -59,8 +66,6 @@
 		} else {
 			FarmID = Integer.parseInt(Farmid);
 		}
-		
-		System.out.println("FarmID : "+FarmID);
 		
 		farmnamelist = farm_dao.farmSelect(user_id);
 		

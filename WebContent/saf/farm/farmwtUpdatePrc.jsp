@@ -1,22 +1,17 @@
 <%--
-   ■ SYSTEM					: SAF 양식장
-   ■ SOURCE FILE NAME   	: farmwtUpdatePrc.jsp
-   ■ DESCRIPTION			: 양식장 정보 수정 기능
-   ■ COMPANY				: 목포대학교 융합소프트웨어학과 
-   ■ PROGRAMMER				: 장해리
-   ■ DESIGNER				: 
-   ■ PROGRAM DATE			: 2019.08.
-   ■ EDIT HISTORY			: 2019.08.18
-   ■ EDIT CONTENT			: 2019.08.22
+    ■ SYSTEM                : 스마트 양식장 인터페이스
+    ■ SOURCE FILE NAME      : farmwtUpdatePrc.jsp
+    ■ DESCRIPTION           : 양식장 수조 정보 업데이트 프로시져
+    ■ COMPANY               : 목포대학교 분산멀티미디어 연구실, 목포대학교  카시오 연구실    
+    ■ PROGRAM DATE          : 2020.03.27
+    ■ EDIT HISTORY          : 2020.04.11    
 --%>
-
+<%@ page import="watertank.*"%>
+<%@ page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*"%>
-<%@ page import="farm.*"%>
-<%@ page import="growInfo.*"%>
-<%@ page import="watertank.*"%>
-<%@ page import="user.*"%>
+
+
 <%
 	//한글패치
 	request.setCharacterEncoding("UTF-8");
@@ -29,6 +24,7 @@
 	
 	//앞에서 받아온 값들
 	String tankID = request.getParameter("tankID");
+	
 	int FarmID = Integer.parseInt(request.getParameter("farmid"));
 	String fishName = request.getParameter("selectFish");
 	String userID = request.getParameter("userid");
@@ -38,18 +34,7 @@
 	String WTSensor = request.getParameter("wtsensor");
 	String NH4Sensor = request.getParameter("nh4sensor");
 	String NO2Sensor = request.getParameter("no2sensor");
-	
-	System.out.println(tankID);
-	System.out.println(fishName);
-	System.out.println(FarmID);
-	System.out.println(userID);
-	System.out.println(DOSensor);
-	System.out.println(pHSensor);
-	System.out.println(psuSensor);
-	System.out.println(WTSensor);
-	System.out.println(NH4Sensor);
-	System.out.println(NO2Sensor);
-	
+		
 	waterTankDAO mgr = new waterTankDAO();
 	
 	// Session_ID 에 빨간줄이여도 신경 쓰지 말것?
@@ -58,11 +43,8 @@
 			psuSensor, WTSensor, NH4Sensor, NO2Sensor, user_id, FarmID);
 	
 	
-	
 	request.setAttribute("farmid", FarmID);
-	
 	RequestDispatcher dispatcher = request.getRequestDispatcher("farmwtSearch.jsp");
-	
 	dispatcher.forward(request, response);
 	
 %>

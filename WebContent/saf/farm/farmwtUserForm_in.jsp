@@ -1,14 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*"%>
-<%@ page import="java.util.*"%>
+<%--
+    ■ SYSTEM                : 스마트 양식장 인터페이스
+    ■ SOURCE FILE NAME      : farmwtUserForm_in.jsp
+    ■ DESCRIPTION           : 양식장 수조 정보 담당자 조회 페이지
+    ■ COMPANY               : 목포대학교 분산멀티미디어 연구실, 목포대학교  카시오 연구실    
+    ■ PROGRAM DATE          : 2020.03.27
+    ■ EDIT HISTORY          : 2020.04.11    
+--%>
+
 <%@ page import="farm.*"%>
 <%@ page import="user.*" %>
+<%@ page import="java.sql.*"%>
+<%@ page import="java.util.*"%>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <%	
 	request.setCharacterEncoding("UTF-8");
 
-	/* Session Infor*/
+	/* Session Configuration */
 	String user_id = (String) session.getAttribute("userId");
 	String user_name = (String) session.getAttribute("userName");
 	String user_auth = (String) session.getAttribute("userAuth");
@@ -18,10 +29,6 @@
 	String searchuser = request.getParameter("searchuser");				//검색 조건 값
 	String searchuserinput = request.getParameter("searchuserinput");	//검색창 값
 	String FarmID = request.getParameter("FarmID");
-	
-	System.out.println("FarmID : "+FarmID);
-	System.out.println("searchuser : "+searchuser);
-	System.out.println("searchuserinput :" +searchuserinput);
 	
 	ArrayList<usertableDTO> userlist = cdd.usertableSearch(FarmID, searchuser, searchuserinput);
 %>

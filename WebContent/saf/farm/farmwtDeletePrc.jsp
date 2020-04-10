@@ -1,32 +1,28 @@
 <%--
-    ■ SYSTEM                : SAF 양식장
+    ■ SYSTEM                : 스마트 양식장 인터페이스
     ■ SOURCE FILE NAME      : farmwtDeletePrc.jsp
-    ■ DESCRIPTION           : 양식장 정보 삭제 Prc
-    ■ COMPANY               : 목포대학교 융합소프트웨어학과 
-    ■ PROGRAMMER            : 황선주
-    ■ DESIGNER              : 
-    ■ PROGRAM DATE          : 2019.08.
-    ■ EDIT HISTORY          : 2019.08.16
-    ■ EDIT CONTENT          : 2019.08.16
+    ■ DESCRIPTION           : 양식장 수조 정보 삭제 프로시져
+    ■ COMPANY               : 목포대학교 분산멀티미디어 연구실, 목포대학교  카시오 연구실    
+    ■ PROGRAM DATE          : 2020.03.27
+    ■ EDIT HISTORY          : 2020.04.11    
 --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
+
 <%@ page import="java.sql.*"%>
 <%@ page import="watertank.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 
 <%
-   request.setCharacterEncoding("UTF-8");               //한글 패치
+	//한글 패치
+	request.setCharacterEncoding("UTF-8");               
 
+	waterTankDAO cdd = new waterTankDAO();
    
+	int FarmID = Integer.parseInt(request.getParameter("farmid"));
    
-   waterTankDAO cdd = new waterTankDAO();
-   
-   int FarmID = Integer.parseInt(request.getParameter("farmid"));
-   String tankID = request.getParameter("tankID");      //farmwtUpdateForm에서 저장한 tankid값을 요청해서 받아옴 
+    //farmwtUpdateForm에서 저장한 tankid값을 요청해서 받아옴
+	String tankID = request.getParameter("tankID");       
 
-   System.out.println(FarmID);
-   System.out.println(tankID);
-   
-   cdd.waterTankDelete(tankID, FarmID);
+	cdd.waterTankDelete(tankID, FarmID);
    
 	RequestDispatcher dispatcher = request.getRequestDispatcher("farmwtSearch.jsp");
 	request.setAttribute("farmid", FarmID);
