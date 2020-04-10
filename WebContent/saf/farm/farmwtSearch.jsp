@@ -104,29 +104,28 @@
 				<% if(user_auth.equals("sysadmin")){ %>
 				<!-- Navigator Menu -->
 				<ul class="nav navbar-nav text-light" id="accordionSidebar">
-					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="../main/index.jsp">
+					<li class="nav-item" role="presentation"><a class="nav-link active" href="../main/index.jsp">
 						<i class="fas fa-tachometer-alt"></i>
 						<span>모니터링</span>
 						</a>
 					</li>
 					
 					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="profile.html">
+						<a class="nav-link" href="../growinfo/growInfoList.jsp">
 						<i class="fas fa-table"></i>
 						<span>상태 기준 정보</span>
 						</a>
 					</li>
 					
 					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="table.html">
+						<a class="nav-link" href="../watertank/stateRec.jsp">
 						<i class="fas fa-th-list"></i>
 						<span>상태 기록</span>
 						</a>
 					</li>
 					
 					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="login.html">
+						<a class="nav-link" href="../watertank/repairRec.jsp">
 						<i class="fas fa-record-vinyl"></i>
 						<span>조치 기록</span>
 						</a>
@@ -134,20 +133,20 @@
 					
 					
 					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="register.html">
+						<a class="nav-link" href="alert('준비중');">
 						<i class="fas fa-chart-bar"></i>
 						<span>통계</span></a>
 					</li>
 						
 					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="register.html">
+						<a class="nav-link" href="../user/farmListForm.jsp">
 						<i class="fas fa-tint">
 						</i><span>양식장 정보 관리</span>
 						</a>
 					</li>
 					
 					<li class="nav-item" role="presentation">				
-						<a class="nav-link active" onclick="moveFarmWtSearchPage()">
+						<a class="nav-link" onclick="moveFarmWtSearchPage();">
 						<i class="fas fa-water">
 						</i><span>수조 정보</span>
 						</a>
@@ -155,34 +154,34 @@
 					
 				</ul>
 				<!--  End Menu Navigator -->
+	
 				
 				<% } else if(user_auth.equals("admin")) { %>
 					
 					<!-- Navigator Menu -->
 				<ul class="nav navbar-nav text-light" id="accordionSidebar">
-					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="index.html">
+					<li class="nav-item" role="presentation"><a class="nav-link active" href="../main/index.jsp">
 						<i class="fas fa-tachometer-alt"></i>
 						<span>모니터링</span>
 						</a>
 					</li>
 					
 					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="profile.html">
+						<a class="nav-link" href="../growinfo/growInfoList.jsp">
 						<i class="fas fa-table"></i>
 						<span>상태 기준 정보</span>
 						</a>
 					</li>
 					
 					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="table.html">
+						<a class="nav-link" href="../watertank/stateRec.jsp">
 						<i class="fas fa-th-list"></i>
 						<span>상태 기록</span>
 						</a>
 					</li>
 					
 					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="login.html">
+						<a class="nav-link" href="../watertank/repairRec.jsp">
 						<i class="fas fa-record-vinyl"></i>
 						<span>조치 기록</span>
 						</a>
@@ -190,26 +189,27 @@
 					
 					
 					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="register.html">
+						<a class="nav-link" href="alert('준비중');">
 						<i class="fas fa-chart-bar"></i>
 						<span>통계</span></a>
 					</li>
 						
 					<li class="nav-item" role="presentation">
-						<a class="nav-link" href="register.html">
+						<a class="nav-link" href="../user/farmListForm.jsp">
 						<i class="fas fa-tint">
 						</i><span>양식장 정보 관리</span>
 						</a>
 					</li>
 					
 					<li class="nav-item" role="presentation">				
-						<a class="nav-link active" href="moveFarmWtSearchPage()">
+						<a class="nav-link" onclick="moveFarmWtSearchPage();">
 						<i class="fas fa-water">
 						</i><span>수조 정보</span>
 						</a>
 					</li>
 					
 				</ul>
+				<!--  End Menu Navigator -->
 				<!--  End Menu Navigator -->
 					
 				<% } else { %>

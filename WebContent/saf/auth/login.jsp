@@ -37,11 +37,10 @@
             	<button class="btn btn-primary btn-block" type="submit">
             	<strong>로그인 </strong>
             </button></div><a class="forgot" href="#">
-            <strong>비밀번호를 잊어버리셨나요 관리자에게 문의하세요 </strong>
-            
-            
-		</form>
+            <strong>비밀번호를 잊어버리셨나요 관리자에게 문의하세요 </strong>           
+		</form>	
     </div>
+    
     <script src="../../common/assets/js/jquery.min.js"></script>
     <script src="../../common/assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="../../common/assets/js/theme.js"></script>
