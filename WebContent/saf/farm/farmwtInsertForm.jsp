@@ -158,7 +158,7 @@
 		                                <optgroup label="어종을 선택하세요">
 	<%
 													for (int j = 0; j < fishname_list.size(); j++) {
-													System.out.println(fishname_list.get(j));
+													
 	%>
 													<option value="<%=fishname_list.get(j).getRemark()%>">
 													<%=fishname_list.get(j).getRemark()%></option>
