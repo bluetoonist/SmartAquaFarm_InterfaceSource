@@ -685,8 +685,7 @@ public class usertableDAO {
 		try {
 			String[] farmSplit = farmid.split(",");
 
-			for(int i=0; i<farmSplit.length; i++) {
-				System.out.println(farmSplit[i]);
+			for(int i=0; i<farmSplit.length; i++) {				
 			
 				// farmid을 farmName로 바꾸는 작업
 				String sql1 = "select farmname from farm where farmid = ?";
