@@ -30,12 +30,12 @@
 	String tel = request.getParameter("usertel");
 	
 	if(flag.equals("Password")){
-		System.out.println("Password");
+		
 		user_dto.setUserPw(request.getParameter("userPW"));
 		user_dto.setUserId(user_id);
 		user_dao.updatePw(user_dto);
 	}else if(flag.equals("nametel")){
-		System.out.println("nametel");
+		
 		user_dto.setUserName(request.getParameter("username"));
 		user_dto.setUserTel(request.getParameter("usertel"));
 		user_dto.setUserId(user_id);
@@ -47,7 +47,7 @@
 		user_dto.setUserId(request.getParameter("userid"));
 		user_dao.updateMember(user_dto);
 	}else if(flag.equals("UpdatePW")){
-		System.out.println("UpdatePW");
+		
 		user_dto.setUserPw(request.getParameter("userPW"));
 		user_dto.setUserId(request.getParameter("userid"));
 		user_dao.updatePw(user_dto);

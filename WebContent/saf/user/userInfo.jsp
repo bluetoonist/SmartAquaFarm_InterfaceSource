@@ -17,15 +17,27 @@
 	String user_id = (String) session.getAttribute("userId");
 	String user_name = (String) session.getAttribute("userName");
 	String user_auth = (String) session.getAttribute("userAuth");
-
-	usertableDAO dao = new usertableDAO();
-	usertableDTO dto = new usertableDTO();
+    
+    /* Request Parameter Configuration*/
+    String userID = request.getParameter("userID");
+    
+    
+   
 	farmDAO farmdao = new farmDAO();
 	farmDTO farmdto = new farmDTO();
+    
+	usertableDAO dao = new usertableDAO();
+	usertableDTO dto = new usertableDTO();
+	
 	
 	ArrayList<farmDTO> list = new ArrayList<farmDTO>();
 	ArrayList<usertableDTO> userlist = new ArrayList<usertableDTO>();
-	
+    
+    /* User haved Farm List*/
+    ArrayList<farmDTO> farm_info = new ArrayList<farmDTO>();
+    farm_info = farmdao.getuserFarmData(userID);
+    
+  
 	// 회원 정보 가져오기
 	dto = dao.getuser(user_id);
 
@@ -36,6 +48,10 @@
     //리스트 불러오기
     list = farmdao.getFarm(user_auth, FarmID);
     userlist = dao.select_(user_auth);
+   
+    
+    
+    
     
 %>
 <script>
@@ -319,9 +335,22 @@ function delfarm(param1,param2){
                                 <p class="text-primary m-0 font-weight-bold">소속 양식장 관리</p>
                             </div>
                             <div class="card-body">
-
-                            <select name="userID">
 <%
+    if(userID == null) {
+    %>
+     ID를 선택해주세요 :  
+   <% 
+    } else {
+     %>
+                  검색된 <%= userID %>의 양식장
+     <%   
+    }
+%>
+                         
+                  
+                            <select name="userID">
+<%                             
+                          
 							for(int i=0; i<userlist.size(); i++){
 								dto = userlist.get(i);  
 %>
@@ -337,8 +366,8 @@ function delfarm(param1,param2){
                                     <div class="col">
                                         <ul class="list-group">
 <%
-										for (int i = 0; i < list.size(); i++) { 
-											farmdto = list.get(i);   
+										for (int i = 0; i < farm_info.size(); i++) { 
+											farmdto = farm_info.get(i);   
 %>                                                          
                                             <li class="list-group-item">
                                                 <div class="row">

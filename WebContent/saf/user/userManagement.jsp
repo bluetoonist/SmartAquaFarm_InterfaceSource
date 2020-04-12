@@ -188,7 +188,7 @@ function goReadUser(userid) {
 							// farmid를 이름으로 바꿈
 							String farmid = dto.getFarmId();
 							ArrayList<farmDTO> farmnm =  dao.changename(farmid);
-	
+	                        
 	
 							
 	%>						 <tr onclick="goReadUser('<%=dto.getUserId()%>')" style="cursor : pointer;" >
@@ -196,7 +196,16 @@ function goReadUser(userid) {
 								<td class="text-center"><%=dto.getUserName()%></td>
 								<td class="text-center"><%=dto.getUserTel()%></td>
 								<td class="text-center"><%=dto.getUserAuth()%></td>
-								<td class="text-center"><%= dto.getFarmId() %></td>
+								<td class="text-center">
+                                <%
+                                    for(int j=0; j<farmnm.size(); j++){
+                                  %>
+                                  <!--  Error Warning be Ignored -->
+                                 <%= farmnm.get(j).getFarmName() %>      
+                                <%
+                                }
+                                %>                               
+                                </td>
 								<td class="text-center"><%=dto.getRegDate()%></td>
 	                        </tr>
 	<%

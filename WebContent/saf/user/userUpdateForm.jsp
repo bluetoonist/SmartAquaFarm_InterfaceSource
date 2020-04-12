@@ -20,7 +20,7 @@
 	
 	// update 시 수정할 사용자의 id 값
 	String id = request.getParameter("userid");
-	System.out.println(id);
+	
 	user_dto = user_dao.getuser(id);
 	
 	String name = user_dto.getUserName();

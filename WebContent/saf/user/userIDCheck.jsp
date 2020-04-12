@@ -21,7 +21,7 @@
    // ID값 가져오기
    String userID = request.getParameter("userID");
    usertableDAO dao = new usertableDAO();
-   System.out.println("userID : "+userID);
+   
 %>
 
 <script>
@@ -29,9 +29,10 @@
 //************************************************************************ START LINE
 function popupIdCheck(){
 	var frm = document.IDCheck;
-	frm.target = "_self";
+	console.log(frm.userID);
 	
-	frm.action="userIDCheck.jsp";
+	frm.target = "_self";
+	frm.action = "./userIDCheck.jsp";
 	frm.submit();
 }
 //************************************************************************ END LINE
@@ -72,14 +73,11 @@ function selfClose() {
     <link rel="stylesheet" href="../../common/assets/css/untitled.css?h=7feee93f573b1ef2766af1d8290eeb33">
 </head>
 
-<link rel="stylesheet" href="../common/style.css">
-<script type="text/javascript" src="../common/main.js"></script>
 </head>
 <body>
 
    <body>
    <form name="IDCheck">
-	   <input type="hidden" name="userID">
 	    <div class="container-fluid">
 	        <h1 class="text-center mt-2"><strong>ID 검색</strong></h1>
 	    </div>
