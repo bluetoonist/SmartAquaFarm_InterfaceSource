@@ -34,10 +34,10 @@ function checkValue() {
 		return;
 	}
 	// ID 중복체크 확인 - 인터페이스 붙힌 후 기능 구현 예정
-//	if (document.userInsertForm.idDuplication.value == 0) {
-//		alert("ID 중복체크를 해주세요.");
-//		return;
-//	}
+	if (document.userInsertForm.idDuplication.value == 0) {
+		alert("ID 중복체크를 해주세요.");
+		return;
+	}
 	// 비밀번호 빈칸 확인
 	if (!document.userInsertForm.userPW.value) {
 		alert("비밀번호를 입력하세요.");
@@ -77,7 +77,7 @@ function idCheck() {
 			.open(
 					url,
 					"confirm",
-					"toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=380px, height=240px");
+					"toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=400px, height=300px");
 }
 
 //************************************************************************ END LINE
