@@ -466,7 +466,6 @@ public class growInfoDAO {
 	   
 	   public ArrayList<growInfoDTO> mgrowList(int farmId)
 	   {
-	      // DB �뿰寃곗뿉 �븘�슂�븳 蹂��닔
 	      Connection con = null;
 	      PreparedStatement pstmt = null;
 	      String sql = null;
@@ -502,4 +501,11 @@ public class growInfoDAO {
 	      
 	      return adto;
 	   }
+	  
+	   
+	   
 }
+	
+
+
+

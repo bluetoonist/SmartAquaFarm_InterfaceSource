@@ -1,4 +1,27 @@
+<%@ page import="java.util.*"%>
+
+<%@ page import="farm.farmDTO"%>
+<%@ page import="farm.farmDAO"%>
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%
+	/* Session  Configuration */
+	String user_id = (String) session.getAttribute("userId");
+	String user_name = (String) session.getAttribute("userName");
+	String user_auth = (String) session.getAttribute("userAuth");
+
+    
+    /* Search FarmID , FarmName*/
+	ArrayList<farmDTO> f_dto = new ArrayList<farmDTO>();
+	farmDAO f_dao = new farmDAO();
+    
+    /* get FarmID , FarmName*/
+	f_dto = f_dao.getFarm(user_auth, "21");
+%>
+
+
 <!DOCTYPE html>
 <html>
 
@@ -14,7 +37,18 @@
 <link rel="stylesheet" href="../../common/assets/css/Header-Blue.css?h=7fad78607ce59d50c5d9dc2f028b4b7b">
 <link rel="stylesheet" href="../../common/assets/css/Login-Form-Dark.css?h=d014ac7b8d4b9b6c8b9646f2e2315bc5">
 <link rel="stylesheet" href="../../common/assets/css/untitled.css?h=7feee93f573b1ef2766af1d8290eeb33">
+<script>
+	function changedFarmValue(){
+		var select_farmIndex = document.getElementsByClassName("mr-2");
+		_farmIndex = select_farmIndex[4].selectedIndex;
+		console.log(select_farmIndex[4][_farmIndex].text);
+		
+	}
+</script>
+
+
 </head>
+
 
 <body id="page-top">
     <div id="wrapper">
@@ -25,7 +59,7 @@
                         <i class="fas fa-fish"></i>
                     </div>
                     <div class="sidebar-brand-text mx-3">
-                        <span class="text-monospace">sMART AQUA FARM</span>
+                        <span class="text-monospace">SMART AQUA FARM</span>
                     </div>
                 </a>
                 <hr class="sidebar-divider my-0">
@@ -113,12 +147,23 @@
                 <div class="container-fluid text-center">
                     <header></header>
                     <span class="text-dark mr-2"><strong>양식장 선택</strong></span>
-                    <select class="mr-2">
+
+                    <!--  양식장 선택 -->
+                    <select class="mr-2" onchange="changedFarmValue()">
                         <optgroup label="양식장">
-                            <option value="12">A 양식장</option>
-                            <option value="14">B 양식장</option>
+                            <%                           
+                            	for (int i = 0; i < f_dto.size(); i++) {
+                            	   int farm_id = f_dto.get(i).getFarmId();
+                            	   String farm_name = f_dto.get(i).getFarmName(); 	
+                            	   %>
+                                <option value="<%=farm_id%>"><%=farm_name %></option>		
+                                    <%
+                            	}
+                            %>
                         </optgroup>
                     </select>
+                    <!--  End Line -->
+                    <!--  어종 선택  -->
                     <select class="mr-2">
                         <optgroup label="어종 선택">
                             <option value="12" selected="">넙치</option>
@@ -126,6 +171,8 @@
                             <option value="14">우럭</option>
                         </optgroup>
                     </select>
+                    <!-- End Line -->
+
                     <button class="btn btn-primary btn-sm" type="button" style="margin-bottom: 5px;">추가</button>
                 </div>
                 <div class="container-fluid">
