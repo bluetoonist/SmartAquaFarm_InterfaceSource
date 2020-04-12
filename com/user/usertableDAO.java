@@ -126,7 +126,7 @@ public class usertableDAO {
 		try {
 			con = dbcp.getConnection();
 
-			sql = "select farmid, userid, userpw, usertel, username from usertable where userid = ? ";
+			sql = "select farmid, userid, userpw, usertel, username, userauth from usertable where userid = ? ";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user_ID);
 			rs = pstmt.executeQuery();
@@ -139,6 +139,7 @@ public class usertableDAO {
 					dto.setUserName(rs.getString("username"));
 					dto.setFarmId("");
 					dto.setUserTel(rs.getString("usertel"));
+					dto.setUserAuth(rs.getString("userauth"));
 
 				} else {
 					dto.setUserId(rs.getString("userid"));
@@ -146,6 +147,7 @@ public class usertableDAO {
 					dto.setUserName(rs.getString("username"));
 					dto.setFarmId(rs.getString("farmid"));
 					dto.setUserTel(rs.getString("usertel"));
+					dto.setUserAuth(rs.getString("userauth"));
 
 				}
 
@@ -338,6 +340,12 @@ public class usertableDAO {
 			// sql문 작성(수정문)
 			sql = "update usertable set username=?, usertel = ? where userid= ?";
 
+			System.out.println("updateData");
+			
+			System.out.println(bean.getUserName());
+			System.out.println(bean.getUserTel());
+			System.out.println(bean.getUserId());
+			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getUserName()); // userDTO에 저장된 사용자 이름
 			pstmt.setString(2, bean.getUserTel()); // userDTO에 저장된 사용자 전화번호
@@ -749,8 +757,8 @@ public class usertableDAO {
 
 			    if(rs.next()) {	
 			    	farmDTO dto = new farmDTO();
-			    	farmName = rs.getString("farmname");
-			    	System.out.println(farmName);
+			    	dto.setFarmName(rs.getString("farmname"));
+			    	farmlist.add(dto);
 			    }
 			}
 		} catch (Exception e) {

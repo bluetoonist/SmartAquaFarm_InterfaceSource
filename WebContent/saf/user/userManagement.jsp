@@ -10,6 +10,7 @@
 <%@ page import="farm.*" %>
 <%@ page import="user.*" %>
 <%@ page import="java.util.*" %>
+<%@ page import="java.util.Arrays" %>
 <%
 	//한글 패치
 	request.setCharacterEncoding("EUC-KR");
@@ -29,6 +30,20 @@
 	// 일반 관리자일 경우 리스트 목록
 	ArrayList userlist2 = dao.adminuserselect(user_auth);
 %>
+<script>
+//* 읽기 수정으로 이동(id 클릭 시) - userManagement.jsp
+//************************************************************************ START LINE
+function goReadUser(userid) {
+	var farm = document.userManagement;
+	farm.userid.value = userid;
+	
+	farm.method = "post";
+	farm.action = "userUpdateForm.jsp";
+	farm.submit();
+
+}
+//************************************************************************ END LINE
+</script>
 <!DOCTYPE html>
 <html>
 
@@ -131,58 +146,67 @@
                             </li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow" role="presentation">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">sysadmin</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar1.jpeg?h=0ecc82101fb9a10ca459432faa8c0656"></a>
+                                <div class="nav-item dropdown no-arrow">
+                                <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">
+                                <span class="d-none d-lg-inline mr-2 text-gray-600 small"><%=user_name %></span>
+                                <img class="border rounded-circle img-profile" src="../../common/assets/img/avatars/avatar1.jpeg">
+                                </a>
                                     <div
-                                        class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="userInfo.html"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;회원 정보</a>
-                                        <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;로그아웃</a></div>
-                    </div>
-                    </li>
+                                        class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu">
+                                        <a class="dropdown-item" role="presentation" href="userInfo.jsp">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;회원 정보</a>
+                                        <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation" href="../auth/logoutPrc.jsp">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;로그아웃</a></div>
+                    		</div>
+                    	</li>
                     </ul>
             </div>
             </nav>
-            <div class="container-fluid text-right mb-2"><button class="btn btn-primary" onclick="">추가</button></div>
-            <div class="container-fluid">
-                <div class="table-responsive table-bordered">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th class="table-primary text-center">ID</th>
-                                <th class="table-primary text-center">이름</th>
-                                <th class="table-primary text-center">연락처</th>
-                                <th class="table-primary text-center">직책</th>
-                                <th class="table-primary text-center">소속양식장</th>
-                                <th class="table-primary text-center">가입일</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                           
-<%
-					//userDAO에서 받아온 userlist 출력
-					for (int i = 0; i < userlist.size(); i++) {
-						dto = (usertableDTO) userlist.get(i);
-						
-						// farmid를 이름으로 바꿈
-						String farmid = dto.getFarmId();
-						ArrayList<farmDTO> farmnm =  dao.changename(farmid);
-						
-						
-%>						 <tr>
-		                    <td class="text-center"><%=dto.getUserId()%></td>
-							<td class="text-center"><%=dto.getUserName()%></td>
-							<td class="text-center"><%=dto.getUserTel()%></td>
-							<td class="text-center"><%=dto.getUserAuth()%></td>
-							<td class="text-center"><%=dto.getFarmId() %></td>
-							<td class="text-center"><%=dto.getRegDate()%></td>
-                        </tr>
-<%
-						} 
-%>             
-                        
-                           
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <div class="container-fluid text-right mb-2"><button class="btn btn-primary" onclick="location.href='userInsertForm.jsp'">추가</button></div>
+            <form name="userManagement">
+            <input type="hidden" name="userid">
+	            <div class="container-fluid">
+	                <div class="table-responsive table-bordered">
+	                    <table class="table table-bordered">
+	                        <thead>
+	                            <tr>
+	                                <th class="table-primary text-center">ID</th>
+	                                <th class="table-primary text-center">이름</th>
+	                                <th class="table-primary text-center">연락처</th>
+	                                <th class="table-primary text-center">직책</th>
+	                                <th class="table-primary text-center">소속양식장</th>
+	                                <th class="table-primary text-center">가입일</th>
+	                            </tr>
+	                        </thead>
+	                        <tbody>
+	                           
+	<%
+						//userDAO에서 받아온 userlist 출력
+						for (int i = 0; i < userlist.size(); i++) {
+							dto = (usertableDTO) userlist.get(i);
+							
+							// farmid를 이름으로 바꿈
+							String farmid = dto.getFarmId();
+							ArrayList<farmDTO> farmnm =  dao.changename(farmid);
+	
+	
+							
+	%>						 <tr onclick="goReadUser('<%=dto.getUserId()%>')" style="cursor : pointer;" >
+			                    <td class="text-center"><%=dto.getUserId()%></td>
+								<td class="text-center"><%=dto.getUserName()%></td>
+								<td class="text-center"><%=dto.getUserTel()%></td>
+								<td class="text-center"><%=dto.getUserAuth()%></td>
+								<td class="text-center"><%= dto.getFarmId() %></td>
+								<td class="text-center"><%=dto.getRegDate()%></td>
+	                        </tr>
+	<%
+							} 
+	%>             
+	                        </tbody>
+	                    </table>
+	                </div>
+	            </div>
+            </form>
         </div>
         <footer class="bg-white d-xl-flex align-items-xl-end sticky-footer">
             <div class="container my-auto">

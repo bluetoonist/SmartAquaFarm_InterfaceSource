@@ -1,4 +1,88 @@
+<%--
+    ■ SYSTEM                : 스마트 양식장 인터페이스
+    ■ SOURCE FILE NAME      : userInsertForm.jsp
+    ■ DESCRIPTION           : 사용자 등록 페이지
+    ■ COMPANY               : 목포대학교 분산멀티미디어 연구실, 목포대학교  카시오 연구실    
+    ■ PROGRAM DATE          : 2020.03.27
+    ■ EDIT HISTORY          : 2020.04.11    
+--%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="user.*" %>
+<%@ page import="java.util.*" %>
+<%
+	request.setCharacterEncoding("UTF-8");
+
+	/* Session Infor*/
+	String user_id = (String) session.getAttribute("userId");
+	String user_name = (String) session.getAttribute("userName");
+	String user_auth = (String) session.getAttribute("userAuth");
+
+%>
+
+<script>
+//* 아이디 빈칸확인 - userInsertForm.jsp
+//************************************************************************ START LINE
+function checkValue() {
+	// 이름 빈칸 확인
+	if (!document.userInsertForm.userName.value) {
+		alert("이름을 입력하세요.");
+		return;
+	}
+	// ID 빈칸 확인
+	if (!document.userInsertForm.userID.value) {
+		alert("ID를 입력하세요.");
+		return;
+	}
+	// ID 중복체크 확인 - 인터페이스 붙힌 후 기능 구현 예정
+//	if (document.userInsertForm.idDuplication.value == 0) {
+//		alert("ID 중복체크를 해주세요.");
+//		return;
+//	}
+	// 비밀번호 빈칸 확인
+	if (!document.userInsertForm.userPW.value) {
+		alert("비밀번호를 입력하세요.");
+		return;
+	}
+	// 비밀번호 일치 확인
+	if (document.userInsertForm.userPW.value != document.userInsertForm.userPWChk.value) {
+		alert("비밀번호를 동일하게 입력하세요.");
+		return;
+	}
+
+	// 폼 찾기
+	var form = document.userInsertForm;
+
+	// 사용자 추가확인창
+	if (confirm("사용자를 추가하시겠습니까?")) {
+		// 확인을 누를 경우
+		form.method = "post";
+		form.action = "userInsertPrc.jsp";
+		form.target = "_self";
+		form.submit();
+	}
+}
+//************************************************************************ END LINE
+// * 아이디 체크 - userInsertForm.jsp
+// ************************************************************************ START LINE
+function idCheck() {
+	// ID 빈칸 확인
+	if (!document.userInsertForm.userID.value) {
+		alert("ID를 입력하세요");
+		return;
+	}
+	// 팝업창 URL
+	var url = "userIDCheck.jsp?userID=" + document.userInsertForm.userID.value;
+	// 팝업창(userIDCheck.jsp)
+	window
+			.open(
+					url,
+					"confirm",
+					"toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=380px, height=240px");
+}
+
+//************************************************************************ END LINE
+</script>
+
 <!DOCTYPE html>
 <html>
 
@@ -26,13 +110,58 @@
                     <div class="sidebar-brand-text mx-3"><span class="text-monospace">sMART AQUA FARM</span></div>
                 </a>
                 <hr class="sidebar-divider my-0">
-                <ul class="nav navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="index.html"><i class="fas fa-tachometer-alt"></i><span>모니터링</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="farmwtSearch.html"><i class="fas fa-table"></i><span>상태 기준 정보</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="table.html"><i class="fas fa-th-list"></i><span>상태 기록</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="login.html"><i class="fas fa-record-vinyl"></i><span>조치 기록</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="register.html"><i class="fas fa-chart-bar"></i><span>통계</span></a><a class="nav-link" href="register.html"><i class="fas fa-tint"></i><span>양식장 정보 관리</span></a><a class="nav-link" href="farmwtSearch.html"><i class="fas fa-water"></i><span>수조 정보</span></a></li>
-                </ul>
+                
+          		<!-- Navigator Menu -->
+               <ul class="nav navbar-nav text-light" id="accordionSidebar">
+	               <li class="nav-item" role="presentation"><a class="nav-link active" href="../main/index.jsp">
+	                  <i class="fas fa-tachometer-alt"></i>
+	                  <span>모니터링</span>
+	                  </a>
+	               </li>
+	               
+	               <li class="nav-item" role="presentation">
+	                  <a class="nav-link" href="../growinfo/growInfoList.jsp">
+	                  <i class="fas fa-table"></i>
+	                  <span>상태 기준 정보</span>
+	                  </a>
+	               </li>
+	               
+	               <li class="nav-item" role="presentation">
+	                  <a class="nav-link" href="../watertank/stateRec.jsp">
+	                  <i class="fas fa-th-list"></i>
+	                  <span>상태 기록</span>
+	                  </a>
+	               </li>
+	               
+	               <li class="nav-item" role="presentation">
+	                  <a class="nav-link" href="../watertank/repairRec.jsp">
+	                  <i class="fas fa-record-vinyl"></i>
+	                  <span>조치 기록</span>
+	                  </a>
+	               </li>
+	               
+	               
+	               <li class="nav-item" role="presentation">
+	                  <a class="nav-link" href="alert('준비중');">
+	                  <i class="fas fa-chart-bar"></i>
+	                  <span>통계</span></a>
+	               </li>
+	                  
+	               <li class="nav-item" role="presentation">
+	                  <a class="nav-link" href="../user/farmListForm.jsp">
+	                  <i class="fas fa-tint">
+	                  </i><span>양식장 정보 관리</span>
+	                  </a>
+	               </li>
+	               
+	               <li class="nav-item" role="presentation">            
+	                  <a class="nav-link" onclick="moveFarmWtSearchPage();">
+	                  <i class="fas fa-water">
+	                  </i><span>수조 정보</span>
+	                  </a>
+	               </li>
+            </ul>
+  		<!--  End Menu Navigator -->
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
         </nav>
@@ -54,69 +183,103 @@
                             </li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow" role="presentation">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">sysadmin</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar1.jpeg?h=0ecc82101fb9a10ca459432faa8c0656"></a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">
+                                <span class="d-none d-lg-inline mr-2 text-gray-600 small"><%=user_name %></span>
+                                <img class="border rounded-circle img-profile" src="../../common/assets/img/avatars/avatar1.jpeg"></a>
                                     <div
-                                        class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="userInfo.html"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;회원 정보</a>
-                                        <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;로그아웃</a></div>
+                                        class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu">
+                                        <a class="dropdown-item" role="presentation" href="userInfo.jsp">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;회원 정보</a>
+                                        <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation" href="../auth/logoutPrc.jsp"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;로그아웃</a></div>
                     </div>
                     </li>
                     </ul>
             </div>
             </nav>
-            <div class="container text-right"><button class="btn btn-primary mr-2 mb-2" type="button">등록</button><button class="btn btn-primary mb-2" type="button">취소</button></div>
-            <div class="container">
-                <div class="card"></div>
-                <div class="row mb-2">
-                    <div class="col">
-                        <div class="table-responsive table-bordered text-truncate">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr></tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="table-primary text-center"><strong>회원 이름</strong></td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-xl-10"><input type="text" class="form-control" placeholder="회원이름" name="username"></div>
-                                                <div class="col text-right"><button class="btn btn-primary btn-block" type="button">중복확인</button></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table-primary text-center"><strong>사용자 PW</strong></td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col"><input type="password" class="form-control" placeholder="비밀번호"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table-primary text-center"><strong>사용자 PW 확인</strong></td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col"><input type="password" class="form-control" placeholder="비밀번호 확인"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table-primary text-center"><strong>연락처</strong></td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col"><input type="text" class="form-control" placeholder="연락처 " name="username"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table-primary text-center"><strong>직책</strong></td>
-                                        <td class="text-center"><select class="custom-select"><option value="12" selected="">전체관리자</option><option value="13">일반관리자</option><option value="14">사용자</option></select></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="container text-right">
+            <button class="btn btn-primary mr-2 mb-2" type="button" onclick="checkValue()">등록</button>
+            <button class="btn btn-primary mb-2" type="button" onclick="location.href='userManagement.jsp'">취소</button></div>
+            
+            <form name="userInsertForm">
+	            <div class="container">
+	                <div class="card"></div>
+	                <div class="row mb-2">
+	                    <div class="col">
+	                        <div class="table-responsive table-bordered text-truncate">
+	                            <table class="table table-bordered">
+	                                <thead>
+	                                    <tr></tr>
+	                                </thead>
+	                                <tbody>
+	                                	<tr>
+	                                        <td class="table-primary text-center"><strong>회원 이름</strong></td>
+	                                        <td>
+	                                            <div class="row">
+	                                                <div class="col"><input type="text" name="userName" class="form-control" placeholder="회원 이름"></div>
+	                                            </div>
+	                                        </td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td class="table-primary text-center"><strong>사용자 ID</strong></td>
+	                                        <td>
+	                                            <div class="row">
+	                                                <div class="col-xl-10"><input type="text" class="form-control" placeholder="사용자 ID" name="userID"></div>
+	                                                <div class="col text-right">
+	                                                <button class="btn btn-primary btn-block" type="button" name="idDuplication" onclick="idCheck()">중복확인</button></div>
+	                                            </div>
+	                                        </td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td class="table-primary text-center"><strong>사용자 PW</strong></td>
+	                                        <td>
+	                                            <div class="row">
+	                                                <div class="col"><input type="password" name="userPW" class="form-control" placeholder="비밀번호"></div>
+	                                            </div>
+	                                        </td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td class="table-primary text-center"><strong>사용자 PW 확인</strong></td>
+	                                        <td>
+	                                            <div class="row">
+	                                                <div class="col"><input type="password" name="userPWChk" class="form-control" placeholder="비밀번호 확인"></div>
+	                                            </div>
+	                                        </td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td class="table-primary text-center"><strong>연락처</strong></td>
+	                                        <td>
+	                                            <div class="row">
+	                                                <div class="col"><input type="text" class="form-control" placeholder="연락처 " name="usertel"></div>
+	                                            </div>
+	                                        </td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td class="table-primary text-center"><strong>직책</strong></td>
+	                                        <td class="text-center"><select name="userAuth" class="custom-select">
+
+<% 
+											if(user_auth.equals("admin")){ 
+%>
+											<option value="user">회원</option>
+<% 
+											}else { 
+%>	                                        
+	                                        <option value="sysadmin">전체관리자</option>
+	                                        <option value="admin">일반관리자</option>
+	                                        <option value="user">사용자</option></select>
+<% 
+										} 
+%>
+	                                        </td>
+	                                    </tr>
+	                                </tbody>
+	                            </table>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+            </form>
+            
         </div>
         <footer class="bg-white d-xl-flex align-items-xl-end sticky-footer">
             <div class="container my-auto">
