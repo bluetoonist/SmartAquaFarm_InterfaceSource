@@ -17,141 +17,156 @@
 </head>
 
 <body id="page-top">
-	<div id="wrapper">
-		<nav class="navbar navbar-dark bg-success align-items-start sidebar sidebar-dark bg-gradient-primary accordion p-0" style="background-color: rgb(198, 43, 43);">
-			<div class="container-fluid d-flex flex-column p-0">
-				<a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-					<div class="sidebar-brand-icon rotate-n-15">
-						<i class="fas fa-fish"></i>
-					</div>
-					<div class="sidebar-brand-text mx-3">
-						<span class="text-monospace">sMART AQUA FARM</span>
-					</div>
-				</a>
-				<hr class="sidebar-divider my-0">
+    <div id="wrapper">
+        <nav class="navbar navbar-dark bg-success align-items-start sidebar sidebar-dark bg-gradient-primary accordion p-0" style="background-color: rgb(198, 43, 43);">
+            <div class="container-fluid d-flex flex-column p-0">
+                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15">
+                        <i class="fas fa-fish"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">
+                        <span class="text-monospace">sMART AQUA FARM</span>
+                    </div>
+                </a>
+                <hr class="sidebar-divider my-0">
 
-				<!-- Navigator Menu -->
-				<ul class="nav navbar-nav text-light" id="accordionSidebar">
-					<li class="nav-item" role="presentation"><a class="nav-link active" href="../main/index.jsp"> <i class="fas fa-tachometer-alt"></i> <span>모니터링</span>
-					</a></li>
+                <!-- Navigator Menu -->
+                <ul class="nav navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="../main/index.jsp">
+                            <i class="fas fa-tachometer-alt"></i> <span>모니터링</span>
+                        </a></li>
 
-					<li class="nav-item" role="presentation"><a class="nav-link" href="../growinfo/growInfoList.jsp"> <i class="fas fa-table"></i> <span>상태 기준 정보</span>
-					</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="../growinfo/growInfoList.jsp">
+                            <i class="fas fa-table"></i> <span>상태 기준 정보</span>
+                        </a></li>
 
-					<li class="nav-item" role="presentation"><a class="nav-link" href="../watertank/stateRec.jsp"> <i class="fas fa-th-list"></i> <span>상태 기록</span>
-					</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="../watertank/stateRec.jsp">
+                            <i class="fas fa-th-list"></i> <span>상태 기록</span>
+                        </a></li>
 
-					<li class="nav-item" role="presentation"><a class="nav-link" href="../watertank/repairRec.jsp"> <i class="fas fa-record-vinyl"></i> <span>조치 기록</span>
-					</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="../watertank/repairRec.jsp">
+                            <i class="fas fa-record-vinyl"></i> <span>조치 기록</span>
+                        </a></li>
 
 
-					<li class="nav-item" role="presentation"><a class="nav-link" href="alert('준비중');"> <i class="fas fa-chart-bar"></i> <span>통계</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="alert('준비중');">
+                            <i class="fas fa-chart-bar"></i> <span>통계</span>
+                        </a></li>
 
-					<li class="nav-item" role="presentation"><a class="nav-link" href="../user/farmListForm.jsp"> <i class="fas fa-tint"> </i><span>양식장 정보 관리</span>
-					</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="../user/farmListForm.jsp">
+                            <i class="fas fa-tint"> </i><span>양식장 정보 관리</span>
+                        </a></li>
 
-					<li class="nav-item" role="presentation"><a class="nav-link" onclick="moveFarmWtSearchPage();"> <i class="fas fa-water"> </i><span>수조 정보</span>
-					</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" onclick="moveFarmWtSearchPage();">
+                            <i class="fas fa-water"> </i><span>수조 정보</span>
+                        </a></li>
 
-				</ul>
-				<!--  End Menu Navigator -->
-				<div class="text-center d-none d-md-inline">
+                </ul>
+                <!--  End Menu Navigator -->
+                <div class="text-center d-none d-md-inline">
 
-					<button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
-				</div>
-			</div>
-		</nav>
-		<div class="d-flex flex-column" id="content-wrapper">
-			<div id="content">
-				<nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-					<div class="container-fluid">
-						<button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button">
-							<i class="fas fa-bars"></i>
-						</button>
-						<h3 class="text-dark mb-0 navbar-brand">
-							<strong>양식장 정보 관리</strong>
-						</h3>
-						<form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-							<div class="input-group">
-								<div class="input-group-append"></div>
-							</div>
-						</form>
-						<ul class="nav navbar-nav flex-nowrap ml-auto">
-							<li class="nav-item dropdown no-arrow mx-1" role="presentation"></li>
-							<li class="nav-item dropdown no-arrow mx-1" role="presentation">
-								<div class="shadow dropdown-list dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown"></div>
-							</li>
-							<div class="d-none d-sm-block topbar-divider"></div>
-							<li class="nav-item dropdown no-arrow" role="presentation">
-								<div class="nav-item dropdown no-arrow">
-									<a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">sysadmin</span><img
-										class="border rounded-circle img-profile" src="assets/img/avatars/avatar1.jpeg?h=0ecc82101fb9a10ca459432faa8c0656"
-									></a>
-									<div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu">
-										<a class="dropdown-item" role="presentation" href="#"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;회원 정보</a>
-										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" role="presentation" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;로그아웃</a>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</nav>
-				<div class="container-fluid text-center">
-					<header></header>
-					<span class="text-dark mr-2"><strong>양식장 선택</strong></span>
-					<select class="mr-2">
-						<optgroup label="양식장">
-							<option value="12">A 양식장</option>
-							<option value="14">B 양식장</option>
-						</optgroup>
-					</select>
-					<select class="mr-2">
-						<optgroup label="어종 선택">
-							<option value="12" selected="">넙치</option>
-							<option value="13">광어</option>
-							<option value="14">우럭</option>
-						</optgroup>
-					</select>
-					<button class="btn btn-primary btn-sm" type="button" style="margin-bottom: 5px;">추가</button>
-				</div>
-				<div class="container-fluid">
-					<div class="table-responsive">
-						<table class="table">
-							<thead>
-								<tr>
-									<th>Column 1</th>
-									<th>Column 2</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Cell 1</td>
-									<td>Cell 2</td>
-								</tr>
-								<tr>
-									<td>Cell 3</td>
-									<td>Cell 4</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-			<footer class="bg-white d-xl-flex align-items-xl-end sticky-footer">
-				<div class="container my-auto">
-					<div class="text-center my-auto copyright">
-						<span>Copyright © Mokpo National University&nbsp; 2020</span>
-					</div>
-				</div>
-			</footer>
-		</div>
-		<a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
-	</div>
-	<script src="../../common/assets/js/jquery.min.js?h=83e266cb1712b47c265f77a8f9e18451"></script>
-	<script src="../../common/assets/bootstrap/js/bootstrap.min.js?h=e46528792882c54882f660b60936a0fc"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-	<script src="../../common/assets/js/theme.js?h=6d33b44a6dcb451ae1ea7efc7b5c5e30"></script>
+                    <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
+                </div>
+            </div>
+        </nav>
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                    <div class="container-fluid">
+                        <button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <h3 class="text-dark mb-0 navbar-brand">
+                            <strong>양식장 정보 관리</strong>
+                        </h3>
+                        <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            <div class="input-group">
+                                <div class="input-group-append"></div>
+                            </div>
+                        </form>
+                        <ul class="nav navbar-nav flex-nowrap ml-auto">
+                            <li class="nav-item dropdown no-arrow mx-1" role="presentation"></li>
+                            <li class="nav-item dropdown no-arrow mx-1" role="presentation">
+                                <div class="shadow dropdown-list dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown"></div>
+                            </li>
+                            <div class="d-none d-sm-block topbar-divider"></div>
+                            <li class="nav-item dropdown no-arrow" role="presentation">
+                                <div class="nav-item dropdown no-arrow">
+                                    <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">
+                                        <span class="d-none d-lg-inline mr-2 text-gray-600 small">sysadmin</span>
+                                        <img class="border rounded-circle img-profile" src="assets/img/avatars/avatar1.jpeg?h=0ecc82101fb9a10ca459432faa8c0656">
+                                    </a>
+                                    <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu">
+                                        <a class="dropdown-item" role="presentation" href="#">
+                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;회원 정보
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" role="presentation" href="#">
+                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;로그아웃
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="container-fluid text-center">
+                    <header></header>
+                    <span class="text-dark mr-2"><strong>양식장 선택</strong></span>
+                    <select class="mr-2">
+                        <optgroup label="양식장">
+                            <option value="12">A 양식장</option>
+                            <option value="14">B 양식장</option>
+                        </optgroup>
+                    </select>
+                    <select class="mr-2">
+                        <optgroup label="어종 선택">
+                            <option value="12" selected="">넙치</option>
+                            <option value="13">광어</option>
+                            <option value="14">우럭</option>
+                        </optgroup>
+                    </select>
+                    <button class="btn btn-primary btn-sm" type="button" style="margin-bottom: 5px;">추가</button>
+                </div>
+                <div class="container-fluid">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Column 1</th>
+                                    <th>Column 2</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Cell 1</td>
+                                    <td>Cell 2</td>
+                                </tr>
+                                <tr>
+                                    <td>Cell 3</td>
+                                    <td>Cell 4</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <footer class="bg-white d-xl-flex align-items-xl-end sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright">
+                        <span>Copyright © Mokpo National University&nbsp; 2020</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <a class="border rounded d-inline scroll-to-top" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+    </div>
+    <script src="../../common/assets/js/jquery.min.js?h=83e266cb1712b47c265f77a8f9e18451"></script>
+    <script src="../../common/assets/bootstrap/js/bootstrap.min.js?h=e46528792882c54882f660b60936a0fc"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="../../common/assets/js/theme.js?h=6d33b44a6dcb451ae1ea7efc7b5c5e30"></script>
 </body>
 
 </html>
