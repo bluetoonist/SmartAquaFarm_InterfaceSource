@@ -19,9 +19,9 @@ public class farmDAO {
 	/***********************************
 	 * @name farmSelect
 	 * @author Hwang Seon Ju
-	 * @param ID
+	 * @param  String ID
 	 * @return ArrayList<farmDTO>
-	 * @remark �뼇�떇�옣 �씠由� 異쒕젰(沅뚰븳 : �궗�슜�옄) , �궗�슜泥� - main.jsp ,farmwtSearch.jsp
+	 * @remark main.jsp ,farmwtSearch.jsp
 	 ***********************************/
 
 	public ArrayList<farmDTO> farmSelect(String ID) throws NullPointerException, SQLException {
@@ -29,14 +29,14 @@ public class farmDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql1 = null;
-		String sql2 = null;
+		String _farmid_account_sql = null;
+		String _farmName_account_sql = null;
 		ArrayList<farmDTO> farmnamelist = new ArrayList<farmDTO>();
 
 		try {
 			con = DBCon.getConnection();
-			sql1 = "select farmid from usertable where userid=?";
-			pstmt = con.prepareStatement(sql1);
+			_farmid_account_sql = "select farmid from usertable where userid=?";
+			pstmt = con.prepareStatement(_farmid_account_sql);
 			pstmt.setString(1, ID);
 			rs = pstmt.executeQuery();
 			String farmid = "";
@@ -45,8 +45,8 @@ public class farmDAO {
 				farmid = rs.getString("farmid");
 			}
 
-			sql2 = "select farmname from farm where farmid = ?";
-			pstmt = con.prepareStatement(sql2);
+			 _farmName_account_sql = "select farmname from farm where farmid = ?";
+			pstmt = con.prepareStatement( _farmName_account_sql);
 			pstmt.setString(1, farmid);
 			rs = pstmt.executeQuery();
 
@@ -63,14 +63,13 @@ public class farmDAO {
 		}
 		return farmnamelist;
 	}
-	//--------------------------------------------------------------
 	
 	/***********************************
 	    * @name   farmSelect()
 	    * @author Hwang Seon Ju
 	    * @param  farmid
 	    * @return ArrayList<farmDTO>
-	    * @remark 占쎈펶占쎈뻼占쎌삢 占쎌뵠�뵳占� �빊�뮆�젾(亦낅슦釉� : admin, sysadmin) , 占쎄텢占쎌뒠筌ｏ옙 - main.jsp ,farmwtSearch.jsp
+	    * @remark main.jsp ,farmwtSearch.jsp
 	    ***********************************/
 
 	   public String farmSelect(int farmid) throws NullPointerException, SQLException {
@@ -78,23 +77,20 @@ public class farmDAO {
 	      Connection con = null;
 	      PreparedStatement pstmt = null;
 	      ResultSet rs = null;
-	      String sql = null;
+	      String _farmName_account_sql = null;
 	      
 	      String farmname = null;
 	      
 	      try {
 	         con = DBCon.getConnection();
-	         sql = "select farmname from farm where farmid = ?";
-	         pstmt = con.prepareStatement(sql);
+	         _farmName_account_sql = "select farmname from farm where farmid = ?";
+	         pstmt = con.prepareStatement(_farmName_account_sql);
 	         pstmt.setInt(1, farmid);
 	         rs = pstmt.executeQuery();
 
 	         while (rs.next()) {
-	            farmDTO vo = new farmDTO();
-	            
-	            farmname = rs.getString("farmname");      // 占쎈펶占쎈뻼占쎌삢 占쎌뵠�뵳占�
-	            
-	
+	            farmDTO vo = new farmDTO();	            
+	            farmname = rs.getString("farmname");
 	         }
 	         
 	      } catch (NumberFormatException e) {
@@ -107,33 +103,31 @@ public class farmDAO {
 	  
 	   /**************************************
 	    * @name  getFarm()
-	    * @author  繹먲옙占쎄쉐占쎌겱
+	    * @author  Kim Seong-Hyun
 	    * @param   FarmID from FarmTable
 	    * @return  list
-	    * @remark  占쎄텢占쎌뒠占쎌쁽 占쎌젟癰귣똻肉됵옙苑� 占쎈펶占쎈뻼占쎌삢 揶쏅�れ뱽 揶쏉옙占쎌죬占쎌궔占쎈뼄 - userInfo.jsp
+	    * @remark  userInfo.jsp
 	    ****************** ********************/
-	   
-	   
 	   public ArrayList<farmDTO> getFarm(String auth, String farmid)  throws NullPointerException, SQLException {
 	      Connection con = DBCon.getConnection();
 	      PreparedStatement pstmt = null;
 	      ResultSet rs = null;
-	      String sql = null;
+	      String _farm_info_sql = null;
 
 	      ArrayList list = new ArrayList();
 
 	      try {
 	    	  if(auth.equals("sysadmin")) {// 전체 관리자일 경우
-	    		  sql = "select farmid, farmname, address from farm";
-	    		  pstmt = con.prepareStatement(sql);
+	    		  _farm_info_sql = "select farmid, farmname, address from farm";
+	    		  pstmt = con.prepareStatement(_farm_info_sql);
 	    		  rs = pstmt.executeQuery();
 	    		  
 	    	  }else if(auth.equals("admin")) {// 일반 관리자일 경우
 	    		  // ,를 기점으로 값 나눠 배열에 넣기
 	              int arr[] = Stream.of(farmid.split(",")).mapToInt(Integer::parseInt).toArray();
 	 	         for (int i = 0; i < arr.length; i++) {
-	    		  sql = "select farmid, farmname, address from farm where farmid = ?";
-	    		  pstmt = con.prepareStatement(sql);
+	 	        	_farm_info_sql = "select farmid, farmname, address from farm where farmid = ?";
+	    		  pstmt = con.prepareStatement(_farm_info_sql);
 	    		  pstmt.setInt(1, arr[i]);
 	    		  rs = pstmt.executeQuery();
 	    		  
@@ -146,8 +140,8 @@ public class farmDAO {
 		            }
 	 	         }
 	    	  }else if(auth.equals("user")) {// 사용자일 경우
-	    		  sql = "select farmid, farmname, address from farm where farmid = ?";
-	    		  pstmt = con.prepareStatement(sql);
+	    		  _farm_info_sql = "select farmid, farmname, address from farm where farmid = ?";
+	    		  pstmt = con.prepareStatement(_farm_info_sql);
 	    		  pstmt.setString(1, farmid);
 	    		  rs = pstmt.executeQuery();
 
@@ -188,21 +182,19 @@ public class farmDAO {
 			  			   
 		      Connection con = null;
 		      PreparedStatement pstmt = null;
-		      String sql = null;
+		      String _farm_info_sql = null;
 
 		      ResultSet rs = null;
 
 		      ArrayList<farmDTO> vlist = new ArrayList<farmDTO>();
 		      
-		      
-		      
 		      try {
 		         con = dbcp.getConnection();
 		         
-		         sql = "select farmid,farmname, address "
+		         _farm_info_sql = "select farmid,farmname, address "
 		         		+ "from farm "
 		         		+ "where farmid = ? or userid= ?";
-		         pstmt = con.prepareStatement(sql);
+		         pstmt = con.prepareStatement(_farm_info_sql);
 		         pstmt.setString(1, farm_ID); 
 		         pstmt.setString(2, user_ID); 
 		         rs = pstmt.executeQuery();
@@ -249,11 +241,9 @@ public class farmDAO {
 			      ArrayList<farmDTO> vlist = new ArrayList<farmDTO>();			      
 			      ArrayList<Integer> farm_arr = new ArrayList<>();
 			      
-			      
-			      
 			      try {
 			         con = dbcp.getConnection();
-			         /* �뼇�떇�옣 由ъ뒪�듃 議고쉶 */
+			         
 			         sql = "select farmid from usertable where userid= ?";
 			         pstmt = con.prepareStatement(sql);
 			         pstmt.setString(1, user_ID);
@@ -282,20 +272,14 @@ public class farmDAO {
 			        		 temp_bean.setAddress(rs.getString("address"));		       
 				        	 temp_bean.setFarmId(rs.getInt("farmid"));
 				        	 vlist.add(temp_bean);
-			        	 }
-			        	 
+			        	 }			        	 
 			         }
-
 			      } catch (Exception e) {
 			         e.printStackTrace();
 			      } finally {
 			         dbcp.close(con, pstmt, rs);
 			      }
-
 			      return vlist;
 			   }
 		
-
-		   
-		   
 }
