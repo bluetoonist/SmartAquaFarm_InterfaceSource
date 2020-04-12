@@ -45,19 +45,14 @@ var xhr = new XMLHttpRequest();
 var temp;
 function changedFarmValue(){
 	var select_farmIndex = document.getElementsByClassName("mr-2");			
-	_farmIndex = select_farmIndex[4].selectedIndex;
-	
+	_farmIndex = select_farmIndex[4].selectedIndex;	
 	farmID = select_farmIndex[4][_farmIndex].value;
 	
 	xhr.onreadystatechange = function() {
-		if (xhr.readyState == 4 && xhr.status == 200) {
-				console.log(xhr.responseText);
-				var JsonObj = eval( "(" + xhr.responseText + ")" );
-				
-					
+		if (xhr.readyState == 4 && xhr.status == 200) {				
+				var JsonObj = eval( "(" + xhr.responseText + ")" );								
 				var obj = document.getElementsByClassName("mr-2")
-				insert_fish_data = obj[5].getElementsByTagName("optgroup")
-				
+				insert_fish_data = obj[5].getElementsByTagName("optgroup")				
 				remove_number = insert_fish_data[0].getElementsByTagName("option").length;
 
 				for(i=remove_number-1; i>=0 ; i--) {
