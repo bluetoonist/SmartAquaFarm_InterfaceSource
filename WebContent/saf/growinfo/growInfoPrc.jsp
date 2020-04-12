@@ -27,6 +27,8 @@
             
             f_dto = f_dao.getFarm(user_auth, "21");
             
+            
+            
             for(int i=0; i<f_dto.size(); i++) {
                 System.out.println(f_dto.get(i).getFarmId());
                 System.out.println(f_dto.get(i).getFarmName());

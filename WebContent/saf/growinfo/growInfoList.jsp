@@ -19,6 +19,9 @@
     
     /* get FarmID , FarmName*/
 	f_dto = f_dao.getFarm(user_auth, "21");
+    
+    
+    
 %>
 
 
@@ -38,12 +41,48 @@
 <link rel="stylesheet" href="../../common/assets/css/Login-Form-Dark.css?h=d014ac7b8d4b9b6c8b9646f2e2315bc5">
 <link rel="stylesheet" href="../../common/assets/css/untitled.css?h=7feee93f573b1ef2766af1d8290eeb33">
 <script>
-	function changedFarmValue(){
-		var select_farmIndex = document.getElementsByClassName("mr-2");
-		_farmIndex = select_farmIndex[4].selectedIndex;
-		console.log(select_farmIndex[4][_farmIndex].text);
-		
-	}
+var xhr = new XMLHttpRequest();
+var temp;
+function changedFarmValue(){
+	var select_farmIndex = document.getElementsByClassName("mr-2");			
+	_farmIndex = select_farmIndex[4].selectedIndex;
+	
+	farmID = select_farmIndex[4][_farmIndex].value;
+	
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+				console.log(xhr.responseText);
+				var JsonObj = eval( "(" + xhr.responseText + ")" );
+				
+					
+				var obj = document.getElementsByClassName("mr-2")
+				insert_fish_data = obj[5].getElementsByTagName("optgroup")
+				
+				remove_number = insert_fish_data[0].getElementsByTagName("option").length;
+
+				for(i=remove_number-1; i>=0 ; i--) {
+					insert_fish_data[0].getElementsByTagName("option")[i].remove()
+
+				}
+				
+				for(i=0; i< JsonObj.result.length; i++) {
+					var fish_group_code = JsonObj.result[i][0].fish_group_code;
+					var fish_name = JsonObj.result[i][1].fish_name;
+										
+					insert_option_string  = "<option value="+fish_group_code+">"+fish_name+"</option>"				
+					insert_fish_data[0].insertAdjacentHTML("beforeend",insert_option_string);
+					
+				}
+			}
+		}
+	
+	xhr.open("Post", "../../fishIDResponse", true);
+	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	xhr.send("farm_id=" + farmID);
+			
+}
+	
+	
 </script>
 
 
@@ -164,7 +203,7 @@
                     </select>
                     <!--  End Line -->
                     <!--  어종 선택  -->
-                    <select class="mr-2">
+                    <select class="mr-2" >
                         <optgroup label="어종 선택">
                             <option value="12" selected="">넙치</option>
                             <option value="13">광어</option>
@@ -180,8 +219,8 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Column 1</th>
-                                    <th>Column 2</th>
+                                    <th>양식장 이름</th>
+                                    <th>양식 어종 정보명</th>
                                 </tr>
                             </thead>
                             <tbody>

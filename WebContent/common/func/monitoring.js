@@ -82,7 +82,7 @@ function goSelectedFarm() {
 			var check_wt_number = result[0][0].all_waterTank_count;
 			
 			// 수조 정보 초기화
-			console.log("초기화 시작");
+			
 			var deleteValue = document.getElementById("watertank_layout_grid")
 			var remove_length=deleteValue.getElementsByClassName("card shadow mb-md-0 offset-md-1s ml-5").length
 				
