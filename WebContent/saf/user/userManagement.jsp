@@ -13,7 +13,7 @@
 <%@ page import="java.util.Arrays" %>
 <%
 	//한글 패치
-	request.setCharacterEncoding("EUC-KR");
+	request.setCharacterEncoding("UTF-8");
 	
 	/* Session Infor*/
 	String user_id = (String) session.getAttribute("userId");
@@ -197,20 +197,25 @@ function goReadUser(userid) {
 								<td class="text-center"><%=dto.getUserTel()%></td>
 								<td class="text-center"><%=dto.getUserAuth()%></td>
 								<td class="text-center">
-                                <%
-                                    for(int j=0; j<farmnm.size(); j++){
-                                  %>
-                                  <!--  Error Warning be Ignored -->
-                                 <%= farmnm.get(j).getFarmName() %>      
-                                <%
-                                }
-                                %>                               
-                                </td>
+<%										int j=0;
+                                    for(j=0; j<farmnm.size(); j++){
+                                    	if(j == farmnm.size()-1){
+%>
+                                    	<%= farmnm.get(j).getFarmName() %> 
+<%     		
+                                    	}else{
+%>	
+                                  		<%= farmnm.get(j).getFarmName() %>,
+<%
+                                		}
+                                    }
+%>                               
+                            	</td>
 								<td class="text-center"><%=dto.getRegDate()%></td>
 	                        </tr>
-	<%
-							} 
-	%>             
+<% 
+						}
+%>             
 	                        </tbody>
 	                    </table>
 	                </div>
