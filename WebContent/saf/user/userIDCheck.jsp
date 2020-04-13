@@ -113,7 +113,14 @@ function selfClose() {
 %>	    
 	    <!-- Start: 사용하기/취소버튼 -->
 	    <div class="container-fluid text-center">
+<%
+      // 중복이 아닐 시
+      if (dao.userIDCheck(userID)) {
+%>	    
 	    <button class="btn btn-primary mr-2" type="button" onclick="setId('<%=userID%>')">사용하기</button>
+<%
+      } 
+%>	    
 	    <button class="btn btn-primary" type="button" onclick="selfClose()">취소</button></div>
 	    <!-- End: 사용하기/취소버튼 -->
 	    
