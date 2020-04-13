@@ -244,7 +244,17 @@ function checkValueUpdate() {
 	                                    <div class="form-row">
 	                                        <div class="col">
 	                                            <div class="form-group"><label for="first_name"><strong>회원 전화번호</strong></label>
-	                                            <input class="form-control" type="text" name="usertel" value="<%=tel %>" maxlength="13">
+	                                            <input class="form-control" type="text" name="usertel" maxlength="13" 
+<%
+	                                            	if(tel == null){
+	                                            		
+%><%
+	                                            	}else{
+%>
+	                                           		 value="<%=tel %>"
+<%
+	                                            	} 
+%>>
 	                                            </div>
 	                                        </div>
 	                                    </div>
@@ -263,6 +273,7 @@ function checkValueUpdate() {
                             
                             <form name="userPW">
 	                            <input type="hidden" name="flag">
+	                            <input type="hidden" name="userid" value="<%=id%>">
 	                            <div class="card-body">
 	                                    <div class="form-group"><label for="address"><strong>현재 비밀번호</strong></label>
 	                                    <input class="form-control" type="text" name="nowuserPW" placeholder="현재 비밀번호" name="address"></div>
