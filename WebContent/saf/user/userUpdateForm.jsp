@@ -258,6 +258,7 @@ function goDelete(Auth, Name, FarmID) { // 삭제 버튼 클릭시
 	                                <p class="text-primary m-0 font-weight-bold">회원 정보</p>
 	                            </div>
 	                            <div class="card-body">
+<<<<<<< HEAD
                                     <div class="form-row">
                                         <div class="col">
                                             <div class="form-group"><label for="username"><strong>회원 이름</strong><br></label>
@@ -306,6 +307,47 @@ function goDelete(Auth, Name, FarmID) { // 삭제 버튼 클릭시
                                         </div>
                                     </div>
                                     <div class="form-group"><button class="btn btn-primary btn-sm" onclick="checkData();"  type="submit">저장하기</button></div>
+=======
+	                                <form> <!--  user id update form tag line -->
+	                                    <div class="form-row">
+	                                        <div class="col">
+	                                            <div class="form-group"><label for="username"><strong>회원 이름</strong><br></label>
+	                                            <input class="form-control" type="text" placeholder="회원이름" name="username" value="<%= name %>">
+	                                            </div>
+	                                        </div>
+	                                        <div class="col">
+	                                            <div class="form-group"><label for="username"><strong>회원 직책</strong><br></label>
+	                                            <input class="form-control" type="text" placeholder="<%=auth %>" name="auth" readonly >
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-row">
+	                                        <div class="col">
+	                                            <div class="form-group"><label for="first_name"><strong>회원 아이디</strong></label>
+	                                            <input class="form-control" type="text" placeholder="회원 아이디" value="<%=ID %>" name="userid"  readonly >
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-row">
+	                                        <div class="col">
+	                                            <div class="form-group"><label for="first_name"><strong>회원 전화번호</strong></label>
+	                                            <input class="form-control" type="text" name="usertel" maxlength="13" 
+<%
+	                                            	if(tel == null){
+	                                            		
+%><%
+	                                            	}else{
+%>
+	                                           		 value="<%=tel %>"
+<%
+	                                            	} 
+%>>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group"><button class="btn btn-primary btn-sm" onclick="checkData();"  type="submit">저장하기</button></div>
+	                                </form><!--  user id update form tag end line -->
+>>>>>>> branch 'master' of https://github.com/bluetoonist/SmartAquaFarm_InterfaceSource.git
 	                            </div>
 	                        </div>
                         </form> <!--  user id update form tag end line -->

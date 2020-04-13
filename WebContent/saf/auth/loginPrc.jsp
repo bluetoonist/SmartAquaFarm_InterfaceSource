@@ -1,7 +1,7 @@
-<%@page import="user.usertableDAO"%>
+<%@ page import="user.*"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
-<%@ page import="user.*"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +13,6 @@
 		String login_page_id = request.getParameter("username");
 		String login_page_pw = request.getParameter("password");
 		
-
 		usertableDAO user_dao = new usertableDAO();
 		usertableDTO dto = user_dao.login_action(login_page_id, login_page_pw);
 
