@@ -91,6 +91,39 @@ function checkValueUpdate() {
 	}
 }
 //************************************************************************ END LINE
+//* userUpdateForm.jsp에서 삭제 버튼 누를때 사용
+//************************************************************************ START LINE
+// 선택된 사용자의 권한, 이름, 양식장 id
+// 넘어가는 데이터 권한, 양식장 id
+function goDelete(Auth, Name, FarmID) { // 삭제 버튼 클릭시
+	var frm = document.turnData;
+	if(Auth == "admin") { //전체 관리자 일 경우
+		if (confirm(Name + "를 삭제할 시 관련된 양식장 정보가 모두 삭제됩니다. 삭제 하시겠습니까?")) {
+			frm.flag.value = "userDelete";
+			frm.method = "post";
+			frm.target = "_self";
+			frm.action = "userUpdatePrc.jsp";
+			frm.submit();
+		}
+		else {
+			return;
+		}
+	}
+	if(Auth == "user") { //일반 관리자일 경우
+		if (confirm(Name + "의 정보를 삭제하시겠습니까?")) {
+		frm.flag.value = "userDelete";
+		frm.method = "post";
+		frm.target = "_self";
+		frm.action = "userUpdatePrc.jsp";
+		frm.submit();
+		}
+		else {
+			return;
+		}
+	}
+	}
+
+//************************************************************************ END LINE
 </script>
 <!DOCTYPE html>
 <html>
@@ -182,6 +215,9 @@ function checkValueUpdate() {
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                <div class="container-fluid text-right mb-2">
+                	<button class="btn btn-danger btn-sm" type="button" onclick="goDelete('<%= auth %>','<%= name %>','<%= FarmID %>');">회원정보 삭제</button>
+                </div>
                     <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
                         <h3 class="text-dark mb-0 navbar-brand"><strong>회원 정보</strong></h3>
                         <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
@@ -214,45 +250,65 @@ function checkValueUpdate() {
             
                     <div class="col-xl-12">
                         <!-- Start: 회원정보수정란 -->
-                        <form name="turnData">
+                        <form name="turnData"><!--  user id update form tag line -->
                         <input type="hidden" name="flag">
+                        <input type="hidden" name="FarmID" value="<%=FarmID %>">
 	                        <div class="card shadow mb-3">
 	                            <div class="card-header py-3">
 	                                <p class="text-primary m-0 font-weight-bold">회원 정보</p>
 	                            </div>
 	                            <div class="card-body">
-	                                <form> <!--  user id update form tag line -->
-	                                    <div class="form-row">
-	                                        <div class="col">
-	                                            <div class="form-group"><label for="username"><strong>회원 이름</strong><br></label>
-	                                            <input class="form-control" type="text" placeholder="회원이름" name="username" value="<%= name %>">
-	                                            </div>
-	                                        </div>
-	                                        <div class="col">
-	                                            <div class="form-group"><label for="username"><strong>회원 직책</strong><br></label>
-	                                            <input class="form-control" type="text" placeholder="<%=auth %>" name="auth" readonly >
-	                                            </div>
-	                                        </div>
-	                                    </div>
-	                                    <div class="form-row">
-	                                        <div class="col">
-	                                            <div class="form-group"><label for="first_name"><strong>회원 아이디</strong></label>
-	                                            <input class="form-control" type="text" placeholder="회원 아이디" value="<%=ID %>" name="userid"  readonly >
-	                                            </div>
-	                                        </div>
-	                                    </div>
-	                                    <div class="form-row">
-	                                        <div class="col">
-	                                            <div class="form-group"><label for="first_name"><strong>회원 전화번호</strong></label>
-	                                            <input class="form-control" type="text" name="usertel" value="<%=tel %>" maxlength="13">
-	                                            </div>
-	                                        </div>
-	                                    </div>
-	                                    <div class="form-group"><button class="btn btn-primary btn-sm" onclick="checkData();"  type="submit">저장하기</button></div>
-	                                </form><!--  user id update form tag end line -->
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <div class="form-group"><label for="username"><strong>회원 이름</strong><br></label>
+                                            <input class="form-control" type="text" placeholder="회원이름" name="username" value="<%= name %>">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group"><label for="username"><strong>회원 직책</strong><br></label>
+                                            <input class="form-control" type="text"  name="auth" 
+<%
+                                            	if(auth.equals("user")){
+%>
+                                            		value="사용자"
+<%
+                                            	}else if(auth.equals("admin")){
+%>
+                                            		value="일반관리자"
+<%
+                                            	}
+%> readonly >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <div class="form-group"><label for="first_name"><strong>회원 아이디</strong></label>
+                                            <input class="form-control" type="text" placeholder="회원 아이디" value="<%=ID %>" name="userid"  readonly >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <div class="form-group"><label for="first_name"><strong>회원 전화번호</strong></label>
+                                            <input class="form-control" type="text" name="usertel" maxlength="13"
+<%
+											if(tel == null){
+%><%
+											}else{
+%>					
+											value="<%=tel %>"
+<%
+											}
+%>
+                                            >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group"><button class="btn btn-primary btn-sm" onclick="checkData();"  type="submit">저장하기</button></div>
 	                            </div>
 	                        </div>
-                        </form>
+                        </form> <!--  user id update form tag end line -->
                         <!-- End: 회원정보수정란 -->
                         
                           <!-- Start: 비밀번호변경란 -->
@@ -263,6 +319,7 @@ function checkValueUpdate() {
                             
                             <form name="userPW">
 	                            <input type="hidden" name="flag">
+	                            <input type="hidden" name="userid" value="<%=id%>">
 	                            <div class="card-body">
 	                                    <div class="form-group"><label for="address"><strong>현재 비밀번호</strong></label>
 	                                    <input class="form-control" type="text" name="nowuserPW" placeholder="현재 비밀번호" name="address"></div>

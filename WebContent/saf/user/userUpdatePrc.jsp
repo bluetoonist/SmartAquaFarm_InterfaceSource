@@ -25,32 +25,37 @@
 	String user_auth = (String) session.getAttribute("userAuth");
 
 	String flag = request.getParameter("flag");
+	System.out.println(flag);
 	// 수정할 ID
 	String userid = request.getParameter("userid");
 	String tel = request.getParameter("usertel");
 	
-	if(flag.equals("Password")){
-		
+	if(flag.equals("Password")){		// 자기 비밀번호 수정
 		user_dto.setUserPw(request.getParameter("userPW"));
 		user_dto.setUserId(user_id);
 		user_dao.updatePw(user_dto);
-	}else if(flag.equals("nametel")){
-		
+	}else if(flag.equals("nametel")){		// 자기 정보 수정
 		user_dto.setUserName(request.getParameter("username"));
 		user_dto.setUserTel(request.getParameter("usertel"));
 		user_dto.setUserId(user_id);
 		user_dao.updateMember(user_dto);
-	}else if(flag.equals("updateData")){
-		
+	}else if(flag.equals("updateData")){	// 사용자 데이터 수정
 		user_dto.setUserName(request.getParameter("username"));
 		user_dto.setUserTel(request.getParameter("usertel"));
 		user_dto.setUserId(request.getParameter("userid"));
 		user_dao.updateMember(user_dto);
-	}else if(flag.equals("UpdatePW")){
-		
+	}else if(flag.equals("UpdatePW")){		// 사용자 비번 바꾸기
 		user_dto.setUserPw(request.getParameter("userPW"));
 		user_dto.setUserId(request.getParameter("userid"));
 		user_dao.updatePw(user_dto);
+	}else if(flag.equals("userDelete")){	// 사용자 삭제
+		String userID = request.getParameter("userid");
+		String userAuth = request.getParameter("auth");
+		String FarmID = request.getParameter("FarmID");	
+		System.out.println("userID : "+userID);
+		System.out.println("userAuth : "+userAuth);
+		System.out.println("FarmID : "+FarmID);
+		user_dao.usertableDelete(userID);
 	}
 	
 	String msg = "수정이 완료되었습니다."; //입력 된거 확인시키려고
@@ -68,6 +73,11 @@
 			frm.target="_self";
 			frm.method="post";
 			frm.action="userUpdateForm.jsp";
+			frm.submit();
+		}else if((flag == "userDelete")){
+			frm.target="_self";
+			frm.method="post";
+			frm.action="userManagement.jsp";
 			frm.submit();
 		}else{
 			frm.target="_self";

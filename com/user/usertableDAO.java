@@ -845,83 +845,21 @@ public class usertableDAO {
 	 * @author 장해리
 	 * @param userID, userAuth
 	 * @return void
+	 * @throws SQLException 
+	 * @throws NullPointerException 
 	 * @remark 사용자 관련 정보들 삭제, 사용처 - user/userDeletePrc.jsp
 	 **************************************/
-	public void usertableDelete(String userID, String userAuth, String farmID) {
-
+	public void usertableDelete(String userID) throws NullPointerException, SQLException {
 		// DB 연결에 필요한 변수
-		Connection con = null;
+		Connection con = dbcp.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		// 양식장 아이디 여러개일 경우 나눠서 farmSplit 배열에 저장
-		String[] farmSplit = farmID.split(",");
-
 		try {
-			// DB접속
-			con = dbcp.getConnection();
-
-			// 삭제할 사용자의 직책이 user일 경우 (그 사용자만 삭제한다)
-			if (userAuth.equals("사용자")) {
-				String sql1 = " delete from usertable where userid = ? ";
-				pstmt = con.prepareStatement(sql1);
-				pstmt.setString(1, userID); // 매개변수로 받은 ID
-				pstmt.executeUpdate();
-			}
-
-			// 삭제할 사용자의 직책이 admin일 경우 (admin이 소유한 양식장에 관한 모든 정보를 삭제한다)
-			if (userAuth.equals("일반관리자")) {
-
-				// 선택된 사용자의 양식장 삭제
-				String sql2 = " delete from farm where userid = ? ";
-				pstmt = con.prepareStatement(sql2);
-				pstmt.setString(1, userID); // 매개변수로 받은 ID
-				pstmt.executeUpdate();
-
-				// 선택된 사용자 삭제
-				String sql3 = " delete from usertable where userid = ? ";
-				pstmt = con.prepareStatement(sql3);
-				pstmt.setString(1, userID); // 매개변수로 받은 ID
-				pstmt.executeUpdate();
-
-				// userid가 아닌 farmid를 조건절에 사용해야 하는 sql들
-				for (int i = 0; i < farmSplit.length; i++) {
-					/*
-					 * // 사용자의 양식장 String sql4 = " select FARMID from farm where farmid = ? "; pstmt
-					 * = con.prepareStatement(sql4); pstmt.setString(1, farmSplit[i]);
-					 * pstmt.executeQuery();
-					 */
-
-					String sql4 = " delete from fish where farmid = ? ";
-					pstmt = con.prepareStatement(sql4);
-					pstmt.setString(1, farmSplit[i]);
-					pstmt.executeQuery();
-
-					// rec 테이블에서 farmid가 일치할 경우
-					String sql5 = " delete from rec where farmid = ? ";
-					pstmt = con.prepareStatement(sql5);
-					pstmt.setString(1, farmSplit[i]);
-					pstmt.executeQuery();
-
-					// repair 테이블에서 farmid가 일치할 경우
-					String sql6 = " delete from repair where farmid = ? ";
-					pstmt = con.prepareStatement(sql6);
-					pstmt.setString(1, farmSplit[i]);
-					pstmt.executeQuery();
-
-					// watertank 테이블에서 farmid가 일치할 경우 삭제
-					String sql7 = " delete from waterTank where farmid = ? ";
-					pstmt = con.prepareStatement(sql7);
-					pstmt.setString(1, farmSplit[i]);
-					pstmt.executeQuery();
-
-					// userTable 테이블에서 farmid가 일치할 경우 삭제
-					String sql8 = " delete from usertable where farmid = ? ";
-					pstmt = con.prepareStatement(sql8);
-					pstmt.setString(1, farmSplit[i]);
-					pstmt.executeQuery();
-				}
-			}
+			String sql1 = " delete from usertable where userid = ? ";
+			pstmt = con.prepareStatement(sql1);
+			pstmt.setString(1, userID); // 매개변수로 받은 ID
+			pstmt.executeUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();
