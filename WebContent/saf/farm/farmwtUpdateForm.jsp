@@ -256,7 +256,7 @@
 								<tbody>
 									<tr></tr>
                                     
-                                    <!--  양식장 번호 표시 영역 -->
+                                    <!--  양식장 번호 표시 영역 LINE -->
 									<tr>
 										<td class="table-primary border rounded-0" rowspan="1" colspan="2">
 											<strong> 양식장 번호</strong>
@@ -270,7 +270,7 @@
                                     <!-- 양식장 표시 영역 End -->
                                     
                                     
-                                    <!-- 어종 표시 영역 -->
+                                    <!-- 어종 표시 영역 LINE -->
 									<tr rowspan="1" colspan="2">
 										<td class="table-primary" rowspan="1" colspan="2">
 											<strong>어종</strong>
@@ -296,7 +296,7 @@
                                        <!-- End -->
                                       
                                       
-                                       <!-- 담당자 표시 영역 -->
+                                       <!-- 담당자 표시  LINE -->
                                        <tr rowspan="1" colspan="2">
 										<td class="table-primary" rowspan="1" colspan="2">
 											<%
@@ -317,7 +317,9 @@
 										%>
 										<strong>담당자</strong>
 										</td>
+                                        <!--  End line -->
                                         
+                                        <!--  담당자 조회 버튼 표시 영역 LINE -->
 										<td id="wait_Data">
 											<button class="btn btn-primary btn-sm" type="button" onclick="gofarmwtUserForm_in('<%=FarmID%>')">
 												<strong>조회</strong>
@@ -329,10 +331,10 @@
 									</tr>
                                     <!-- End -->
                                       
-                                      
+                                     <!-- 수질 환경 측정 데이터 표시 영역  -->
 									<tr>
 										<td class="table-primary" rowspan="6">
-											<strong>장비명</strong>
+											<strong> <br><br><br><br><br> 장비명</strong>
 										</td>
 										<td class="table-primary">
 											<strong>DO</strong>
@@ -381,6 +383,8 @@
 											<input type="text" name="no2sensor" size="20" value=<%=no2sensor%> style=" text-align:center;  border: none; background: transparent; width: 100%;" maxlength="10">
 										</td>
 									</tr>
+                                    
+                                     <!-- 수질 환경 측정 데이터 표시 영역  END LINE-->
 								</tbody>
 							</table>
 						</div>
