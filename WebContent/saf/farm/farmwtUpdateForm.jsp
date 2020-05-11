@@ -137,7 +137,7 @@
 						<i class="fas fa-fish"></i>
 					</div>
 					<div class="sidebar-brand-text mx-3">
-						<span class="text-monospace">sMART AQUA FARM</span>
+						<span class="text-monospace">SMART AQUA FARM</span>
 					</div>
 				</a>
 				<hr class="sidebar-divider my-0">
@@ -255,17 +255,24 @@
 								</thead>
 								<tbody>
 									<tr></tr>
+                                    
+                                    <!--  양식장 번호 표시 영역 -->
 									<tr>
 										<td class="table-primary border rounded-0" rowspan="1" colspan="2">
-											<strong>수조번호</strong>
+											<strong> 양식장 번호</strong>
+                                            
 										</td>
 										<td rowspan="1" colspan="2">
-											<input type="text" name="tankid" size="20" value=<%=FarmID%> style="border: none; background: transparent; width: 100%;" maxlength="10">
+											<input type="text" name="tankid" size="20" value=<%=FarmID%> style="text-align:center; border: none; background: transparent; width: 100%;" maxlength="10">
 										</td>
 										</td>
 									</tr>
-									<tr>
-										<td class="table-primary">
+                                    <!-- 양식장 표시 영역 End -->
+                                    
+                                    
+                                    <!-- 어종 표시 영역 -->
+									<tr rowspan="1" colspan="2">
+										<td class="table-primary" rowspan="1" colspan="2">
 											<strong>어종</strong>
 										</td>
 
@@ -285,14 +292,20 @@
 											</select>
 											<br>
 										</td>
-
-
-										<td class="table-primary">
+                                      </tr>
+                                       <!-- End -->
+                                      
+                                      
+                                       <!-- 담당자 표시 영역 -->
+                                       <tr rowspan="1" colspan="2">
+										<td class="table-primary" rowspan="1" colspan="2">
 											<%
 												if (user_id != null) {
 											%>
 											<strong>담당자</strong>
 										</td>
+                                        
+                                        
 										<td id="wait_Data">
 											<input type="hidden" name="userid" maxlength="10" value="<%=user_id%>" />
 											<button class="btn btn-primary btn-sm" type="button" onclick="gofarmwtUserForm_in('<%=FarmID%>')">
@@ -304,6 +317,7 @@
 										%>
 										<strong>담당자</strong>
 										</td>
+                                        
 										<td id="wait_Data">
 											<button class="btn btn-primary btn-sm" type="button" onclick="gofarmwtUserForm_in('<%=FarmID%>')">
 												<strong>조회</strong>
@@ -313,6 +327,9 @@
 											} //size
 										%>
 									</tr>
+                                    <!-- End -->
+                                      
+                                      
 									<tr>
 										<td class="table-primary" rowspan="6">
 											<strong>장비명</strong>
@@ -321,7 +338,7 @@
 											<strong>DO</strong>
 										</td>
 										<td colspan="2">
-											<input type="text" name="dosensor" size="20" value=<%=dosensor%> style="border: none; background: transparent; width: 100%;" maxlength="10">
+											<input type="text" name="dosensor" size="20" value=<%=dosensor%> style=" text-align:center; border: none; background: transparent; width: 100%;" maxlength="10">
 										</td>
 									</tr>
 									<tr>
@@ -329,7 +346,7 @@
 											<strong>pH</strong>
 										</td>
 										<td colspan="2">
-											<input type="text" name="phsensor" size="20" value=<%=phsensor%> style="border: none; background: transparent; width: 100%;" maxlength="10">
+											<input type="text" name="phsensor" size="20" value=<%=phsensor%> style="text-align:center; border: none; background: transparent; width: 100%;" maxlength="10">
 										</td>
 									</tr>
 									<tr>
@@ -337,7 +354,7 @@
 											<strong>PSU</strong>
 										</td>
 										<td colspan="2">
-											<input type="text" name="psusensor" size="20" value=<%=psusensor%> style="border: none; background: transparent; width: 100%;" maxlength="10">
+											<input type="text" name="psusensor" size="20" value=<%=psusensor%> style="text-align:center; border: none; background: transparent; width: 100%;" maxlength="10">
 										</td>
 									</tr>
 									<tr>
@@ -345,7 +362,7 @@
 											<strong>수온</strong>
 										</td>
 										<td colspan="2">
-											<input type="text" name="wtsensor" size="20" value=<%=wtsensor%> style="border: none; background: transparent; width: 100%;" maxlength="10">
+											<input type="text" name="wtsensor" size="20" value=<%=wtsensor%> style=" text-align:center; border: none; background: transparent; width: 100%;" maxlength="10">
 										</td>
 									</tr>
 									<tr>
@@ -353,7 +370,7 @@
 											<strong>NH4</strong>
 										</td>
 										<td colspan="2">
-											<input type="text" name="nh4sensor" size="20" value=<%=nh4sensor%> style="border: none; background: transparent; width: 100%;" maxlength="10">
+											<input type="text" name="nh4sensor" size="20" value=<%=nh4sensor%> style=" text-align:center; border: none; background: transparent; width: 100%;" maxlength="10">
 										</td>
 									</tr>
 									<tr>
@@ -361,7 +378,7 @@
 											<strong>NO2</strong>
 										</td>
 										<td colspan="2">
-											<input type="text" name="no2sensor" size="20" value=<%=no2sensor%> style="border: none; background: transparent; width: 100%;" maxlength="10">
+											<input type="text" name="no2sensor" size="20" value=<%=no2sensor%> style=" text-align:center;  border: none; background: transparent; width: 100%;" maxlength="10">
 										</td>
 									</tr>
 								</tbody>
