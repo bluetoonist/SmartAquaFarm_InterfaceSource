@@ -129,17 +129,41 @@
 </head>
 
 <body id="page-top">
+    
+        
+    <!--  header  -->
+    <nav class="navbar navbar-light navbar-expand shadow topbar static-top" style="margin-bottom: 0px;">
+        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+            <h3 class="text-dark mb-0 navbar-brand"><strong>SmartAquaFarm</strong></h3>
+            <h3 class="text-dark mb-0 navbar-brand"><strong>수조 정보</strong></h3>
+            <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                <div class="input-group">
+                    <div class="input-group-append"></div>
+                </div>
+            </form>
+            <ul class="nav navbar-nav flex-nowrap ml-auto">
+                <li class="nav-item dropdown no-arrow mx-1" role="presentation"></li>
+                <li class="nav-item dropdown no-arrow mx-1" role="presentation">
+                    <div class="shadow dropdown-list dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown"></div>
+                </li>
+                <div class="d-none d-sm-block topbar-divider"></div>
+                <li class="nav-item dropdown no-arrow" role="presentation">
+                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small"><%=user_name %></span><img class="border rounded-circle img-profile" src="../../common/assets/img/avatars/avatar1.jpeg?h=0ecc82101fb9a10ca459432faa8c0656"></a>
+                        <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="../user/userInfo.jsp"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;회원 정보</a>
+                            <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation" href="../auth/logoutPrc.jsp"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;로그아웃</a></div>
+        </div>
+        </li>
+        </ul>
+        </div>
+    </nav>
+    <!--  header line  -->
+    
+
+
 	<div id="wrapper">
 		<nav class="navbar navbar-dark bg-success align-items-start sidebar sidebar-dark bg-gradient-primary accordion p-0" style="background-color: rgb(198, 43, 43);">
 			<div class="container-fluid d-flex flex-column p-0">
-				<a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-					<div class="sidebar-brand-icon rotate-n-15">
-						<i class="fas fa-fish"></i>
-					</div>
-					<div class="sidebar-brand-text mx-3">
-						<span class="text-monospace">SMART AQUA FARM</span>
-					</div>
-				</a>
+			
 				<hr class="sidebar-divider my-0">
 				<!-- Navigator Menu -->
 				<ul class="nav navbar-nav text-light" id="accordionSidebar">
@@ -173,63 +197,23 @@
 		</nav>
 		<div class="d-flex flex-column" id="content-wrapper">
 			<div id="content">
-				<!-- 상단 -->
-				<nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-					<div class="container-fluid">
-						<button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button">
-							<i class="fas fa-bars"></i>
-						</button>
-
-						<!--  상단 페이지 제목 -->
-						<h3 class="text-dark mb-0 navbar-brand">
-							<strong>수조정보수정</strong>
-						</h3>
-						<form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-							<div class="input-group">
-								<div class="input-group-append"></div>
-							</div>
-						</form>
-
-						<ul class="nav navbar-nav flex-nowrap ml-auto">
-							<li class="nav-item dropdown no-arrow mx-1" role="presentation"></li>
-							<li class="nav-item dropdown no-arrow mx-1" role="presentation">
-								<div class="shadow dropdown-list dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown"></div>
-							</li>
-							<div class="d-none d-sm-block topbar-divider"></div>
-
-
-							<!--  USER Management  -->
-							<li class="nav-item dropdown no-arrow" role="presentation">
-								<div class="nav-item dropdown no-arrow">
-									<a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"> <span class="d-none d-lg-inline mr-2 text-gray-600 small"><%=user_name%></span>
-										<img class="border rounded-circle img-profile" src="../../common/assets/img/avatars/avatar1.jpeg"></a>
-
-									<div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu">
-										<a class="dropdown-item" role="presentation" href="../user/userInfo.jsp"> <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;회원 정보
-										</a>
-
-										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" role="presentation" href="../auth/logoutPrc.jsp"> <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;로그아웃
-										</a>
-									</div>
-								</div>
-							</li>
-						</ul>
-
-					</div>
-				</nav>
+		
 
 				<div class="container-fluid">
 					<h5 class="text-dark d-xl-flex justify-content-xl-center align-items-xl-center mb-0 navbar-brand">
 						<strong><%=tankid%></strong>
 					</h5>
 					<h3 class="text-dark d-xl-flex justify-content-xl-center align-items-xl-center mb-0 navbar-brand">
-						<button class="btn btn-primary btn-sm mr-2" type="button" onclick="farmCancel('<%=formname%>'); ">
-							<strong>취소</strong>
-						</button>
+						
 						<button class="btn btn-primary btn-sm mr-2" type="button" onclick="goUpdate();">
 							<strong>수정</strong>
 						</button>
+                        
+                        <button class="btn btn-primary btn-sm mr-2" type="button" onclick="farmCancel('<%=formname%>'); ">
+                            <strong>취소</strong>
+                        </button>
+                        
+                        
 						<button class="btn btn-primary btn-sm" type="button" onclick="gofarmdelete(); ">
 							<strong>삭제</strong>
 						</button>
@@ -247,8 +231,8 @@
 					<!-- 값 수정 -->
 					<input type="hidden" name="userid" value="admin1" /> <input type="hidden" name="selectFish" value="넙치" />
 
-					<div class="container-fluid text-center">
-						<div class="table-responsive table-bordered">
+					<div class="container text-truncate text-center">
+						<div class="table-responsive table-bordered text-truncate">
 							<table class="table table-bordered" style="text-align: center;">
 								<thead>
 									<tr></tr>
@@ -393,11 +377,6 @@
 						}
 					%>
 				</form>
-
-				<div class="card"></div>
-				<!-- Start: Dropdown Card -->
-				<div class="card shadow d-xl-flex mb-4"></div>
-				<!-- End: Dropdown Card -->
 			</div>
 			<footer class="bg-white d-xl-flex align-items-xl-end sticky-footer">
 				<div class="container my-auto">

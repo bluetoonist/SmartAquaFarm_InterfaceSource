@@ -66,6 +66,35 @@
 </head>
 
 <body id="page-top">
+    
+    <!--  header  -->
+    <nav class="navbar navbar-light navbar-expand shadow topbar static-top" style="margin-bottom: 0px;">
+        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+            <h3 class="text-dark mb-0 navbar-brand"><strong>SmartAquaFarm</strong></h3>
+            <h3 class="text-dark mb-0 navbar-brand"><strong>수조 정보</strong></h3>
+            <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                <div class="input-group">
+                    <div class="input-group-append"></div>
+                </div>
+            </form>
+            <ul class="nav navbar-nav flex-nowrap ml-auto">
+                <li class="nav-item dropdown no-arrow mx-1" role="presentation"></li>
+                <li class="nav-item dropdown no-arrow mx-1" role="presentation">
+                    <div class="shadow dropdown-list dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown"></div>
+                </li>
+                <div class="d-none d-sm-block topbar-divider"></div>
+                <li class="nav-item dropdown no-arrow" role="presentation">
+                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small"><%=user_name %></span><img class="border rounded-circle img-profile" src="../../common/assets/img/avatars/avatar1.jpeg?h=0ecc82101fb9a10ca459432faa8c0656"></a>
+                        <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="../user/userInfo.jsp"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;회원 정보</a>
+                            <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation" href="../auth/logoutPrc.jsp"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;로그아웃</a></div>
+        </div>
+        </li>
+        </ul>
+        </div>
+    </nav>
+    <!--  header line  -->
+
+
     <div id="wrapper">
         <nav class="navbar navbar-dark bg-success align-items-start sidebar sidebar-dark bg-gradient-primary accordion p-0" style="background-color: rgb(198,43,43);">
             <div class="container-fluid d-flex flex-column p-0">
@@ -88,56 +117,22 @@
         </nav>
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
-                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
-                        <h3 class="text-dark mb-0 navbar-brand"><strong>수조 정보 등록</strong></h3>
-                        <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div class="input-group">
-                                <div class="input-group-append"></div>
-                            </div>
-                        </form>
-                       
-						<ul class="nav navbar-nav flex-nowrap ml-auto">
-							<li class="nav-item dropdown no-arrow mx-1" role="presentation"></li>
-							<li class="nav-item dropdown no-arrow mx-1" role="presentation">
-								<div class="shadow dropdown-list dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown"></div>
-							</li>
-							<div class="d-none d-sm-block topbar-divider"></div>
-							
-							
-							<!--  USER Management  -->
-							<li class="nav-item dropdown no-arrow" role="presentation">
-								<div class="nav-item dropdown no-arrow"> <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">
-									<span class="d-none d-lg-inline mr-2 text-gray-600 small"><%=user_name %></span>
-									<img class="border rounded-circle img-profile" src="../../common/assets/img/avatars/avatar1.jpeg"></a>
-									
-									<div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu">
-										<a class="dropdown-item" role="presentation" href="../user/userInfo.jsp">
-										<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;회원 정보</a>
-										
-										<div class="dropdown-divider"></div> <a class="dropdown-item" role="presentation" href="../auth/logoutPrc.jsp">
-										<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;로그아웃</a>
-									</div>
-								</div>						
-							</li>							
-						</ul>
-            </div>
-            </nav>
+                
             
             <br>
             <h3 align="center"><%=farmname %></h3>
             <br>
-             <!-- Start: 등록버튼 -->
-            <div class="container-fluid text-right mb-4">
-
-            <button class="btn btn-primary" onclick="farmwtInsert()">등록</button>
-
-            </div>
+            <!-- Start: 등록버튼 -->
+            <div class="container-fluid text-center mb-4">
+                <button class="btn btn-primary" onclick="farmwtInsert()">등록</button>
+            </div>          
             <!-- End: 등록버튼 -->
+            
+            
             <form name="farmSelect">
             <input type="hidden" name="farmid" value="<%=selectFarm%>">
 	            <div class="container-fluid text-center">
-	                <div class="table-responsive table-bordered">
+	                <div class="container text-truncate text-center">
 	                    <table class="table table-bordered" style="text-align:center;">
 	                        <thead>
 	                            <tr></tr>
@@ -145,13 +140,13 @@
 	                        <tbody>
 	                            <tr></tr>
 	                            <tr>
-	                                <td class="table-primary border rounded-0" rowspan="1" colspan="2"><strong>수조번호</strong></td>
+	                                <td class="table-primary border rounded-0" rowspan="1" colspan="2"><strong>양식장 번호</strong></td>
 	                                <td rowspan="1" colspan="2">   
-	                                <input type="text" name="tankid" size="20" placeholder="수조번호" style="border:none; background: transparent; width:100%;" maxlength="10"></td>
+	                                <input type="text" name="tankid" size="20" placeholder="양식장 번호 " style=" text-align:center; border:none; background: transparent; width:100%;" maxlength="10"></td>
 	                            </td>
 	                            </tr>
-	                             <tr>
-	                                <td class="table-primary"><strong>어종</strong></td>
+	                             <tr rowspan="1" colspan="2">
+	                                <td class="table-primary" rowspan="1" colspan="2"><strong>어종</strong></td>
 	                                
 	                                <td class="flex-shrink-0">
 	                                <select name="selectFish" class="form-control-sm pl-2" style="padding-top: 1;">
@@ -167,9 +162,10 @@
 	%>										</optgroup>
 										</select>
 	                                <br></td>
+	                                </tr>
+                        <tr rowspan="1" colspan="2">
 	                                
-	                                
-	                             <td class="table-primary">
+	                             <td class="table-primary" rowspan="1" colspan="2">
 	
 								<strong>담당자</strong></td>
 								<td id="wait_Data">
@@ -181,40 +177,40 @@
 	
 	                   </tr>
 	                            <tr>
-	                                <td class="table-primary" rowspan="6"><strong>장비명</strong></td>
+	                                <td class="table-primary" rowspan="6"><strong> <br><br><br><br> 장비명</strong></td>
 	                                <td class="table-primary"><strong>DO</strong></td>
 	                                <td colspan="2">
-	                                <input type="text" name="dosensor" size="20" placeholder="DO" style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                <input type="text" name="dosensor" size="20" placeholder="DO" style=" text-align:center; border:none; background: transparent; width: 100%;" maxlength="10">
 	                                </td>
 	                            </tr>
 	                            <tr>
 	                                <td class="table-primary"><strong>pH</strong></td>
 	                                <td colspan="2">
-	                                <input type="text" name="phsensor" size="20" placeholder="pH" style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                <input type="text" name="phsensor" size="20" placeholder="pH" style=" text-align:center; border:none; background: transparent; width: 100%;" maxlength="10">
 	                                </td>
 	                            </tr>
 	                            <tr>
 	                                <td class="table-primary"><strong>PSU</strong></td>
 	                                <td colspan="2">
-	                                <input type="text" name="psusensor" size="20" placeholder="PSU" style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                <input type="text" name="psusensor" size="20" placeholder="PSU" style=" text-align:center; border:none; background: transparent; width: 100%;" maxlength="10">
 	                                </td>
 	                            </tr>
 	                            <tr>
 	                                <td class="table-primary"><strong>수온</strong></td>
 	                                <td colspan="2">
-	                                <input type="text" name="wtsensor" size="20" placeholder="수온" style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                <input type="text" name="wtsensor" size="20" placeholder="수온" style=" text-align:center; border:none; background: transparent; width: 100%;" maxlength="10">
 	                                </td>
 	                            </tr>
 	                            <tr>
 	                                <td class="table-primary"><strong>NH4</strong></td>
 	                                <td colspan="2">
-	                                <input type="text" name="nh4sensor" size="20" placeholder="NH4" style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                <input type="text" name="nh4sensor" size="20" placeholder="NH4" style=" text-align:center; border:none; background: transparent; width: 100%;" maxlength="10">
 	                                </td>
 	                            </tr>
 	                            <tr>
 	                                <td class="table-primary"><strong>NO2</strong></td>
 	                                <td colspan="2">
-	                                <input type="text" name="no2sensor" size="20" placeholder="NO2" style="border:none; background: transparent; width: 100%;" maxlength="10">
+	                                <input type="text" name="no2sensor" size="20" placeholder="NO2" style=" text-align:center; border:none; background: transparent; width: 100%;" maxlength="10">
 	                                </td>
 	                            </tr>
 	                        </tbody>
@@ -222,10 +218,7 @@
 	                </div>
 	            </div>
             </form>
-            <div class="card"></div>
-            <!-- Start: Dropdown Card -->
-            <div class="card shadow d-xl-flex mb-4"></div>
-            <!-- End: Dropdown Card -->
+         
         </div>
         <footer class="bg-white d-xl-flex align-items-xl-end sticky-footer">
             <div class="container my-auto">
