@@ -198,27 +198,20 @@
 		<div class="d-flex flex-column" id="content-wrapper">
 			<div id="content">
 		
-
 				<div class="container-fluid">
 					<h5 class="text-dark d-xl-flex justify-content-xl-center align-items-xl-center mb-0 navbar-brand">
 						<strong><%=tankid%></strong>
 					</h5>
-					<h3 class="text-dark d-xl-flex justify-content-xl-center align-items-xl-center mb-0 navbar-brand">
-						
-						<button class="btn btn-primary btn-sm mr-2" type="button" onclick="goUpdate();">
-							<strong>수정</strong>
-						</button>
-                        
-                        <button class="btn btn-primary btn-sm mr-2" type="button" onclick="farmCancel('<%=formname%>'); ">
-                            <strong>취소</strong>
-                        </button>
-                        
-                        
-						<button class="btn btn-primary btn-sm" type="button" onclick="gofarmdelete(); ">
-							<strong>삭제</strong>
-						</button>
-						<br>
-					</h3>
+					
+					
+						<!--  Button Setup -->					
+					  <h4 class="text-dark d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center align-items-xl-center">
+                              <button class="btn btn-primary btn-sm mr-2" onclick="goUpdate();"> <strong>수정</strong></button>
+                              <button class="btn btn-dark btn-sm mr-2" onclick="farmCancel('<%=formname%>');" ><strong>취소</strong></button>
+                              <button class="btn btn-danger btn-sm" onclick="gofarmdelete(); "><strong>삭제</strong></button><br>
+                      </h4>
+					
+			
 					<h3 class="text-dark d-xl-flex justify-content-xl-center align-items-xl-center mb-0 navbar-brand">
 						<br>
 					</h3>
@@ -231,9 +224,9 @@
 					<!-- 값 수정 -->
 					<input type="hidden" name="userid" value="admin1" /> <input type="hidden" name="selectFish" value="넙치" />
 
-					<div class="container text-truncate text-center">
-						<div class="table-responsive table-bordered text-truncate">
-							<table class="table table-bordered" style="text-align: center;">
+					<div class="col d-xl-flex justify-content-xl-center">
+						<div class="table-responsive table-bordered text-truncate text-center text-primary" style="width: 360px;height: 328px;">
+							<table class="table table-bordered table-sm">
 								<thead>
 									<tr></tr>
 								</thead>
