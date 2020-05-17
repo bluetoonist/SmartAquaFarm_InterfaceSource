@@ -274,7 +274,7 @@
                     	}
                     %>
                     <p>
-                    <div class="container-fluid text-right text-sm-right text-md-right text-lg-right text-xl-right d-xl-flex justify-content-xl-center align-items-xl-center mb-4">
+                   <div class="container-fluid text-right text-sm-right text-md-right text-lg-right text-xl-right d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center mt-5">
 
                         <select name="search" id="search" class="form-control-sm ml-2 mb-2 mt-2 mr-2">
                             <option selected value='null'>조건선택</option>
@@ -289,10 +289,11 @@
 
                     </div>
                     <!-- End: 드랍다운 및 검색 -->
-                    <!-- Start: 테이블 -->
-                    <div class="container-fluid text-center">
+                    
+                    
+                 
                         <!-- Start: 등록버튼 -->
-                        <div class="container-fluid text-right mb-4">
+                        <div class="container d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center">
                             <%
                             	if (user_auth.equals("사용자")) { // 권한 : 사용자일때 등록 버튼은 보이지 않도록 한다.
                             %>
@@ -300,14 +301,21 @@
                             <%
                             	} else { // 권한 : admin, sysadmin일때 등록 버튼이 보이도록 한다.
                             %>
-                            <button class="btn btn-primary" onclick="gofarmwtInsertForm()">등록</button>
+                            
+                            	<div class="row" style="width: 774px;">
+                        				<div class="col-xl-12 d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-end justify-content-sm-end justify-content-md-end justify-content-lg-end justify-content-xl-end"><a class="btn btn-primary btn-sm mb-2" role="button" style="color: rgb(255,255,255);"  onclick="gofarmwtInsertForm()">등록</a></div>
+                    			</div>
+                            
                             <%
                             	}
                             %>
                         </div>
                         <!-- End: 등록버튼 -->
-                        <div class="table-responsive table-bordered d-inline">
-                            <table class="table table-bordered">
+                     
+                  <div class="container d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center">
+                     <!-- Start: 테이블 -->
+                        <div class="table-responsive-lg table-bordered text-center text-sm-center text-md-center text-lg-center text-xl-center" style="width: 750px;height: 238px;">
+                            <table class="table table-bordered table-sm">
                                 <thead>
                                     <tr></tr>
                                 </thead>

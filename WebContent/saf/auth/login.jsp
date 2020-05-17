@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Untitled</title>
+    <title>스마트 양식장</title>
 	<link rel="stylesheet" href="../../common/assets/bootstrap/css/bootstrap.min.css?h=e352b4b3401049979e7ebdd84c3caf81">
     <link rel="stylesheet" href="../../common/assets/fonts/fontawesome-all.min.css?h=18313f04cea0e078412a028c5361bd4e">
     <link rel="stylesheet" href="../../common/assets/fonts/ionicons.min.css?h=18313f04cea0e078412a028c5361bd4e">
@@ -14,13 +14,19 @@
     <link rel="stylesheet" href="../../common/assets/css/untitled.css?h=7feee93f573b1ef2766af1d8290eeb33">	
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+
 </head>
 
 <body class="bg-gradient-primary">
-    <div class="login-dark" style="background-color: #214a80;">
+    <div class="login-dark" style="background-color: #214a80; background-image: url(&quot;../../common/assets/img/sea-169980_1920.jpg?h=b72cd4f12e9e2467dba2146641922a90&quot;);background-size: cover;background-repeat: repeat;">
+        
         <form method="post" style="background-color: rgb(255,255,255); color:black;" action="./loginPrc.jsp">
             <h2 class="sr-only">Login Form</h2>
-            <div class="illustration"><i class="icon ion-ios-locked-outline" style="color: rgb(33,74,128);"></i></div>
+            
+            <div class="illustration">
+             <i class="icon ion-ios-locked-outlinㄴe" style="color: rgb(33,74,128);"></i>
+            </div>
+            
             <!--  ID InputCheck-->
             <div class="form-group">
             	<input class="form-control"  name="username" type="text" placeholder="아이디"></div>
