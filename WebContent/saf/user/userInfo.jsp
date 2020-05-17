@@ -288,42 +288,104 @@ function delfarm(param1,param2){
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-12">
-                        <!-- Start: 회원정보수정란 -->
+                    
+                    
+                    
+                    <!-- Start: 공백 -->
+                        <div class="col-xl-3"></div>
+                        <!-- End: 공백 -->
+                    
+                    
+                    <div class="col-xl-6">
+                    
+                     <!-- Start: 회원정보수정란 -->
                     <form name="userUpdateForm">
+                    
+                        
                         <div class="card shadow mb-3">
                             <div class="card-header py-3">
                                 <p class="text-primary m-0 font-weight-bold">회원 정보</p>
                             </div>
-                            <div class="card-body">
                             
-	                            	<input type="hidden" name="flag">
-	                                    <div class="form-row">
+                            <div class="card-body">                            
+	                            	<input type="hidden" name="flag">	                                    
+	                                    <div class="form-row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-2">
+	                                        
 	                                        <div class="col">
 	                                            <div class="form-group"><label for="username"><strong>회원 이름</strong><br></label>
 	                                            <input class="form-control" type="text" placeholder="<%=dto.getUserName() %>" name="username"></div>
 	                                        </div>
+	                                        
 	                                        <div class="col">
 	                                            <div class="form-group"><label for="username"><strong>회원 직책</strong><br></label>
 	                                            <input class="form-control" type="text" placeholder="<%= user_auth %>" disabled=""></div>
 	                                        </div>
-	                                    </div>
-	                                    <div class="form-row">
+	                                    
+	                                    
 	                                        <div class="col">
-	                                            <div class="form-group"><label for="first_name"><strong>회원 아이디</strong></label>
-	                                            <input class="form-control" type="text" placeholder="<%= dto.getUserId() %>"  disabled=""></div>
-	                                        </div>
-	                                    </div>
-	                                    <div class="form-row">
+	                                             <div class="form-group"><label for="first_name"><strong>회원 아이디</strong></label>
+	                                             <input class="form-control" type="text" placeholder="<%= dto.getUserId() %>"  disabled=""></div>
+	                                            </div>
+	                                        
+	                                    
+	                                    
 	                                        <div class="col">
 	                                            <div class="form-group"><label for="first_name"><strong>회원 전화번호</strong></label>
 	                                            <input class="form-control" type="text" placeholder="<%= dto.getUserTel() %>" name="usertel"></div>
 	                                        </div>
+	                                    
+	                                    
+	                                    <div class="form-group">
+	                                      <button class="btn btn-primary btn-sm" onclick="checkUpdate();" type="submit">저장하기</button>
 	                                    </div>
-	                                    <div class="form-group"><button class="btn btn-primary btn-sm" onclick="checkUpdate();" type="submit">저장하기</button></div>
-	                            </div>
-	                        </div>
+	                           		</div>
+	                        		
+	                        		<!-- Start: 구분선 -->
+                        		    <hr>
+                        			<!-- End: 구분선 -->
+	                         		
+	                         		<form name="userPW">
+	                            		<input type="hidden" name="flag">
+	                            		<div class="form-row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-2">
+	                                    
+	                                    <div class="col-xl-12">
+	                                        <div class="form-group"><label for="address"><strong>현재 비밀번호</strong></label>
+	                                        <input class="form-control" type="text" name="nowuserPW" placeholder="현재 비밀번호" name="address">
+	                                        </div>
+	                                    </div>
+	                                    
+	                                    <div class="col">
+	                                         <div class="form-group"><label for="city"><strong>새 비밀번호</strong></label>
+	                                            <input class="form-control" type="text" name="userPW" placeholder="변경 비밀번호" name="city"></div>
+	                                        </div>
+	                                    
+										<div class="col">
+	                                       <div class="form-group"><label for="address"><strong>새 비밀번호 확인</strong></label>
+	                                       <input class="form-control" type="text" name="userPWChk" placeholder="변경 비밀번호 확인" name="address">
+	                                       </div>
+	                                   </div>
+	                                   
+	                                   
+	                                   
+                                        <div class="col-xl-12 text-center text-sm-center text-md-center text-lg-center text-xl-center mt-1">
+                                        <button class="btn btn-primary btn-block mt-3" type="button"><strong>변경하기</strong></button>
+                                       
+                                    </div>
+	                                   
+	                                   
+                                </form>
+	                            	
+	                        
+	                        
+	                        
+	                      
+	                            </div> <!--  div : card body end line -->
+							    
+	                        </div> <!-- div: card mb 3 end line -->
+	                        
+	                        
                         </form>
+
                         <!-- End: 회원정보수정란 -->
                         
                         <!-- Start: 소속양식장 관리 -->
@@ -386,7 +448,7 @@ function delfarm(param1,param2){
                         <!-- End: 소속양식장 관리 -->
 
                         <!-- Start: 비밀번호변경란 -->
-                        <div class="card shadow">
+                       <!--  <div class="card shadow">
                             <div class="card-header py-3">
                                 <p class="text-primary m-0 font-weight-bold">비밀번호 변경</p>
                             </div>
@@ -409,7 +471,7 @@ function delfarm(param1,param2){
                                 </form>
                                 
                             </div>
-                        </div>
+                        </div> -->
                         <!-- End: 비밀번호변경란 -->
                     </div>
                 </div>
