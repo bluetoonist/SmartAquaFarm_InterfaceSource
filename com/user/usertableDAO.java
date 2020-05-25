@@ -338,22 +338,22 @@ public class usertableDAO {
 		try {
 			con = dbcp.getConnection();
 			// sql문 작성(수정문)
-			sql = "update usertable set username=?, usertel = ? where userid= ?";
+			sql = "update usertable set username=?, usertel = ?, userpw = ? where userid= ?";
 
 			System.out.println("updateData");
-			
 			System.out.println(bean.getUserName());
 			System.out.println(bean.getUserTel());
 			System.out.println(bean.getUserId());
+			System.out.println(bean.getUserPw());
 			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getUserName()); // userDTO에 저장된 사용자 이름
 			pstmt.setString(2, bean.getUserTel()); // userDTO에 저장된 사용자 전화번호
-			pstmt.setString(3, bean.getUserId()); // userDTO에 저장된 사용자 id
+			pstmt.setString(3, bean.getUserPw()); // userDTO에 저장된 사용자 pw
+			pstmt.setString(4, bean.getUserId()); // userDTO에 저장된 사용자 id
 			pstmt.executeQuery();
 
 		} catch (Exception e) {
-
 			e.printStackTrace();
 		} finally {
 			con.setAutoCommit(true);

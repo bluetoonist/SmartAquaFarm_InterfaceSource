@@ -24,8 +24,11 @@
 	String user_name = (String) session.getAttribute("userName");
 	String user_auth = (String) session.getAttribute("userAuth");
 
+	// userInfo에서 넘어온 flag
 	String flag = request.getParameter("flag");
-	System.out.println(flag);
+
+	System.out.println("flag : "+flag);
+	
 	// 수정할 ID
 	String userid = request.getParameter("userid");
 	String tel = request.getParameter("usertel");
@@ -43,6 +46,7 @@
 		user_dto.setUserName(request.getParameter("username"));
 		user_dto.setUserTel(request.getParameter("usertel"));
 		user_dto.setUserId(request.getParameter("userid"));
+		user_dto.setUserPw(request.getParameter("userPW"));
 		user_dao.updateMember(user_dto);
 	}else if(flag.equals("UpdatePW")){		// 사용자 비번 바꾸기
 		user_dto.setUserPw(request.getParameter("userPW"));

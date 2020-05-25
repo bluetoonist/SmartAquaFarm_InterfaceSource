@@ -41,19 +41,16 @@
     
     <!--  header  -->
     <nav class="navbar navbar-light navbar-expand shadow topbar static-top" style="margin-bottom: 0px;">
-        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+        <div class="container-fluid">
+        <button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
             <h3 class="text-dark mb-0 navbar-brand"><strong>SmartAquaFarm</strong></h3>
             <h3 class="text-dark mb-0 navbar-brand"><strong>수조 정보</strong></h3>
-            <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                <div class="input-group">
-                    <div class="input-group-append"></div>
-                </div>
-            </form>
             <ul class="nav navbar-nav flex-nowrap ml-auto">
                 <li class="nav-item dropdown no-arrow mx-1" role="presentation"></li>
                 <li class="nav-item dropdown no-arrow mx-1" role="presentation">
                     <div class="shadow dropdown-list dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown"></div>
                 </li>
+                
                 <div class="d-none d-sm-block topbar-divider"></div>
                 <li class="nav-item dropdown no-arrow" role="presentation">
                     <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small"><%=user_name %></span><img class="border rounded-circle img-profile" src="../../common/assets/img/avatars/avatar1.jpeg?h=0ecc82101fb9a10ca459432faa8c0656"></a>
@@ -68,6 +65,8 @@
     
 
     <div id="wrapper">
+    
+    	<!-- Start: 메뉴바 -->
         <nav class="navbar navbar-dark bg-success align-items-start sidebar sidebar-dark bg-gradient-primary accordion p-0" style="background-color: rgb(198, 43, 43);">
             <div class="container-fluid d-flex flex-column p-0">
             
@@ -112,7 +111,7 @@
                 </div>
             </div>
         </nav>
-
+		<!-- End: 메뉴바 -->
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
         

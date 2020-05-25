@@ -32,58 +32,42 @@
 
 	String farmname = farm_dto.getFarmName();
 	String address = farm_dto.getAddress();
-
+	
+	System.out.println("PW : "+PW);
 %>
 <script>
-//* 정보수정 비번확인 - userInfo.jsp
-//************************************************************************ START LINE
-function checkData() {
-	var form = document.turnData;
 
-	// 사용자 추가확인창
-	if (confirm("사용자 정보를 변경하시겠습니까?")) {
-		// 확인을 누를 경우
-		form.flag.value = "updateData"
-		form.method = "post";
-		form.action = "userUpdatePrc.jsp";
-		form.target = "_self";
-		form.submit();
-	} else {
-		// 취소를 누를 경우
-		return false;
-	}
-}
 //* 정보수정 비번확인 - userInfo.jsp
 //************************************************************************ START LINE
 function checkValueUpdate() {
 
-	if(document.userPW.nowuserPW.value != <%=PW %>){
+	// 폼 찾기
+	var form = document.turnData;
+	
+	if(form.nowuserPW.value != <%=PW %>){
 		alert("현재 비밀번호를 맞게 입력하세요.");
 		return false;
 	}
 	
 	// 비밀번호 빈칸 확인
-	if (!document.userPW.userPW.value) {
+	if (!form.userPW.value) {
 		alert("비밀번호를 입력하세요.");
 		return false;
 	}
 	
 	// 비밀번호 일치 확인
-	if (document.userPW.userPW.value != document.userPW.userPWChk.value) {
+	if (form.userPW.value != form.userPWChk.value) {
 		alert("비밀번호를 동일하게 입력하세요.");
 		return false;
 	}
-
-	// 폼 찾기
-	var form = document.userPW;
-
+	
 	// 사용자 추가확인창
-	if (confirm("사용자 비밀번호를 변경하시겠습니까?")) {
+	if (confirm("사용자 정보를 변경하시겠습니까?")) {
 		// 확인을 누를 경우
-		form.flag.value = "UpdatePW"
+		form.flag.value = "updateData";
 		form.method = "post";
-		form.action = "userUpdatePrc.jsp";
 		form.target = "_self";
+		form.action = "userUpdatePrc.jsp";
 		form.submit();
 	} else {
 		// 취소를 누를 경우
@@ -121,7 +105,7 @@ function goDelete(Auth, Name, FarmID) { // 삭제 버튼 클릭시
 			return;
 		}
 	}
-	}
+}
 
 //************************************************************************ END LINE
 </script>
@@ -142,21 +126,35 @@ function goDelete(Auth, Name, FarmID) { // 삭제 버튼 클릭시
     <link rel="stylesheet" href="../../common/assets/css/untitled.css?h=7feee93f573b1ef2766af1d8290eeb33">
 </head>
 
-
-
-
-
 <body id="page-top">
+    <nav class="navbar navbar-light navbar-expand shadow topbar static-top" style="margin-bottom: 0px;"> 
+            <div class="container-fluid">
+            <button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+    			<h3 class="text-dark mb-0 navbar-brand"><strong>SmartAquaFarm</strong></h3>
+            	<h3 class="text-dark mb-0 navbar-brand"><strong>회원 정보</strong></h3>
+                <ul class="nav navbar-nav flex-nowrap ml-auto">
+                    <li class="nav-item dropdown no-arrow mx-1" role="presentation"></li>
+                    <li class="nav-item dropdown no-arrow mx-1" role="presentation">
+                        <div class="shadow dropdown-list dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown"></div>
+                    </li>
+                    
+                    <div class="d-none d-sm-block topbar-divider"></div>
+                    <li class="nav-item dropdown no-arrow" role="presentation">
+                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small"><%=user_name %></span><img class="border rounded-circle img-profile" src="../../common/assets/img/avatars/avatar1.jpeg?h=0ecc82101fb9a10ca459432faa8c0656"></a>
+                        <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="../user/userInfo.jsp"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;회원 정보</a>
+                            <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation" href="../auth/logoutPrc.jsp"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;로그아웃</a></div>
+        </div>
+        </li>
+        </ul>
+    	</div>
+    </nav>
     <div id="wrapper">
         <!-- Start: 메뉴바 -->
         <nav class="navbar navbar-dark bg-success align-items-start sidebar sidebar-dark bg-gradient-primary accordion p-0" style="background-color: rgb(198,43,43);">
             <div class="container-fluid d-flex flex-column p-0">
-                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-fish"></i></div>
-                    <div class="sidebar-brand-text mx-3"><span class="text-monospace">sMART AQUA FARM</span></div>
-                </a>
-                <hr class="sidebar-divider my-0">
-                <!-- Navigator Menu -->
+            
+              <hr class="sidebar-divider my-0">
+              <!-- Navigator Menu -->
             <ul class="nav navbar-nav text-light" id="accordionSidebar">
                <li class="nav-item" role="presentation"><a class="nav-link active" href="../main/index.jsp">
                   <i class="fas fa-tachometer-alt"></i>
@@ -214,45 +212,29 @@ function goDelete(Auth, Name, FarmID) { // 삭제 버튼 클릭시
         <!-- End: 메뉴바 -->
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
-                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-                <div class="container-fluid text-right mb-2">
-                	<button class="btn btn-danger btn-sm" type="button" onclick="goDelete('<%= auth %>','<%= name %>','<%= FarmID %>');">회원정보 삭제</button>
-                </div>
-                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
-                        <h3 class="text-dark mb-0 navbar-brand"><strong>회원 정보</strong></h3>
-                        <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div class="input-group">
-                                <div class="input-group-append"></div>
-                            </div>
-                        </form>
-                        <ul class="nav navbar-nav flex-nowrap ml-auto">
-                            <li class="nav-item dropdown no-arrow mx-1" role="presentation"></li>
-                            <li class="nav-item dropdown no-arrow mx-1" role="presentation">
-                                <div class="shadow dropdown-list dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown"></div>
-                            </li>
-                            <div class="d-none d-sm-block topbar-divider"></div>
-                            <li class="nav-item dropdown no-arrow" role="presentation">
-                                <div class="nav-item dropdown no-arrow">
-                                <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">
-                                <span class="d-none d-lg-inline mr-2 text-gray-600 small"><%=user_name %></span>
-                                <img class="border rounded-circle img-profile" src="../../common/assets/img/avatars/avatar1.jpeg"></a>
-                                    <div
-                                        class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu">
-                                        <a class="dropdown-item" role="presentation" href="userInfo.jsp">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;회원 정보</a>
-                                        <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation" href="../auth/logoutPrc.jsp">
-                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;로그아웃</a></div>
-                    </div>
-                    </li>
-                    </ul>
-            </div>
-            </nav>
-            
-                    <div class="col-xl-12">
-                        <!-- Start: 회원정보수정란 -->
+            <br>
+            <div class="col text-right">
+		                <div class="row">
+		                <div class="col text-right">
+		                    <a class="btn btn-primary btn-sm text-white mb-2 ml-2" role="button" onclick="location.href='./userManagement.jsp'">사용자 관리</a>
+		                    <a class="btn btn-danger btn-sm text-white mb-2 ml-2" role="button" onclick="goDelete('<%= auth %>','<%= name %>','<%= FarmID %>');">회원정보 삭제</a>
+		                </div>
+		                </div>
+	                </div>
+                
+            	
+                
+                    <div class="container d-xl-flex justify-content-xl-center align-items-xl-center mt-4">
+                    
+                    
+                    
+                    
+                    <!-- Start: 회원정보수정란 -->
                         <form name="turnData"><!--  user id update form tag line -->
                         <input type="hidden" name="flag">
                         <input type="hidden" name="FarmID" value="<%=FarmID %>">
+                        
+                            <!-- Start: 회원정보수정 카드 -->
 	                        <div class="card shadow mb-3">
 	                            <div class="card-header py-3">
 	                                <p class="text-primary m-0 font-weight-bold">회원 정보</p>
@@ -305,57 +287,33 @@ function goDelete(Auth, Name, FarmID) { // 삭제 버튼 클릭시
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group"><button class="btn btn-primary btn-sm" onclick="checkData();"  type="submit">저장하기</button></div>
-	                                <form> <!--  user id update form tag line -->
-	                                    <div class="form-row">
-	                                        <div class="col">
-	                                            <div class="form-group"><label for="username"><strong>회원 이름</strong><br></label>
-	                                            <input class="form-control" type="text" placeholder="회원이름" name="username" value="<%= name %>">
-	                                            </div>
-	                                        </div>
-	                                        <div class="col">
-	                                            <div class="form-group"><label for="username"><strong>회원 직책</strong><br></label>
-	                                            <input class="form-control" type="text" placeholder="<%=auth %>" name="auth" readonly >
-	                                            </div>
-	                                        </div>
-	                                    </div>
-	                                    <div class="form-row">
-	                                        <div class="col">
-	                                            <div class="form-group"><label for="first_name"><strong>회원 아이디</strong></label>
-	                                            <input class="form-control" type="text" placeholder="회원 아이디" value="<%=ID %>" name="userid"  readonly >
-	                                            </div>
-	                                        </div>
-	                                    </div>
-	                                    <div class="form-row">
-	                                        <div class="col">
-	                                            <div class="form-group"><label for="first_name"><strong>회원 전화번호</strong></label>
-	                                            <input class="form-control" type="text" name="usertel" maxlength="13" 
-<%
-	                                            	if(tel == null){
-	                                            		
-%><%
-	                                            	}else{
-%>
-	                                           		 value="<%=tel %>"
-<%
-	                                            	} 
-%>>
-	                                            </div>
-	                                        </div>
-	                                    </div>
-	                                    <div class="form-group"><button class="btn btn-primary btn-sm" onclick="checkData();"  type="submit">저장하기</button></div>
-	                                </form><!--  user id update form tag end line -->
+                                    
+                                    <hr>
+	                            	<input type="hidden" name="userid" value="<%=id%>">
+                                    <div class="form-row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-2">
+                                            <div class="col-xl-12">
+                                                <div class="form-group"><label><strong>현재 비밀번호&nbsp;</strong></label><input class="form-control" type="text" name="nowuserPW"  placeholder="현재 비밀번호"></div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group"><label><strong>새 비밀번호&nbsp;</strong></label><input class="form-control" type="text" name="userPW" placeholder="새 비밀번호"></div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group"><label><strong>새 비밀번호 확인&nbsp;</strong><br></label><input class="form-control" type="text" name="userPWChk" placeholder="새 비밀번호 확인"></div>
+                                            </div>
+                                            <div class="col-xl-12 text-sm-center text-md-center text-lg-center text-xl-center d-xl-flex justify-content-xl-end align-items-xl-start mt-1">
+                                            <button class="btn btn-primary" type="button" onclick="checkValueUpdate();"><strong>변경하기</strong></button></div>
+                                        </div>
+                                    
 	                            </div>
 	                        </div>
-                        </form> <!--  user id update form tag end line -->
+	                        
+                        </form> 
+                        <!--  user id update form tag end line -->
                         <!-- End: 회원정보수정란 -->
                         
-                          <!-- Start: 비밀번호변경란 -->
+<%--                           <!-- Start: 비밀번호변경란 -->
                         <div class="card shadow">
-                            <div class="card-header py-3">
-                                <p class="text-primary m-0 font-weight-bold">비밀번호 변경</p>
-                            </div>
-                            
+                           
                             <form name="userPW">
 	                            <input type="hidden" name="flag">
 	                            <input type="hidden" name="userid" value="<%=id%>">
@@ -374,7 +332,8 @@ function goDelete(Auth, Name, FarmID) { // 삭제 버튼 클릭시
 	                                    <div class="form-group"><button class="btn btn-primary btn-sm" onclick="checkValueUpdate();" >저장하기</button></div>
                                 </form>
                                 
-                            </div>
+                            </div> --%>
+                            
                         </div>
                         <!-- End: 비밀번호변경란 -->
                         
@@ -387,7 +346,8 @@ function goDelete(Auth, Name, FarmID) { // 삭제 버튼 클릭시
                 <div class="text-center my-auto copyright"><span>Copyright © Mokpo National University&nbsp; 2020</span></div>
             </div>
         </footer>
-    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
     <script src="../../common/assets/js/jquery.min.js?h=83e266cb1712b47c265f77a8f9e18451"></script>
     <script src="../../common/assets/bootstrap/js/bootstrap.min.js?h=e46528792882c54882f660b60936a0fc"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>

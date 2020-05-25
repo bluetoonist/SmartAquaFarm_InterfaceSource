@@ -17,7 +17,8 @@
 
 <body id="page-top">
     <nav class="navbar navbar-light navbar-expand bg-white shadow topbar static-top">
-        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+        <div class="container-fluid">
+        <button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
             <h3 class="text-dark ml-4 mt-2 navbar-brand"><strong>SmartAquaFarm - 사용자 관리</strong></h3>
             <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                 <div class="input-group">
@@ -58,7 +59,10 @@
         <!-- End: 메뉴바 -->
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
+            
                 <div class="container text-right mb-2">
+                <button class="btn btn-primary" onclick="location.href='userInsertForm.jsp'">추가</button></div>
+
                     <div class="row d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center mt-5">
                         <div class="col-xl-11 mb-2"><a class="btn btn-primary btn-sm" role="button" href="userInsertForm.html">추가</a></div>
                         <div class="col-xl-11">
