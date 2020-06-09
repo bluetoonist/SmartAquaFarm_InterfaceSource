@@ -281,5 +281,53 @@ public class farmDAO {
 			      }
 			      return vlist;
 			   }
-		
+			   
+			   
+			   /*
+				 * @ Author : kim sung hyun
+				 * 
+				 * @ PAGE : watertank/repairRec.jsp
+				 *
+				 * @ Parameter : farmId
+				 * 
+				 * @ Description : String(farmName)
+				 * 
+				 * @ DATE : 2020-06-09
+				 * 
+				 */
+			   public String farmidToName(int farmId)
+			   {
+			      Connection con = null;
+			      PreparedStatement pstmt = null;
+			      ResultSet rs = null;
+
+			      String sql = null;
+			      
+			      String farmName = "";
+			      
+			      try
+			      {
+			         con = dbcp.getConnection();
+			         
+			         sql = "select farmname from farm where farmid = ? ";
+			         pstmt = con.prepareStatement(sql);
+			         pstmt.setInt(1, farmId);                        
+			         rs = pstmt.executeQuery();
+			         
+			         if(rs.next())
+			         {
+			            farmName = rs.getString("farmname");            
+			         }
+			      }
+			      catch(Exception e)
+			      {
+			         e.printStackTrace();
+			      }
+			      finally 
+			      {
+			         dbcp.close(con, pstmt, rs);
+			      }
+			      
+			      return farmName;
+			   }
 }

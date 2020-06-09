@@ -12,6 +12,36 @@ function MoveFarmSearchToFarmInsert() {
 	location.href = "./farmwtInsert.jsp ";
 }
 
+function goButtonFarmwtSearch(){
+	var search_farm = document.getElementById("selectFarm");
+	var farmid = search_farm.value;
+
+	if (farmid == "") {
+		alert("양식장을 선택해주세요");
+	} else {
+		var dynamic_form = document.createElement("form");
+		dynamic_form.setAttribute("charset", "UTF-8");
+		dynamic_form.setAttribute("method", "post");
+		dynamic_form.setAttribute("action", "../watertank/repairRec.jsp");
+
+		var hiddenField = document.createElement("input");
+		hiddenField.setAttribute("type", "hidden");
+		hiddenField.setAttribute("name", "farmid");
+		hiddenField.setAttribute("value", farmid);
+		
+		dynamic_form.appendChild(hiddenField);
+		document.body.appendChild(dynamic_form);
+		dynamic_form.submit();
+	}
+}
+
+
+window.onload = function()
+{
+	printClock();
+	goInit();
+}
+
 
 function MoveMyPage() {
 	location.href = "../user/userInfo.jsp";

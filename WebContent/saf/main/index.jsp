@@ -86,7 +86,7 @@
                             <i class="fas fa-th-list"></i> <span>상태 기록</span>
                         </a></li>
 
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="../watertank/repairRec.jsp">
+                    <li class="nav-item" role="presentation"><a class="nav-link" onclick="goButtonFarmwtSearch();">
                             <i class="fas fa-record-vinyl"></i> <span>조치 기록</span>
                         </a></li>
 
@@ -219,9 +219,7 @@
     </div>
 
     <script src="../../common/func/util.js"></script>
-    <script src="../../common/func/monitoring.js">
-					
-				</script>
+    <script src="../../common/func/monitoring.js"></script>
 
     <script src="../../common//assets/js/jquery.min.js?h=83e266cb1712b47c265f77a8f9e18451"></script>
     <script src="../../common/assets/bootstrap/js/bootstrap.min.js?h=e46528792882c54882f660b60936a0fc"></script>
