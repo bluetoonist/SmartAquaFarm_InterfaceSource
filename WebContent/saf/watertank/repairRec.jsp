@@ -111,26 +111,28 @@
 	* ************************************************************************************************************/
 	function wtSearch(){
 		var obj = document.farmSelectedForm;
-		var tankID = obj["tankId"];
-		var fishName = obj["fishName"];
-		var state = obj["state"];
-		var sensorSDate = obj["sensorSDate"];
-		var sensorEDate = obj["sensorEDate"];
-		// wtUpdateForm.jsp에 있는 처리일자
-		var lastUptSDate = obj["lastUptSDate"];
-		var lastUptEDate = obj["lastUptEDate"];
+		var tankID = obj.tankId.value;
+		var fishName = obj.fishName.value;
+		var state = obj.state.value;
+		
+		// 측정일시 
+		var sensorSDate = obj["sensorSDate"].value;
+		var sensorEDate = obj["sensorEDate"].value;
+		// 처리일시
+		var lastUptSDate = obj["lastUptSDate"].value;
+		var lastUptEDate = obj["lastUptEDate"].value;
 		
 		// 조건을 입력 안하고 검색시 모든 리스트 출력	
-		if(noConditionCheck(tankID,fishName,state,sensorSDate,sensorEDate,lastUptSDate,lastUptEDate)){
+		if(!(tankID,fishName,state)){
 			wtSearchAll();
 			return;
 		}
 		
-		// toDate만 입력한 경우 alert
+		/* // toDate만 입력한 경우 alert
 		if ( (!checkNull(sensorSDate) && checkNull(sensorEDate)) || (checkNull(sensorSDate) && !checkNull(sensorEDate)) ){
 			alert("측정일시를 모두 입력해 주세요");
 			return;
-		}
+		} */
 		
 		// sensorSDate가 sensorEDate보다 클 경우 toDate 재입력 유도
 		if( sensorSDate.value > sensorEDate.value ){
@@ -152,18 +154,19 @@
 				return;
 			}
 			
-			// wtUpdateForm.jsp용 처리일자 체크
+			/* // wtUpdateForm.jsp용 처리일자 체크
 			if ( (!checkNull(lastUptSDate) && checkNull(lastUptEDate)) || (checkNull(lastUptSDate) && !checkNull(lastUptEDate)) ){
 				alert("처리일시를 모두 입력해 주세요");
 				return;
-			}
+			} */
 		}
-		
+		 
 		//searchForm 이름의 Form에 있는 값을 submit
 		obj.target = "_self";
 		obj.method = "POST";
 		obj.submit();
 	}
+
 	
 	/************************************************************************************************************
 	 * wtRec.jsp & wtUpdateForm.jsp 에 쓰는, 조건 미입력시 전체 검색, searchForm reset 후 FarmID로만 검색
@@ -244,6 +247,8 @@
                 <!-- Start: 검색부분 -->
                 <div class="container mt-4 mb-4">
                     <form method="POST" name="farmSelectedForm">
+                    <input type="hidden" name="farmid" value="<%=FarmID%>">
+                    
                         <!-- Start: 수조명/어종/상태  input 그룹 -->
                         <div class="form-row row-cols-1 row-cols-sm-3 row-cols-md-3 row-cols-lg-3 row-cols-xl-3 d-xl-flex justify-content-xl-center mb-2">
                             
@@ -260,7 +265,7 @@
                             <div class="col-xl-3 d-xl-flex justify-content-xl-center">
                             <label class="text-center text-sm-center text-md-center text-lg-center text-xl-center mt-1 mr-2" style="width: 100px;">
                             <strong>상태명</strong></label>
-	                            <select class="form-control form-control-sm">
+	                            <select class="form-control form-control-sm" name="state">
 		                            <optgroup label="상태(이상명)">
 			                            <option value="R">위험</option>
 										<option value="Y">경고</option>

@@ -24,21 +24,32 @@
 <head>
 <meta charset="EUC-KR">
 <title></title>
-<%
-request.setCharacterEncoding("UTF-8");
+	<%
+	request.setCharacterEncoding("UTF-8");
+	
+	repairDAO rpdao = new repairDAO();
+	
+	System.out.println("prc 확인");
+	
+	String repairSeq, recSeq, contents;
+	repairSeq = request.getParameter("repairSeq");
+	recSeq = request.getParameter("recSeq");
+	contents = request.getParameter("repairContents");
+	
+	// repairContents 업데이트
+	rpdao.repairContentsUpdate(repairSeq, contents);
+	%>
+	
+<script>
 
-repairDAO rpdao = new repairDAO();
+function close1(){
+	opener.parent.location.reload();
+	window.close();
+} 
 
-String repairSeq, recSeq, contents;
-repairSeq = request.getParameter("repairSeq");
-recSeq = request.getParameter("recSeq");
-contents = request.getParameter("repairContents");
-
-// repairContents 업데이트
-rpdao.repairContentsUpdate(repairSeq, contents);
-%>
+</script>
 </head>
-<body>
+<body onload="close1()">
 
 </body>
 </html>

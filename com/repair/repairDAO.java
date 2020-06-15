@@ -85,12 +85,14 @@ public class repairDAO {
 	 * @param repairDTO
 	 *            -
 	 * @return ArrayList<repairDTO>
+	 * @throws SQLException 
+	 * @throws NullPointerException 
 	 * @remark �빐�떦 �뼇�떇�옣怨� 寃��깋議곌굔�뿉 留욌뒗 議곗튂湲곕줉 寃��깋
 	 * 		   �궗�슜泥� - waterTank/repairRec.jsp
 	 **************************************/
 	
-	public ArrayList<repairDTO> repairRec(repairDTO indto) {
-		Connection con = null;
+	public ArrayList<repairDTO> repairRec(repairDTO indto) throws NullPointerException, SQLException {
+		Connection con = dbcp.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;

@@ -54,10 +54,19 @@ String contents = rpdao.getRepairContents(Integer.parseInt(repairSeq),Integer.pa
 //wtCautionUpdateForm.jsp에 쓰이는 repair 테이블 repaircontents 업데이트용 함수
 //************************************************************************ END LINE
 function repairContentsUpdate(){
-	 updateForm.action = "wtCautionUpdatePrc.jsp";
-	 updateForm.submit();
-	 opener.location.reload();
-	 self.close();
+  var frm = document.updateForm;
+	frm.target = "_self";
+	frm.method = "post";
+	frm.action = "wtCautionUpdatePrc.jsp";
+	frm.submit();  
+
+	console("up1");
+	//updateForm.action = "wtCautionUpdatePrc.jsp";
+	//updateForm.submit();
+	opener.location.reload();
+	console("up2");
+	self.close();
+	console("up3");
 }
 
 //************************************************************************* START LINE
@@ -89,26 +98,33 @@ function repairContentsUpdate(){
                     <h2 class="text-center text-dark mt-5"><strong><%=farmName %> - <%=tankID %></strong></h2>
                 </div>
                 <!-- End: 양식장이름 -->
-                <!-- Start: 취소/등록버튼 -->
-                <div class="container-fluid text-center mt-4 mb-4">
-                <button class="btn btn-primary btn-sm mr-2" type="button" onclick="repairContentsUpdate()" >수정</button>
-                <a class="btn btn-dark btn-sm" role="button" onclick="self.close()">취소</a></div>
-                <!-- End: 취소/등록버튼 -->
-                <!-- Start: 조치사항입력 타이틀 -->
-                <div class="container-fluid">
-                    <h4 class="text-center"><strong>조치사항 수정</strong></h4>
-                </div>
-                <!-- End: 조치사항입력 타이틀 -->
-                <!-- Start: 조치사항 입력부분 -->
-                <div class="container-fluid">
-                <textarea rows="8" cols="40"><%= contents %></textarea></div>
-                <!-- End: 조치사항 입력부분 -->
-            </div>
-            <footer class="bg-white d-xl-flex align-items-xl-end sticky-footer">
-                <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Copyright © Mokpo National University&nbsp; 2020</span></div>
-                </div>
-            </footer>
+                
+                <form name="updateForm">
+                <input type="hidden" name="repairSeq" value="<%=repairSeq%>">
+                <input type="hidden" name="recSeq" value="<%=recSeq%>">
+	                <!-- Start: 취소/등록버튼 -->
+	                <div class="container-fluid text-center mt-4 mb-4">
+	                <button class="btn btn-primary btn-sm mr-2" type="button" onclick="repairContentsUpdate()" >수정</button>
+	                <a class="btn btn-dark btn-sm" role="button" onclick="self.close()">취소</a></div>
+	                <!-- End: 취소/등록버튼 -->
+	                <!-- Start: 조치사항입력 타이틀 -->
+	                <div class="container-fluid">
+	                    <h4 class="text-center"><strong>조치사항 수정</strong></h4>
+	                </div>
+	                <!-- End: 조치사항입력 타이틀 -->
+	               	
+	                <!-- Start: 조치사항 입력부분 -->
+	                <div class="container-fluid">
+	                <textarea rows="8" cols="40" name="repairContents"><%= contents %></textarea></div>
+	                <!-- End: 조치사항 입력부분 -->
+		            </div>
+	            </form>
+	            
+	            <footer class="bg-white d-xl-flex align-items-xl-end sticky-footer">
+	                <div class="container my-auto">
+	                    <div class="text-center my-auto copyright"><span>Copyright © Mokpo National University&nbsp; 2020</span></div>
+	                </div>
+	            </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
     <script src="../../common/assets/js/jquery.min.js?h=83e266cb1712b47c265f77a8f9e18451"></script>
     <script src="../../common/assets/bootstrap/js/bootstrap.min.js?h=e46528792882c54882f660b60936a0fc"></script>
