@@ -14,6 +14,7 @@
 		String login_page_pw = request.getParameter("password");
 		
 		usertableDAO user_dao = new usertableDAO();
+		
 		usertableDTO dto = user_dao.login_action(login_page_id, login_page_pw);
 
 		if (dto.getUserId() == null) {
@@ -35,7 +36,6 @@
 		session.setAttribute("userId"	, dto.getUserId());
 		session.setAttribute("userName", dto.getUserName());
 		session.setAttribute("userAuth"	, dto.getUserAuth());	
-
 		}
 	%>
 	<script type="text/javascript"> location.href="../main/index.jsp"</script>

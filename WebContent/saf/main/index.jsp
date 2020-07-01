@@ -82,7 +82,7 @@
                             <i class="fas fa-table"></i> <span>상태 기준 정보</span>
                         </a></li>
 
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="../watertank/stateRec.jsp">
+                    <li class="nav-item" role="presentation"><a class="nav-link" onclick="farmSearch();">
                             <i class="fas fa-th-list"></i> <span>상태 기록</span>
                         </a></li>
 
