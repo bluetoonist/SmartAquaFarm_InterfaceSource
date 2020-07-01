@@ -26,7 +26,7 @@ public class farmDAO {
 
 	public ArrayList<farmDTO> farmSelect(String ID) throws NullPointerException, SQLException {
 		
-		Connection con = null;
+		Connection con = DBCon.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String _farmid_account_sql = null;
@@ -34,7 +34,6 @@ public class farmDAO {
 		ArrayList<farmDTO> farmnamelist = new ArrayList<farmDTO>();
 
 		try {
-			con = DBCon.getConnection();
 			_farmid_account_sql = "select farmid from usertable where userid=?";
 			pstmt = con.prepareStatement(_farmid_account_sql);
 			pstmt.setString(1, ID);

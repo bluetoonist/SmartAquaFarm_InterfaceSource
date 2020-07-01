@@ -58,14 +58,16 @@
     	if (Farmid == null) {
     %>
     <script>
-					MoveFarmSearchToIndexPage();
-				</script>
+		MoveFarmSearchToIndexPage();
+	</script>
     <%
     	// 그 밖에 Farmid는 숫자로 변환
     	} else {
     		FarmID = Integer.parseInt(Farmid);
     	}
-
+		
+    	System.out.println("user_id : " +user_id);
+    	
     	farmnamelist = farm_dao.farmSelect(user_id);
 
     	String farmName = null;
@@ -420,7 +422,7 @@
                                     </tr>
                                     <%
                                     	} // for end
-                                    	} // if_1 end
+                                    } // if_1 end
                                     %>
 
                                 </tbody>
