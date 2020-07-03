@@ -62,7 +62,6 @@
         </div>
     </nav>
     <!--  header line  -->
-    
 
     <div id="wrapper">
     
@@ -145,15 +144,15 @@
                     </select>
                     <select class="form-control-sm ml-2 mb-2 mt-2" id="selectFarm" onchange="goSelectedFarm()">
                         <opiton value="0">양식장을 선택하세요</opiton>
-
-
                     </select>
 
                     <%
                     	} else if (user_auth.equals("admin")) {
                     %>
+                    
                     <select class="form-control-sm ml-2 mb-2 mt-2" id="selectFarm" onchange="goSelectedFarm()">
                         <option class="option_menu" value="init" selected>양식장을 선택하세요</option>
+                        
                         <%
                         	int select_farm_id = 0;
                         		String select_farm_name = null;
@@ -220,7 +219,6 @@
 
     <script src="../../common/func/util.js"></script>
     <script src="../../common/func/monitoring.js"></script>
-
     <script src="../../common//assets/js/jquery.min.js?h=83e266cb1712b47c265f77a8f9e18451"></script>
     <script src="../../common/assets/bootstrap/js/bootstrap.min.js?h=e46528792882c54882f660b60936a0fc"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>

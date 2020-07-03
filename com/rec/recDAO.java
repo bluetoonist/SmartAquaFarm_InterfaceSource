@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import farm.farmDTO;
+import main.StringUtil;
 import util.DBCon;
 import rec.recDTO;
 
@@ -85,4 +87,170 @@ public class recDAO {
 		}
 		return wtList;
 	}
+	/*
+	 * @Date : 2020.07.02
+	 * 
+	 * @Method : RecList
+	 * 
+	 * @author : kimsunghyun
+	 * 
+	 * @param : recDTO
+	 * 
+	 * @return : recDTO
+	 * 
+	 * @remark :
+	 */
+	public ArrayList<recDTO> RecList(recDTO indto) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		StringUtil str = new StringUtil();
+		
+		ArrayList<recDTO> adto = new ArrayList<recDTO>();
+		
+		sql = "select * "
+				+ "from "
+				+ "(select rownum,to_char(sensordate, 'yyyy-mm-dd hh24:mi') as sensordate, tankid, fishid, state, yrcode, dorec, wtrec, psurec, phrec, nh4rec, no2rec,farmid,recseq  from rec) a, "
+				+ "(select distinct fishname, groupcode from fish) b "
+				+ "where a.fishid = b.groupcode "
+				+ "and rownum >= 1 and rownum <= 10  "
+				+ "and a.farmid = " + indto.getFarmId() + " ";
+		
+		if( !indto.getSensorDate().equals("") ) {
+			sql += " and " + indto.getSensorDate();
+		}
+		
+		if( !indto.getTankId().equals("")) {
+			sql += " and tankID like '%" + indto.getTankId() + "%'";
+		}
+		
+		if( !indto.getRemark().equals("")) {
+			sql += " and fishName like '%" + indto.getRemark() + "%'";
+		}
+		
+		if(!indto.getState().equals("")) {
+			sql += " and state like '%" + indto.getState() + "%'";
+		}
+		
+		System.out.println(sql);
+		sql += " order by recseq desc ";
+		
+		try {
+			con =  dbcp.getConnection();
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) 
+			{
+				recDTO outdto = new recDTO();
+				outdto.setSensorDate(rs.getString("sensordate"));	
+				outdto.setTankId(rs.getString("tankid"));			
+				outdto.setRemark(rs.getString("fishname"));			
+				if(rs.getString("state").equals("G"))				
+				{
+					outdto.setState("정상");	
+				}
+				else if(rs.getString("state").equals("Y"))
+				{
+					outdto.setState("경고");
+				}
+				else if(rs.getString("state").equals("R"))
+				{
+					outdto.setState("위험");
+				}
+				outdto.setYrCode(str.nullToBlank(rs.getString("yrcode")));			
+				outdto.setDoRec(rs.getDouble("dorec"));				
+				outdto.setWtRec(rs.getDouble("wtrec"));				
+				outdto.setPsuRec(rs.getDouble("psurec"));			
+				outdto.setPhRec(rs.getDouble("phrec"));				
+				outdto.setNh4Rec(rs.getDouble("nh4rec"));			
+				outdto.setNo2Rec(rs.getDouble("no2rec"));			
+				adto.add(outdto);				
+			}
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		} 
+		finally 
+		{
+			dbcp.close(con, pstmt, rs);
+		}
+		
+		return adto;
+	}
+	
+	   /*
+		 * @ Author : kim sung hyun
+		 * 
+		 * @ PAGE : farmSearch.jsp
+		 *
+		 * @ Parameter : String ID, String Auth, String farmname
+		 * 
+		 * @ Description : ArrayList<farmDTO>
+		 * 
+		 * @ DATE : 2020-06-09
+		 * 
+		 */
+		public ArrayList<farmDTO> farmSearch(String ID, String Auth, String farmname)
+		{
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			ResultSet rs = null;
+			
+			ArrayList<farmDTO> adto = new ArrayList<farmDTO>();		
+			
+			try
+			{
+				con = dbcp.getConnection();
+				
+				sql = "select farmid, farmname, address from farm ";
+				
+				if(Auth.equals("전체관리자"))
+				{	
+					if(!farmname.equals(""))
+					{
+						sql += "where farmname like '%" + farmname + "%' ";
+					}
+				}
+				else
+				{	
+					sql += "where userid = '"+ ID +"' ";
+					
+					if(Auth.equals("일반관리자"))
+					{	
+						if(!farmname.equals(""))
+						{
+							sql += "and farmname like '%" + farmname + "%' ";
+						}
+					}
+				}
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				while(rs.next())
+				{
+					farmDTO dto = new farmDTO();
+					dto.setFarmId(rs.getInt("farmid"));						
+					dto.setFarmName(rs.getString("farmname"));				
+					String address[] = rs.getString("address").split(" ");	
+					dto.setAddress(address[0] + " " + address[1]);			
+					adto.add(dto);											
+				}
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			finally 
+			{
+				dbcp.close(con, pstmt, rs);
+			}
+			
+			return adto;
+		}
+	
 } // Class End Line

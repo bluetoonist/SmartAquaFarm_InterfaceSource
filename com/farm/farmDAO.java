@@ -294,9 +294,9 @@ public class farmDAO {
 				 * @ DATE : 2020-06-09
 				 * 
 				 */
-			   public String farmidToName(int farmId)
+			   public String farmidToName(int farmId) throws NullPointerException, SQLException
 			   {
-			      Connection con = null;
+			      Connection con =  dbcp.getConnection();
 			      PreparedStatement pstmt = null;
 			      ResultSet rs = null;
 
@@ -305,9 +305,7 @@ public class farmDAO {
 			      String farmName = "";
 			      
 			      try
-			      {
-			         con = dbcp.getConnection();
-			         
+			      {  
 			         sql = "select farmname from farm where farmid = ? ";
 			         pstmt = con.prepareStatement(sql);
 			         pstmt.setInt(1, farmId);                        
@@ -329,4 +327,7 @@ public class farmDAO {
 			      
 			      return farmName;
 			   }
+
+
+				
 }

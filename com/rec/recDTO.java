@@ -1,25 +1,24 @@
 package rec;
 
 public class recDTO {
-	// ë³??ˆ˜ ê°ì²´
-	private int recSeq;				// ê¸°ë¡ì½”ë“œ
-	private String tankId;				// ?ˆ˜ì¡°ID
-	private int farmId;				// ?–‘?‹?¥ID
-	private int fishId;				// ?–‘?‹? •ë³´ID
-	private String state;			// ?ƒ?ƒœ
-	private String yrCode;			// ?´?ƒì½”ë“œê¸°ë¡
-	private String sensorDate;		// ì¸¡ì •?¼?‹œ
-	private Double doRec;			// ì¸¡ì • DO(?š©ì¡? ?‚°?†Œ)
-	private Double wtRec;			// ì¸¡ì • wt(?ˆ˜?˜¨)
-	private Double psuRec;			// ì¸¡ì • psu(?—¼?„)
-	private Double phRec;			// ì¸¡ì • ph(?‚°?„)
-	private Double nh4Rec;			// ì¸¡ì • nh4(?•”ëª¨ë‹ˆ?•„)
-	private Double no2Rec;			// ì¸¡ì • no2(?•„ì§ˆì‚°)
-	private String regDate;			// ? •ë³´ë“±ë¡ì¼
-	private String regId;			// ? •ë³´ë“±ë¡ì
-	private String lastUptdate;		// ìµœì¢…?ˆ˜? •?¼
-	private String lastUptId;		// ìµœì¢…?ˆ˜? •?
-	private String remark;			// ë¹„ê³ 
+	private int recSeq;				
+	private String tankId;				
+	private int farmId;				
+	private int fishId;				
+	private String state;			
+	private String yrCode;			
+	private String sensorDate;		
+	private Double doRec;			
+	private Double wtRec;			
+	private Double psuRec;			
+	private Double phRec;			
+	private Double nh4Rec;			
+	private Double no2Rec;			
+	private String regDate;			
+	private String regId;			
+	private String lastUptdate;		
+	private String lastUptId;		
+	private String remark;			
 	
 	public int getRecSeq() {
 		return recSeq;

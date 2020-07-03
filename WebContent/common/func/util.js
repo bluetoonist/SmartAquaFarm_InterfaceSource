@@ -15,6 +15,7 @@ function MoveFarmSearchToFarmInsert() {
 function goButtonFarmwtSearch(){
 	var search_farm = document.getElementById("selectFarm");
 	var farmid = search_farm.value;
+	
 
 	if (farmid == "") {
 		alert("양식장을 선택해주세요");
@@ -36,7 +37,7 @@ function goButtonFarmwtSearch(){
 }
 
 function farmSearch(){
-	var search_farm = document.getElementById("selectFarm");
+	var search_farm = document.getElementById("selectFarm").value;
 	var farmid = search_farm.value;
 
 	if (farmid == "") {
@@ -45,7 +46,7 @@ function farmSearch(){
 		var dynamic_form = document.createElement("form");
 		dynamic_form.setAttribute("charset", "UTF-8");
 		dynamic_form.setAttribute("method", "post");
-		dynamic_form.setAttribute("action", "../growinfo/farmSearch.jsp");
+		dynamic_form.setAttribute("action", "../watertank/stateRec.jsp");
 
 		var hiddenField = document.createElement("input");
 		hiddenField.setAttribute("type", "hidden");
