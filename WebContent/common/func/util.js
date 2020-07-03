@@ -38,8 +38,8 @@ function goButtonFarmwtSearch(){
 
 function farmSearch(){
 	var search_farm = document.getElementById("selectFarm").value;
-	var farmid = search_farm.value;
-
+	var farmid = search_farm;
+	
 	if (farmid == "") {
 		alert("양식장을 선택해주세요");
 	} else {

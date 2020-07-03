@@ -3,6 +3,7 @@ package rec;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import farm.farmDTO;
@@ -88,7 +89,7 @@ public class recDAO {
 		return wtList;
 	}
 	/*
-	 * @Date : 2020.07.02
+	 * @Date : 2020.07.03
 	 * 
 	 * @Method : RecList
 	 * 
@@ -100,66 +101,68 @@ public class recDAO {
 	 * 
 	 * @remark :
 	 */
-	public ArrayList<recDTO> RecList(recDTO indto) {
-		
-		Connection con = null;
+	
+	public ArrayList<recDTO> RecList(recDTO indto) throws NullPointerException, SQLException {
+		System.out.println("1");
+		Connection con = DBCon.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
 		StringUtil str = new StringUtil();
-		
+
 		ArrayList<recDTO> adto = new ArrayList<recDTO>();
 		
-		sql = "select * "
-				+ "from "
-				+ "(select rownum,to_char(sensordate, 'yyyy-mm-dd hh24:mi') as sensordate, tankid, fishid, state, yrcode, dorec, wtrec, psurec, phrec, nh4rec, no2rec,farmid,recseq  from rec) a, "
-				+ "(select distinct fishname, groupcode from fish) b "
-				+ "where a.fishid = b.groupcode "
-				+ "and rownum >= 1 and rownum <= 10  "
-				+ "and a.farmid = " + indto.getFarmId() + " ";
-		
-		if( !indto.getSensorDate().equals("") ) {
-			sql += " and " + indto.getSensorDate();
-		}
-		
-		if( !indto.getTankId().equals("")) {
-			sql += " and tankID like '%" + indto.getTankId() + "%'";
-		}
-		
-		if( !indto.getRemark().equals("")) {
-			sql += " and fishName like '%" + indto.getRemark() + "%'";
-		}
-		
-		if(!indto.getState().equals("")) {
-			sql += " and state like '%" + indto.getState() + "%'";
-		}
-		
-		System.out.println(sql);
-		sql += " order by recseq desc ";
-		
 		try {
-			con =  dbcp.getConnection();
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
+			System.out.println("2");	
 			
-			while (rs.next()) 
-			{
+			sql = "select * from "
+					+ "(select rownum,to_char(sensordate, 'yyyy-mm-dd hh24:mi') "
+					+ "as sensordate, tankid, fishid, state, yrcode, dorec, wtrec, psurec, phrec, nh4rec, no2rec, farmid, recseq  from rec) a, "
+					+ "(select distinct fishname, groupcode from fish) b "
+					+ "where a.fishid = b.groupcode "
+					+ "and rownum >= 1 and rownum <= 10 "
+					+ "and a.farmid = " + indto.getFarmId();
+			
+			System.out.println(sql);
+			/*
+			if(!indto.getSensorDate().equals("") ) {
+				sql += " and " + indto.getSensorDate();
+			}
+			
+			if(!indto.getTankId().equals("")) {
+				sql += " and tankID like '%" + indto.getTankId() + "%'";
+			}
+			
+			if(!indto.getRemark().equals("")) {
+				sql += " and fishName like '%" + indto.getRemark() + "%'";
+			}
+			
+			if(!indto.getState().equals("")) {
+				sql += " and state like '%" + indto.getState() + "%'";
+			}
+			*/
+			sql += " order by recseq desc ";
+			
+			while (rs.next()){
 				recDTO outdto = new recDTO();
+				/*
 				outdto.setSensorDate(rs.getString("sensordate"));	
 				outdto.setTankId(rs.getString("tankid"));			
 				outdto.setRemark(rs.getString("fishname"));			
+				
 				if(rs.getString("state").equals("G"))				
 				{
-					outdto.setState("Á¤»ó");	
+					outdto.setState("ì •ìƒ");	
 				}
 				else if(rs.getString("state").equals("Y"))
 				{
-					outdto.setState("°æ°í");
+					outdto.setState("ìœ„í—˜");
 				}
 				else if(rs.getString("state").equals("R"))
 				{
-					outdto.setState("À§Çè");
+					outdto.setState("ê²½ê³ ");
 				}
+				*/
 				outdto.setYrCode(str.nullToBlank(rs.getString("yrcode")));			
 				outdto.setDoRec(rs.getDouble("dorec"));				
 				outdto.setWtRec(rs.getDouble("wtrec"));				
@@ -176,16 +179,16 @@ public class recDAO {
 		} 
 		finally 
 		{
-			dbcp.close(con, pstmt, rs);
+			DBCon.close(con, pstmt, rs);
 		}
 		
-		return adto;
+		return adto; 
 	}
 	
 	   /*
 		 * @ Author : kim sung hyun
 		 * 
-		 * @ PAGE : farmSearch.jsp
+		 * @ PAGE : stateRec.jsp
 		 *
 		 * @ Parameter : String ID, String Auth, String farmname
 		 * 
@@ -209,7 +212,7 @@ public class recDAO {
 				
 				sql = "select farmid, farmname, address from farm ";
 				
-				if(Auth.equals("ÀüÃ¼°ü¸®ÀÚ"))
+				if(Auth.equals("ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"))
 				{	
 					if(!farmname.equals(""))
 					{
@@ -220,7 +223,7 @@ public class recDAO {
 				{	
 					sql += "where userid = '"+ ID +"' ";
 					
-					if(Auth.equals("ÀÏ¹Ý°ü¸®ÀÚ"))
+					if(Auth.equals("ï¿½Ï¹Ý°ï¿½ï¿½ï¿½ï¿½ï¿½"))
 					{	
 						if(!farmname.equals(""))
 						{
@@ -252,5 +255,49 @@ public class recDAO {
 			
 			return adto;
 		}
+
+	   /*
+		 * @ Author : kim sung hyun
+		 * 
+		 * @ PAGE : stateRec.jsp
+		 *		 
+		 * @ Parameter :
+		 * 
+		 * @ Description : 
+		 * 
+		 * @ DATE : 2020-07-03
+		 * 
+		 */
+		
+		public int recTableListSize() throws NullPointerException, SQLException {
+	      Connection con =  dbcp.getConnection();
+	      PreparedStatement pstmt = null;
+	      ResultSet rs = null;
+	      String sql = null;
+	      
+	      int count = 0;
+	      
+	      try
+	      {
+	         sql = "select count(*) as cnt from rec ";
+	         pstmt = con.prepareStatement(sql);
+	         rs = pstmt.executeQuery();
+	         
+	         if(rs.next())
+	         {
+	            count = rs.getInt("cnt");
+	         }
+	      }
+	      catch(Exception e)
+	      {
+	         e.printStackTrace();
+	      }
+	      finally 
+	      {
+	    	  dbcp.close(con, pstmt, rs);
+	      }
+	      
+	      return count;
+	   }
 	
 } // Class End Line

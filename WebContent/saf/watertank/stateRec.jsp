@@ -9,22 +9,20 @@
 
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import = "rec.*" %>
 <%@ page import="sun.font.SunFontManager.FamilyDescription"%>
 <jsp:useBean id="StrUtil" class="main.StringUtil"/>
 <jsp:useBean id="farmDao" class="farm.farmDAO"/>
 <jsp:useBean id="recDao" class="rec.recDAO"/>
-<jsp:useBean id="recDTO" class="rec.recDTO"/>
 <!DOCTYPE html>
 <html>
 
 <%
 	// 한글 패치
 	request.setCharacterEncoding("UTF-8");
-
-	int farmid = Integer.parseInt(request.getParameter("farmid"));
 	
-	System.out.print("farmid : ");
-	System.out.println(farmid);
+	int farmid = Integer.parseInt(request.getParameter("farmid"));
+
 	
 	// 변수 받아오기
 	// 양식장ID / 양식장 명 받아오기
@@ -64,11 +62,11 @@
 	}
 	
 	
-	// 검색결과를 저장하기 위한 변수
-	ArrayList<recDTO> recADto = new ArrayList<recDTO>();
+
 	
 	// 검색어를 저장하기 위한 변수
 	recDTO indto = new recDTO();
+	
 	indto.setFarmId(farmid);
 	indto.setTankId(tankId);
 	indto.setRemark(fishName);
@@ -76,7 +74,37 @@
 	indto.setSensorDate(sensorDate);
 %>
 
+<script>
+	// select 박스 선택
+	// 화면 초기화시 (화면로딩후 시작후 바로)
+	function goInit(){
+		var frm = document.farmSelectedForm;
+		var state = frm.state;
+		state.value = "<%=state%>";
+	}
+	
+	// paging 할때 검색어 유지를 하려고 따로 검색값 저장 해둠
+	var searchList = {tankId:"<%=tankId %>", fishName:"<%=fishName %>", state:"<%=state%>", sensorSDate:"<%=sensorSDate%>", sensorEDate:"<%=sensorEDate%>"}
+	
+	window.onload = function(){
+		printClock();
+		goInit();
+	}
+	// wtRec.jsp & wtUpdateForm.jsp 에 쓰는, 조건 미입력시 전체 검색, searchForm reset 후 FarmID로만 검색
+	// ************************************************************************************************************/
+	 function wtSearchAll(){
+	 	var obj = document.farmSelectedForm;
+	 	// form 안에 있는 값들 초기화 해서 submit
+	 	wtSearchReset();
+	 	
+	 	obj.target = "_self";
+	 	obj.method = "POST";
+	 	obj.submit();
+	 }
 
+	 //************************************************************************************************************
+</script>
+		
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -134,27 +162,33 @@
             <div class="text-center" id="content">
                 <!-- Start: 양식장이름 -->
                 <div class="container-fluid">
-                    <h2 class="mt-5"><strong>무안수산</strong></h2>
+                    <h2 class="mt-5"><strong>상태기록보기(<%=farmName %>)</strong></h2>
                 </div>
                 <!-- End: 양식장이름 -->
                 <!-- Start: 검색부분 -->
                 <div class="container mt-4 mb-4">
                     <form>
                         <div class="form-row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-3 row-cols-xl-3 d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center">
-                            <div class="col-xl-3 d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center"><label style="width: 150px;margin-top: 4px;"><strong>수조명&nbsp;</strong></label><input class="form-control form-control-sm mr-2" type="text"></div>
-                            <div class="col-xl-3 d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center"><label style="width: 130px;margin-top: 4px;"><strong>&nbsp; &nbsp;어종&nbsp;</strong></label><input class="form-control form-control-sm mr-2" type="text"></div>
-                            <div class="col-xl-4 d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center"><label style="width: 299px;margin-top: 4px;"><strong>측정기간&nbsp;</strong></label><select class="form-control form-control-sm"><optgroup label="This is a group"><option value="12" selected="">---- -- --</option><option value="13">This is item 2</option><option value="14">This is item 3</option></optgroup></select><span><strong>&nbsp;~&nbsp;</strong></span>
-                                <select
-                                    class="form-control form-control-sm mr-2">
-                                    <optgroup label="This is a group">
-                                        <option value="12" selected="">---- -- --</option>
-                                        <option value="13">This is item 2</option>
-                                        <option value="14">This is item 3</option>
-                                    </optgroup>
-                                    </select>
-                            </div>
-                            <div class="col-xl-1 text-center" style="margin: 0px;margin-bottom: 0px;margin-top: 0px;padding-right: 5px;margin-right: 0px;"><button class="btn btn-primary btn-sm" type="button" style="width: 60px;">조회</button></div>
-                        </div>
+							<div class="col-xl-3 d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center">
+								<label style="width: 150px; margin-top: 4px;"><strong>수조명&nbsp;</strong></label> 
+								<input class="form-control form-control-sm mr-2" type="text" name="tankId" value="<%=tankId %>" maxlength="10">
+							</div>
+							<div class="col-xl-3 d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center">
+								<label style="width: 130px; margin-top: 4px;"><strong>&nbsp; &nbsp;어종&nbsp;</strong></label> 
+								<input class="form-control form-control-sm mr-2" type="text" name="fishName" value="<%=fishName %>">
+							</div>
+							<div class="col-xl-4 d-flex d-sm-flex d-md-flex d-lg-flex d-xl-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-center justify-content-xl-center">
+								<label style="width: 299px; margin-top: 4px;"><strong>측정기간&nbsp;</strong></label> 
+								
+								<input type="date" name="sensorSDate" value="<%=sensorSDate%>" style="text-align:center; width:140px; height:30px;"> ~ 
+								<input type="date" name="sensorEDate" value="<%=sensorEDate%>" style="text-align:center; width:140px; height:30px;">
+
+							</div>
+							<div class="col-xl-1 text-center" style="margin: 0px; margin-bottom: 0px; margin-top: 0px; padding-right: 5px; margin-right: 0px;">
+								<button class="btn btn-primary btn-sm" type="button" style="width: 60px;" onclick="wtSearch()" >조회</button>
+								<button class="btn btn-primary btn-sm" type="button" style="width: 60px;" id="btnReset" onclick="wtSearchReset()">초기화</button>
+							</div>
+						</div>
                     </form>
                 </div>
                 <!-- End: 검색부분 -->
@@ -163,6 +197,20 @@
                     <div class="table-responsive table-bordered" style="height: 239px;">
                         <table class="table table-bordered">
                             <tbody class="shadow-sm">
+<%
+			System.out.print("indto : ");
+			System.out.println(indto.getFarmId());
+			
+			// 검색결과를 저장하기 위한 변수
+			ArrayList<recDTO> recADto = new ArrayList<recDTO>();
+			
+			// 출력할 List 뽑아오기
+			recADto = recDao.RecList(indto);
+
+			/* 
+			// 검색 결과 개수 뽑기
+			listTotalSize = recDao.recTableListSize(); */
+%>
                                 <tr class="table-primary">
                                     <td class="text-dark"><strong>측정일시</strong></td>
                                     <td class="text-dark"><strong>수조이름</strong></td>
