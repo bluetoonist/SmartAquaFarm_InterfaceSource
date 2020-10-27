@@ -16,10 +16,5 @@
 조치기록  /waterTank/repairRec.jsp(FarmID)  
 수조정보  /farm/farmwtSearch.jsp(FarmID)
 
-# Contact Information (개발자 관련 연락처)
-Ko ji-an (bluetoon@naver.com)  
-Kim Seong-Hyun (happyday716@naver.com)  
-Song Bo-Mi (bomi2277@naver.com)
-
-# ChangeLog (업데이트 정보)
-2019.07~08월에 있었던 스마트 양식장 통합관제 인터페이스 재개발 코드  
+# ChangeLog
+2019.07~08 스마트 양식장 통합관제 인터페이스 재개발 코드  
